@@ -112,7 +112,7 @@ AV1 Bitstream & Decoding Process Specification video is carried in PES packets a
 
 For PES packetization, no specific data alignment constraints apply, except when random_access_indicator is set to 1. When it is set, a PES_packet shall start, and in its header, data_alignement_indicator shall be set to 1.
 
-For synchronization and STD management, PTSs and, when appropriate, DTSs are encoded in the header of the PES packet that carries the AV1 Bitstream & Decoding Process Specification video elementary stream data. For PTS and DTS encoding, the constraints and semantics apply as defined in 2.4.3.7 and 2.7. AV1 access unit that is not shown will not have a PTS or a DTS encoded in their PES header.
+For synchronization and STD management, PTSs and, when appropriate, DTSs are encoded in the header of the PES packet that carries the AV1 Bitstream & Decoding Process Specification video elementary stream data. For PTS and DTS encoding, the constraints and semantics apply as defined in 2.4.3.7 and 2.7. AV1 access unit that is not shown shall not have a PTS or a DTS encoded in their PES header.
 
 > There are explicit references to ITU-T H.222.0 specification. Do we keep them ?
 

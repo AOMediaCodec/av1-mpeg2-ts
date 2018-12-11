@@ -1,5 +1,6 @@
 # AV1 specification for carriage inside MPEG-TS
 
+**NOTA BENE: this is a work-in-progress specification**
 ## Authors
 - Jean Baptiste Kempf (jb@videolan.org)
 - Kieran Kunhya (kierank@obe.tv)

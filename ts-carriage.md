@@ -1,12 +1,12 @@
 # AV1 specification for carriage inside MPEG-TS
 
 ## Authors
-Jean Baptiste Kempf (jb@videolan.org)
-Kieran Kunhya (kierank@obe.tv)
-Adrien Maglo (adrien@videolabs.io)
-Christophe Massiot (cmassiot@openheadend.tv)
-Mathieu Monnier (m.monnier@ateme.com)
-Mickael Raulet (m.raulet@ateme.com)
+- Jean Baptiste Kempf (jb@videolan.org)
+- Kieran Kunhya (kierank@obe.tv)
+- Adrien Maglo (adrien@videolabs.io)
+- Christophe Massiot (cmassiot@openheadend.tv)
+- Mathieu Monnier (m.monnier@ateme.com)
+- Mickael Raulet (m.raulet@ateme.com)
 
 ATEME, OpenHeadend, Open Broadcast Systems, Videolabs, VideoLAN
 under the direction of VideoLAN.
@@ -31,7 +31,7 @@ In the present document "shall", "shall not", "should", "should not", "may", "ne
 Referenced normative documents:
 
 * AV1 specification, as hosted on the [AOM website](https://aomedia.org/av1-bitstream-and-decoding-process-specification/), also known as "the AV1 Bitstream & Decoding Process Specification".
-* MPEG-TS specification, **ISO/IEC 13818-1:2018 **
+* MPEG-TS specification, **ISO/IEC 13818-1:2018**
 
 ### 2.2 Informative references
 
@@ -102,8 +102,8 @@ For an AV1 video stream, the AV1 video descriptor provides basic information for
 ### 5.1 Constraints for the transport of AV1
 
 For AV1 video streams, the following constraints additionally apply:
- * An AV1 vidoe stream conforming to a profile defined in Annex A of AV1 Bitstream & Decoding Process Specification shall be an element of a Rec. ITU-T H.222.0 | ISO/IEC 13818-1 program and the stream_type for this elementary stream shall be equal to 0xBD (private_stream_1)
- * The sequence_header_obu as specified in AV1 Bitstream & Decoding Process Specification, that are necessary for decoding an AV1 video stream shall be present within the elementary stream carrying that AV1 video stream
+ * An AV1 video stream conforming to a profile defined in Annex A of AV1 Bitstream & Decoding Process Specification shall be an element of a Rec. ITU-T H.222.0 | ISO/IEC 13818-1 program and the stream_type for this elementary stream shall be equal to 0xBD (private_stream_1).
+ * The sequence_header_obu as specified in AV1 Bitstream & Decoding Process Specification, that are necessary for decoding an AV1 video stream shall be present within the elementary stream carrying that AV1 video stream.
 
 ### 5.2 Carriage in PES packets
 

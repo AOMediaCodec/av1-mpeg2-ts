@@ -39,7 +39,7 @@ So far, none.
 
 ### 2.3 Definitions
 
- * **AV1**: the 1.0.0 version of the AV1 codec produced by Alliance of Open Media, as defined in the AV1 Bitstream & Decoding Process Specicitatoin
+ * **AV1**: the 1.0.0 version of the AV1 codec produced by Alliance of Open Media, as defined in the AV1 Bitstream & Decoding Process Specicitation.
 
  * **AV1 access unit**: a Decodable Frame Group as defined in Annex E of AV1 Bitstream & Decoding Process Specification.
 
@@ -47,23 +47,13 @@ So far, none.
 
 The identifier is
 
-'AV1 ' <A-V-1-space>
+'AV1 ' *A-V-1-space*
 
 ## 4. Descriptor
+> Need to register format_identifier (SMPTE) *and* EN 300 468 Private data specifier descriptor
+ https://smpte-ra.org/mpeg-ts-idsices.com/identifiers/private_data_spec_id.
 
-Need to register format_identifier (SMPTE) *and* EN 300 468 Private data specifier descriptor
-
-https://smpte-ra.org/mpeg-ts-ids
-
-
-### 4.1 Registration descriptor
-
-descriptor_tag = 8
-descriptor_length = 8
-AV-1 --> FIXME you decide
-
-
-### 4.2 AV1 video descriptor
+### 4.1 AV1 video descriptor
 
 > Need to use DVB private data specifier descriptor beforehands, with a private data specifier registered from https://www.dvbservices.com/identifiers/private_data_spec_id.
 > Requested 07-12-2018
@@ -88,7 +78,7 @@ For an AV1 video stream, the AV1 video descriptor provides basic information for
 |       **reserved**               | **6**       | **bslbf** |
 | }                                |             |            |
 
-### 4.3 Semantic definition of fields in AV1 video descriptor
+### 4.2 Semantic definition of fields in AV1 video descriptor
 
 **seq_profile**, **seq_level_idx_0** and **high_bitdepth** - These fields shall be coded according to the semantics defined in AV1 Bitstream and Decoding Process Specification.
 

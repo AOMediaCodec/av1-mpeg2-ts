@@ -103,12 +103,16 @@ For an AV1 video stream, the AV1 video descriptor provides basic information for
 ### 5.1 Constraints for the transport of AV1
 
 For AV1 video streams, the following constraints additionally apply:
- * An AV1 video stream conforming to a profile defined in Annex A of AV1 Bitstream & Decoding Process Specification shall be an element of a Rec. ITU-T H.222.0 | ISO/IEC 13818-1 program and the stream_type for this elementary stream shall be equal to 0xBD (private_stream_1).
+ * An AV1 video stream conforming to a profile defined in Annex A of AV1 Bitstream & Decoding Process Specification shall be an element of a Rec. ITU-T H.222.0 | ISO/IEC 13818-1 program and the stream_type for this elementary stream shall be equal to 0xD2.
  * The sequence_header_obu as specified in AV1 Bitstream & Decoding Process Specification, that are necessary for decoding an AV1 video stream shall be present within the elementary stream carrying that AV1 video stream.
+
+> TODO: Is everyone OK with 0xD2 ? Should we register it somewhere ? FYI, it's the one just after Dirac.
 
 ### 5.2 Carriage in PES packets
 
-AV1 Bitstream & Decoding Process Specification video is carried in PES packets as PES_packet_data_bytes, using one of the 16 stream_id values assigned to video, while signalling the AV1 Bitstream & Decoding Process Specification video stream, by means of the assigned stream-type value in the PMT (see Table 2-34). The highest level that may occur in an AV1 video stream, as well as a profile and tier that the entire stream conforms to should be signalled using the AV1 video descriptor. If an AV1 video descriptor is associated with an AV1 video stream, then this descriptor shall be conveyed in the descriptor loop for the respective elementary stream entry in the program map table. This Recommendation | International Standard does not specify the presentation of AV1 Bitstream & Decoding Process Specification streams in the context of a program stream.
+AV1 Bitstream & Decoding Process Specification video is carried in PES packets as PES_packet_data_bytes, using the stream_id 0xFD (extended_stream_id). stream_id_extension field defined in ISO 13818-1 Amendment 2 shall have any value in the ragen between 0x70 and 0x7F. These values are defined within the allowed private range in ISO 13818-1 Amendment 2. To signal stream_id_extension, PES_extension_flag and PES_extension_flag_2 shall be set to 1, and stream_id_extension_flag to 0. The highest level that may occur in an AV1 video stream, as well as a profile and tier that the entire stream conforms to should be signalled using the AV1 video descriptor. If an AV1 video descriptor is associated with an AV1 video stream, then this descriptor shall be conveyed in the descriptor loop for the respective elementary stream entry in the program map table. This Recommendation | International Standard does not specify the presentation of AV1 Bitstream & Decoding Process Specification streams in the context of a program stream.
+
+> TODO: There again, is everyone OK with 0x70 - 0x7F range ? One value would be enough, but VC1 reserves itself a range from 0x55 to 0x5F, and Dirac from 0x60 to 0x6F.
 
 For PES packetization, no specific data alignment constraints apply, except when random_access_indicator is set to 1. When it is set, a PES_packet shall start, and in its header, data_alignement_indicator shall be set to 1.
 

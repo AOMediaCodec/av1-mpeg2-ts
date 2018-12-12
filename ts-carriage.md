@@ -104,6 +104,7 @@ For an AV1 video stream, the AV1 video descriptor provides basic information for
 
 For AV1 video streams, the following constraints additionally apply:
  * An AV1 video stream conforming to a profile defined in Annex A of AV1 Bitstream & Decoding Process Specification shall be an element of a Rec. ITU-T H.222.0 | ISO/IEC 13818-1 program and the stream_type for this elementary stream shall be equal to 0xD2.
+ * An AV1 video stream shall have the low overhead byte stream format as defined in AV1 Bitstream & Decoding Process Specification.
  * The sequence_header_obu as specified in AV1 Bitstream & Decoding Process Specification, that are necessary for decoding an AV1 video stream shall be present within the elementary stream carrying that AV1 video stream.
 
 > TODO: Is everyone OK with 0xD2 ? Should we register it somewhere ? FYI, it's the one just after Dirac.
@@ -114,7 +115,7 @@ AV1 Bitstream & Decoding Process Specification video is carried in PES packets a
 
 > TODO: There again, is everyone OK with 0x70 - 0x7F range ? One value would be enough, but VC1 reserves itself a range from 0x55 to 0x5F, and Dirac from 0x60 to 0x6F.
 
-For PES packetization, no specific data alignment constraints apply, except when random_access_indicator is set to 1. When it is set, a PES_packet shall start, and in its header, data_alignement_indicator shall be set to 1.
+For PES packetization, no specific data alignment constraints apply, except when random_access_indicator is set to 1. When it is set, a PES_packet shall start, and in its header, data_alignement_indicator shall be set to 1. When error resilience is a consideration, it is recommended to set one, and only one, AV1 access unit per PES, and that all PES have data_alignement_indicator set to 1.
 
 For synchronization and STD management, PTSs and, when appropriate, DTSs are encoded in the header of the PES packet that carries the AV1 Bitstream & Decoding Process Specification video elementary stream data. For PTS and DTS encoding, the constraints and semantics apply as defined in 2.4.3.7 and 2.7. AV1 access unit that is not shown shall not have a PTS or a DTS encoded in their PES header.
 

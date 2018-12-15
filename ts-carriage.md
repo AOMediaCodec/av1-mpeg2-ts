@@ -111,7 +111,14 @@ For AV1 video streams, the following constraints additionally apply:
 
 ### 5.2 Carriage in PES packets
 
-AV1 Bitstream & Decoding Process Specification video is carried in PES packets as PES_packet_data_bytes, using the stream_id 0xFD (extended_stream_id). stream_id_extension field defined in ISO 13818-1 Amendment 2 shall have any value in the ragen between 0x70 and 0x7F. These values are defined within the allowed private range in ISO 13818-1 Amendment 2. To signal stream_id_extension, PES_extension_flag and PES_extension_flag_2 shall be set to 1, and stream_id_extension_flag to 0. The highest level that may occur in an AV1 video stream, as well as a profile and tier that the entire stream conforms to should be signalled using the AV1 video descriptor. If an AV1 video descriptor is associated with an AV1 video stream, then this descriptor shall be conveyed in the descriptor loop for the respective elementary stream entry in the program map table. This Recommendation | International Standard does not specify the presentation of AV1 Bitstream & Decoding Process Specification streams in the context of a program stream.
+AV1 Bitstream & Decoding Process Specification video is carried in PES packets as PES_packet_data_bytes, using the stream_id 0xFD (extended_stream_id). stream_id_extension field defined in ISO 13818-1 Amendment 2 shall have any value in the range between 0x70 and 0x7F.
+These values are defined within the allowed private range in ISO 13818-1 Amendment 2.
+
+To signal stream_id_extension, PES_extension_flag and PES_extension_flag_2 shall be set to 1, and stream_id_extension_flag to 0.
+The highest level that may occur in an AV1 video stream, as well as a profile and tier that the entire stream conforms to, should be signalled using the AV1 video descriptor.
+
+If an AV1 video descriptor is associated with an AV1 video stream, then this descriptor shall be conveyed in the descriptor loop for the respective elementary stream entry in the program map table.
+This Recommendation | International Standard does not specify the presentation of AV1 Bitstream & Decoding Process Specification streams in the context of a program stream.
 
 > TODO: There again, is everyone OK with 0x70 - 0x7F range ? One value would be enough, but VC1 reserves itself a range from 0x55 to 0x5F, and Dirac from 0x60 to 0x6F.
 
@@ -123,7 +130,13 @@ For synchronization and STD management, PTSs and, when appropriate, DTSs are enc
 
 ### 5.3 Buffer Pool management
 
-Carriage of an AV1 video stream over Rec. ITU-T H.222.0 | ISO/IEC 13818-1 does not impact the size of the Buffer Pool. For decoding of an AV1 video stream in the STD, the size of the Buffer Pool is as defined in AV1 Bitstream & Decoding Process Specification. The Buffer Pool shall be managed as specified in Annex E of AV1 Bitstream & Decoding Process Specification. A decoded AV1 access unit enters the Buffer Pool instantaneously upon decoding the AV1 access unit, hence at the Scheduled Removal Timing of the AV1 access unit. A decoded AV1 access unit is presented at the Presentation Time. If the AV1 video stream provides insufficient information to determine the Scheduled Removal Timing and the Presentation Time of AV1 access units, then these time instants shall be determined in the STD model from PTS and DTS timestamps as follows:
+Carriage of an AV1 video stream over Rec. ITU-T H.222.0 | ISO/IEC 13818-1 does not impact the size of the Buffer Pool.
+
+For decoding of an AV1 video stream in the STD, the size of the Buffer Pool is as defined in AV1 Bitstream & Decoding Process Specification. The Buffer Pool shall be managed as specified in Annex E of AV1 Bitstream & Decoding Process Specification.
+
+A decoded AV1 access unit enters the Buffer Pool instantaneously upon decoding the AV1 access unit, hence at the Scheduled Removal Timing of the AV1 access unit. A decoded AV1 access unit is presented at the Presentation Time.
+
+If the AV1 video stream provides insufficient information to determine the Scheduled Removal Timing and the Presentation Time of AV1 access units, then these time instants shall be determined in the STD model from PTS and DTS timestamps as follows:
  1. The Scheduled Removal Timing of AV1 access unit n is the instant in time indicated by DTS(n) where DTS(n) is the DTS value of AV1 access unit n.
  2. The Presentation Time of AV1 access unit n is the instant in time indicated by PTS(n) where PTS(n) is the PTS value of AV1 access unit n.
 

@@ -118,7 +118,7 @@ To signal stream_id_extension, PES_extension_flag and PES_extension_flag_2 shall
 The highest level that may occur in an AV1 video stream, as well as a profile and tier that the entire stream conforms to, should be signalled using the AV1 video descriptor.
 
 If an AV1 video descriptor is associated with an AV1 video stream, then this descriptor shall be conveyed in the descriptor loop for the respective elementary stream entry in the program map table.
-This Recommendation | International Standard does not specify the presentation of AV1 Bitstream & Decoding Process Specification streams in the context of a program stream.
+This specification does not specify the presentation of AV1 Bitstream & Decoding Process Specification streams in the context of a program stream.
 
 > TODO: There again, is everyone OK with 0x70 - 0x7F range ? One value would be enough, but VC1 reserves itself a range from 0x55 to 0x5F, and Dirac from 0x60 to 0x6F.
 

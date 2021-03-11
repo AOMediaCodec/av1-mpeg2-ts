@@ -116,8 +116,7 @@ For AV1 video streams, the following constraints additionally apply:
 
 ### 5.2 Carriage in PES packets
 
-AV1 Bitstream & Decoding Process Specification video is carried in PES packets as PES_packet_data_bytes, using the stream_id 0xFD (extended_stream_id). stream_id_extension field defined in ISO 13818-1 Amendment 2 shall have any value in the range between 0x70 and 0x7F.
-These values are defined within the allowed private range in ISO 13818-1 Amendment 2.
+AV1 Bitstream & Decoding Process Specification video is carried in PES packets as PES_packet_data_bytes, using the stream_id 0xBD (private_stream_id_1).
 
 To signal stream_id_extension, PES_extension_flag and PES_extension_flag_2 shall be set to 1, and stream_id_extension_flag to 0.
 The highest level that may occur in an AV1 video stream, as well as a profile and tier that the entire stream conforms to, should be signalled using the AV1 video descriptor.

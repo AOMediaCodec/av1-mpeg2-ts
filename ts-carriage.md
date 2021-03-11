@@ -110,11 +110,9 @@ For an AV1 video stream, the AV1 video descriptor provides basic information for
 ### 5.1 Constraints for the transport of AV1
 
 For AV1 video streams, the following constraints additionally apply:
- * An AV1 video stream conforming to a profile defined in Annex A of AV1 Bitstream & Decoding Process Specification shall be an element of a Rec. ITU-T H.222.0 | ISO/IEC 13818-1 program and the stream_type for this elementary stream shall be equal to 0xD2.
+ * An AV1 video stream conforming to a profile defined in Annex A of AV1 Bitstream & Decoding Process Specification shall be an element of a Rec. ITU-T H.222.0 | ISO/IEC 13818-1 program and the stream_type for this elementary stream shall be equal to 0x06 (Rec. ITU-T H.222.0 | ISO/IEC 13818-1 PES packets containing private data).
  * An AV1 video stream shall have the low overhead byte stream format as defined in AV1 Bitstream & Decoding Process Specification.
  * The sequence_header_obu as specified in AV1 Bitstream & Decoding Process Specification, that are necessary for decoding an AV1 video stream shall be present within the elementary stream carrying that AV1 video stream.
-
-> TODO: Is everyone OK with 0xD2 ? Should we register it somewhere ? FYI, it's the one just after Dirac.
 
 ### 5.2 Carriage in PES packets
 

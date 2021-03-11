@@ -6,8 +6,8 @@ under the direction of VideoLAN.
 
 ## 1. Introduction
 
-This specification provides implementation guidelines on how to multiplex the
-AV1 codec inside the MPEG-TS format.
+This specification provides implementation guidelines on how to multiplex the AV1 codec inside the MPEG-TS format.
+It defines the carriage of AV1 in a single PID, assuming buffer model info from the first operating point. It may not be optimal for layered streams or streams with multiple operating points. Future versions may incorporate this capability.
 
 This document relies on understanding the AV1 specification and the TS specifications.
 

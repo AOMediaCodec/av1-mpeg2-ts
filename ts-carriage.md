@@ -203,6 +203,8 @@ Transport streams shall be constructed so that the following conditions for buff
 
 ## 6 Definition of DTS and PTS
 
+An AV1 stream multiplexed into MPEG-TS may contain *decoder_model_info* syntax elements but this is not mandatory.
+
 ### 6.1 PTS
 
 If a PTS is present in the PES packet header, it shall refer to the first AV1 access unit that commences in this PES packet.

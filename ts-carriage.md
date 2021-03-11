@@ -44,9 +44,9 @@ So far, none.
 
  * **AV1 access unit**: a Decodable Frame Group as defined in Annex E of AV1 Bitstream & Decoding Process Specification.
 
-## 3. Identifier
+## 3. Generic Identification of AV1 streams
 
-The identifier is
+The *format_identifier*, as used in the Registration Descriptor is
 
 'AV1 ' *A-V-1-space*
 

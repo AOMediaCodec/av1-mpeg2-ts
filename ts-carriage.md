@@ -118,7 +118,7 @@ For AV1 video streams, the following constraints additionally apply:
 
 AV1 Bitstream & Decoding Process Specification video is carried in PES packets as PES_packet_data_bytes, using the stream_id 0xBD (private_stream_id_1).
 
-The highest level that may occur in an AV1 video stream, as well as a profile and tier that the entire stream conforms to, should be signalled using the AV1 video descriptor.
+The highest level that may occur in an AV1 video stream, as well as a profile and tier that the entire stream conforms to, shall be signalled using the AV1 video descriptor.
 
 If an AV1 video descriptor is associated with an AV1 video stream, then this descriptor shall be conveyed in the descriptor loop for the respective elementary stream entry in the program map table.
 This specification does not specify the presentation of AV1 Bitstream & Decoding Process Specification streams in the context of a program stream.

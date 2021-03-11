@@ -54,6 +54,8 @@ The *format_identifier*, as used in the Registration Descriptor is
 > Need to register format_identifier (SMPTE) *and* EN 300 468 Private data specifier descriptor
  https://smpte-ra.org/mpeg-ts-idsices.com/identifiers/private_data_spec_id.
 
+The presence of a Registration Descriptor is mandatory and shall be included before an AV1 video descriptor
+
 ### 4.1 AV1 video descriptor
 
 > Need to use DVB private data specifier descriptor beforehands, with a private data specifier registered from https://www.dvbservices.com/identifiers/private_data_spec_id.

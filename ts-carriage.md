@@ -1,23 +1,12 @@
 # AV1 specification for carriage inside MPEG-TS
 
 **NOTA BENE: this is a work-in-progress specification**
-## Authors
-- Jean Baptiste Kempf (jb@videolan.org)
-- Kieran Kunhya (kierank@obe.tv)
-- Adrien Maglo (adrien@videolabs.io)
-- Christophe Massiot (cmassiot@openheadend.tv)
-- Mathieu Monnier (m.monnier@ateme.com)
-- Mickael Raulet (m.raulet@ateme.com)
-
 ATEME, OpenHeadend, Open Broadcast Systems, Videolabs, VideoLAN
 under the direction of VideoLAN.
 
 ## 1. Introduction
 
-This Technical Specification has been produced by VideoLAN, with inputs
-from the authors mentionned above.
-
-This present document provides implementation guidelines on how to carry the
+This specification provides implementation guidelines on how to multiplex the
 AV1 codec inside the MPEG-TS format.
 
 This document relies on understanding the AV1 specification and the TS specifications.
@@ -214,3 +203,14 @@ If a DTS is present in the PES packet header, it shall refer to the first AV1 ac
 
 To achieve consistency between the STD model and the buffer model defined in Annex E of the AV1 Bitstream & Decoding Process Specification, for each AV1 access unit the DTS value in the STD shall, within the accuracy of their respective clocks, indicate the same instant in time as the ScheduledRemovalTiming in the decoder buffer model, as defined in Annex E of AV1 Bitstream & Decoding Process Specification.
 
+## 7. Acknowledgements
+
+This Technical Specification has been produced by VideoLAN, with inputs from the authors mentioned below.
+
+## Authors
+- Jean Baptiste Kempf (jb@videolan.org)
+- Kieran Kunhya (kierank@obe.tv)
+- Adrien Maglo (adrien@videolabs.io)
+- Christophe Massiot (cmassiot@openheadend.tv)
+- Mathieu Monnier (m.monnier@ateme.com)
+- Mickael Raulet (m.raulet@ateme.com)

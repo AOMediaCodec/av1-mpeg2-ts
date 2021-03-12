@@ -1,8 +1,6 @@
 # AV1 specification for carriage inside MPEG-TS
 
 **NOTA BENE: this is a work-in-progress specification**
-ATEME, OpenHeadend, Open Broadcast Systems, Videolabs, VideoLAN
-under the direction of VideoLAN.
 
 ## 1. Introduction
 
@@ -211,7 +209,7 @@ To achieve consistency between the STD model and the buffer model defined in Ann
 
 ## 7. Acknowledgements
 
-This Technical Specification has been produced by VideoLAN, with inputs from the authors mentioned below.
+This Technical Specification has been produced by VideoLAN, with inputs from the authors mentioned below who are from the following companies: ATEME, OpenHeadend, Open Broadcast Systems, Videolabs under the direction of VideoLAN.
 
 ## Authors
 - Jean Baptiste Kempf (jb@videolan.org)

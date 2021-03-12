@@ -58,6 +58,8 @@ For an AV1 video stream, the AV1 video descriptor provides basic information for
 |       **descriptor_tag**         | **8**       | **uimsbf** |
 |       **descriptor_length**      | **8**       | **uimsbf** |
 |       **private_data_specifier** | **32**      | **uimsbf** |
+|       **marker**                 | **1**       | **bslbf**  |
+|       **version**                | **7**       | **uimsbf** |
 |       **seq_profile**            | **3**       | **uimsbf** |
 |       **seq_level_idx_0**        | **5**       | **uimsbf** |
 |       **seq_tier_0**             | **1**       | **bslbf**  |
@@ -76,6 +78,10 @@ For an AV1 video stream, the AV1 video descriptor provides basic information for
 **descriptor_tag** - This value shall be set to 0x5F.
 
 **private_data_specifier** - This value shall be set to FIXME.
+
+**marker** - This value shall be set to 1.
+
+**version** - This field indicates the version of the AV1_Descriptor. This value shall be set to 1.
 
 **seq_profile**, **seq_level_idx_0** and **high_bitdepth** - These fields shall be coded according to the semantics defined in AV1 Bitstream and Decoding Process Specification.
 

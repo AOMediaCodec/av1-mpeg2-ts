@@ -120,8 +120,6 @@ For PES packetization, no specific data alignment constraints apply, except when
 
 For synchronization and STD management, PTSs and, when appropriate, DTSs are encoded in the header of the PES packet that carries the AV1 Bitstream & Decoding Process Specification video elementary stream data. For PTS and DTS encoding, the constraints and semantics apply as defined in the PES Header and associated constraints on timestamp intervals. An AV1 access unit that is not shown shall not have a PTS or a DTS encoded in their PES header.
 
-> There are explicit references to ITU-T H.222.0 specification. Do we keep them ?
-
 ### 5.3 Buffer Pool management
 
 Carriage of an AV1 video stream over Rec. ITU-T H.222.0 | ISO/IEC 13818-1 does not impact the size of the Buffer Pool.

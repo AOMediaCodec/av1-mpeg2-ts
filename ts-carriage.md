@@ -48,7 +48,8 @@ The presence of a Registration Descriptor is mandatory and shall be the first in
 > Need to use DVB private data specifier descriptor beforehands, with a private data specifier registered from https://www.dvbservices.com/identifiers/private_data_spec_id.
 > Requested 07-12-2018
 
-For an AV1 video stream, the AV1 video descriptor provides basic information for identifying coding parameters, such as profile and level parameters of that AV1 video stream.
+For an AV1 video stream, the AV1 video descriptor provides basic information for identifying coding parameters, such as profile and level parameters of that AV1 video stream. The same data structure as **AV1CodecConfigurationRecord** in ISOBMFF is used to aid conversion between the two formats.
+
 
 | Syntax                           | No. Of bits | Mnemonic   |
 |:---------------------------------|:-----------:|:----------:|
@@ -68,7 +69,13 @@ For an AV1 video stream, the AV1 video descriptor provides basic information for
 |       **chroma_subsampling_y**   | **1**       | **bslbf**  |
 |       **chroma_sample_position** | **2**       | **uimsbf** |
 |       **hdr_wcg_idc**            | **2**       | **uimsbf** |
-|       **reserved**               | **6**       | **bslbf** |
+|       **reserved**               | **1**       | **bslbf** |
+|       **initial_presentation_delay_present**  | **1**      | **bslbf** |
+|       if (initial_presentation_delay_present) {            |
+|       **initial_presentation_delay_minus_one** |  **4**  | **uimsbf**  |
+|       } else {                   |             |            |
+|       **reserved**               | **4**       | **uimsbf** |
+|       }                          |             |            |
 | }                                |             |            |
 
 ### 4.2 Semantic definition of fields in AV1 video descriptor
@@ -97,6 +104,10 @@ For an AV1 video stream, the AV1 video descriptor provides basic information for
 | 3               | No indication made regarding HDR/WCG or SDR characteristics of the stream  |
 
 **reserved** - Will be set to ones.
+
+**initial_presentation_delay_present** - Indicates **initial_presentation_delay_minus_one** field is present.
+
+**initial_presentation_delay_minus_one** - Ignored for MPEG-TS use, included only to aid conversion to/from ISOBMFF.
 
 ## 5 Carriage of AV1
 

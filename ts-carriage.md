@@ -26,6 +26,7 @@ Referenced normative documents:
 
 * AV1 specification, as hosted on the [AOM website](https://aomedia.org/av1-bitstream-and-decoding-process-specification/), also known as "the AV1 Bitstream & Decoding Process Specification".
 * MPEG-TS specification, **ISO/IEC 13818-1:2018**
+* Digital Video Broadcasting (DVB); Specification for Service Information (SI) in DVB systems, **ETSI EN 300 468**
 
 ### 2.2 Informative references
 
@@ -53,6 +54,8 @@ The presence of a Registration Descriptor is mandatory and shall be the first in
 
 > Need to use DVB private data specifier descriptor beforehands, with a private data specifier registered from https://www.dvbservices.com/identifiers/private_data_spec_id.
 > Requested 07-12-2018
+
+The AV1 video descriptor is based on a "Private data specifier descriptor" in ETSI EN 300 468.
 
 For an AV1 video stream, the AV1 video descriptor provides basic information for identifying coding parameters, such as profile and level parameters of that AV1 video stream. The same data structure as **AV1CodecConfigurationRecord** in ISOBMFF is used to aid conversion between the two formats.
 

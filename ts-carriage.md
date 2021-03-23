@@ -206,7 +206,7 @@ An AV1 stream multiplexed into MPEG-TS may contain *decoder_model_info* syntax e
 
 If a PTS is present in the PES packet header, it shall refer to the first AV1 access unit that commences in this PES packet.
 
-The PTS for a *show_frame* DFG is one of the TU.
+The PTS for a *show_frame* Decodable Frame Group (DFG) is one of the Temporal Units (TU).
 The PTS for a DFG with *show_frame* = 0 is:
 
 * If the frame is referenced by a *show_existing_frame*, use the PTS of the first TU with the corresponding *show_existing_frame*

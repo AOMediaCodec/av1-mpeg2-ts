@@ -185,8 +185,6 @@ Rx<sub>n</sub> = 1.1 x BitRate
  * The leak method shall be used to transfer data from MB<sub>n</sub> to EB<sub>n</sub> as follows:
 Rbx<sub>n</sub> = 1.1 × BitRate
 
-> NOTE: markdown math doesn't seem to work with subscript
-
 If there is PES packet payload data in MB<sub>n</sub>, and buffer EB<sub>n</sub> is not full, the PES packet payload is transferred from MB<sub>n</sub> to EB<sub>n</sub> at a rate equal to Rbx<sub>n</sub>. If EB<sub>n</sub> is full, data are not removed from MB<sub>n</sub>. When a byte of data is transferred from MB<sub>n</sub> to EB<sub>n</sub>, all PES packet header bytes that are in MB<sub>n</sub> and precede that byte are instantaneously removed and discarded. When there is no PES packet payload data present in MB<sub>n</sub>, no data is removed from MB<sub>n</sub>. All data that enters MB<sub>n</sub> leaves it. All PES packet payload data bytes enter EB<sub>n</sub> instantaneously upon leaving MB<sub>n</sub>.
 
 ### 5.5 STD delay

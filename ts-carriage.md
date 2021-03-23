@@ -211,7 +211,7 @@ If a PTS is present in the PES packet header, it shall refer to the first AV1 ac
 The PTS for a *show_frame* DFG is one of the TU.
 The PTS for a DFG with *show_frame* = 0 is:
 
-* If the frame is referenced by a SEF, use the PTS of the first TU with the corresponding SEF
+* If the frame is referenced by a *show_existing_frame*, use the PTS of the first TU with the corresponding *show_existing_frame*
 * If the frame is never referenced (*showable_frame* = 0), use any PTS value, it is recommended to use the PTS of the previous frame in decoding order
 
 To achieve consistency between the STD model and the buffer model defined in Annex E of the AV1 Bitstream & Decoding Process Specification, for each AV1 access unit the PTS value in the STD shall, within the accuracy of their respective clocks, indicate the same instant in time as the PresentationTime in the decoder buffer model, as defined in Annex E of AV1 Bitstream & Decoding Process Specification.

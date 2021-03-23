@@ -2,7 +2,7 @@
 
 **NOTA BENE: this is a work-in-progress specification**
 
-Copyright 2019, The Alliance for Open Media
+Copyright 2021, The Alliance for Open Media
 
 Licensing information is available at http://aomedia.org/license/
 

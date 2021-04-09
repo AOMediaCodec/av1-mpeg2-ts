@@ -78,12 +78,12 @@ For an AV1 video stream, the AV1 video descriptor provides basic information for
 |       **chroma_subsampling_y**   | **1**       | **bslbf**  |
 |       **chroma_sample_position** | **2**       | **uimsbf** |
 |       **hdr_wcg_idc**            | **2**       | **uimsbf** |
-|       **reserved**               | **1**       | **bslbf** |
+|       **reserved_zeros**         | **1**       | **bslbf** |
 |       **initial_presentation_delay_present**  | **1**      | **bslbf** |
 |       if (initial_presentation_delay_present) {            |
 |       **initial_presentation_delay_minus_one** |  **4**  | **uimsbf**  |
 |       } else {                   |             |            |
-|       **reserved**               | **4**       | **uimsbf** |
+|       **reserved_zeros**         | **4**       | **uimsbf** |
 |       }                          |             |            |
 | }                                |             |            |
 
@@ -110,7 +110,7 @@ For an AV1 video stream, the AV1 video descriptor provides basic information for
 | 2               | Both HDR and WCG are to be indicated in the stream |
 | 3               | No indication made regarding HDR/WCG or SDR characteristics of the stream  |
 
-**reserved** - Will be set to ones.
+**reserved_zeros** - Will be set to ones.
 
 **initial_presentation_delay_present** - Indicates **initial_presentation_delay_minus_one** field is present.
 

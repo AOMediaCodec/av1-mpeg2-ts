@@ -128,7 +128,7 @@ For AV1 video streams, the following constraints additionally apply:
  * An OBU shall contain the *obu_size* field.
  * OBU trailing bits should be limited to byte alignment and should not be used for padding.
  * Tile List OBUs shall not be used
- * Temporal Delimiters may be used
+ * Temporal Delimiters may be removed
  * Redundant Frame Headers and Padding OBUs may be used.
 
 ### 5.2 Carriage in PES packets

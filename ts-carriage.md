@@ -103,8 +103,6 @@ For an AV1 video stream, the AV1 video descriptor provides basic information for
 
 **hdr_wcg_idc** - The value of this syntax element indicates the presence or absence of high dynamic range (HDR) and/or wide color gamut (WCG) video components in the associated PID according to Table 2-112. HDR is defined to be video that has high dynamic range if the video stream EOTF is higher than the Rec. ITU-R BT.1886 reference EOTF. WCG is defined to be video that is coded using colour primaries with a colour gamut not contained within Rec. ITU-R BT.709.
 
-> Do we add the bit about at least 10 bits being mandatory for HDR ?
-
 | **hdr_wcg_idc** | **Description** |
 |:---------------:|:----------------|
 | 0               | SDR, i.e., video is based on the Rec. ITU-R BT.1886 reference EOTF with a color gamut that is contained within Rec. ITU-R BT.709 with a Rec. ITU-R BT.709 container |

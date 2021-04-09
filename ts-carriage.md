@@ -157,7 +157,7 @@ If the AV1 video stream provides insufficient information to determine the Sched
 
 ### 5.4 T-STD Extensions for AV1
 
-When there is an AV1 video stream in an Rec. ITU-T H.222.0 | ISO/IEC 13818-1 program, the T-STD model as described in 2.4.2.1 is extended as illustrated in figure X-YY and as specified below.
+When there is an AV1 video stream in an Rec. ITU-T H.222.0 | ISO/IEC 13818-1 program, the T-STD model as described in the section "Transport stream system target decoder" is extended as illustrated in figure X-YY and as specified below.
 
 > TODO : Diagram similar to T-REC-H.222.0-201703-S!!PDF-E.pdf 2.17.2
 

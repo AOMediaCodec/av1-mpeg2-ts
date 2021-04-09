@@ -127,7 +127,8 @@ For AV1 video streams, the following constraints additionally apply:
  * The sequence_header_obu as specified in AV1 Bitstream & Decoding Process Specification, that are necessary for decoding an AV1 video stream shall be present within the elementary stream carrying that AV1 video stream.
  * An OBU shall contain the *obu_size* field.
  * OBU trailing bits should be limited to byte alignment and should not be used for padding.
- * Temporal Delimiters and Tile List OBUs should not be used.
+ * Tile List OBUs shall not be used
+ * Temporal Delimiters may be used
  * Redundant Frame Headers and Padding OBUs may be used.
 
 ### 5.2 Carriage in PES packets

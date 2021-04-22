@@ -13,8 +13,6 @@ The MATERIALS ARE PROVIDED “AS IS.” The Alliance for Open Media, its members
 This document specifies how to carry AV1 video elementary streams in the MPEG-2 Transport Stream format
 It defines the carriage of AV1 in a single PID, assuming buffer model info from the first operating point. It may not be optimal for layered streams or streams with multiple operating points. Future versions may incorporate this capability.
 
-This document relies on understanding the AV1 specification and the TS specifications.
-
 ### Modal verbs terminology
 In the present document "shall", "shall not", "should", "should not", "may", "need not", "will", "will not", "can" and "cannot" are to be interpreted as described in clause 3.2 of the ETSI Drafting Rules (Verbal forms for the expression of provisions).
 

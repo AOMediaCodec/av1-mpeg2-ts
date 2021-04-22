@@ -10,7 +10,7 @@ The MATERIALS ARE PROVIDED “AS IS.” The Alliance for Open Media, its members
 
 ## 1. Introduction
 
-This specification provides implementation guidelines on how to multiplex the AV1 codec inside the MPEG-TS format.
+This document specifies how to carry AV1 video elementary streams in the MPEG-2 Transport Stream format
 It defines the carriage of AV1 in a single PID, assuming buffer model info from the first operating point. It may not be optimal for layered streams or streams with multiple operating points. Future versions may incorporate this capability.
 
 This document relies on understanding the AV1 specification and the TS specifications.

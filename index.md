@@ -32,8 +32,6 @@ So far, none.
 
 ### 2.3 Definitions
 
- * **AV1**: the 1.0.0 version of the AV1 codec produced by Alliance of Open Media, as defined in the AV1 Bitstream & Decoding Process Specicitation.
-
  * **AV1 access unit**: a Decodable Frame Group as defined in Annex E of AV1 Bitstream & Decoding Process Specification.
 
 ## 3. Generic Identification of AV1 streams

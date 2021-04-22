@@ -34,19 +34,20 @@ So far, none.
 
  * **AV1 access unit**: a Decodable Frame Group as defined in Annex E of AV1 Bitstream & Decoding Process Specification.
 
-## 3. Generic Identification of AV1 streams
+## 3. Descriptor
 
-The *format_identifier*, as used in the Registration Descriptor is
+### 3.1 Registration Descriptor
 
-'AV1 ' *A-V-1-space*
-
-## 4. Descriptor
 > Need to register format_identifier (SMPTE) *and* EN 300 468 Private data specifier descriptor
  https://smpte-ra.org/mpeg-ts-ids.
 
 The presence of a Registration Descriptor is mandatory and shall be the first in the PMT loop and included before an AV1 video descriptor
 
-### 4.1 AV1 video descriptor
+The *format_identifier*, as used in the Registration Descriptor is
+
+'AV1 ' *A-V-1-space*
+
+### 3.2 AV1 video descriptor
 
 > Need to use DVB private data specifier descriptor beforehands, with a private data specifier registered from https://www.dvbservices.com/identifiers/private_data_spec_id.
 > Requested 07-12-2018
@@ -83,7 +84,7 @@ For an AV1 video stream, the AV1 video descriptor provides basic information for
 |       }                          |             |            |
 | }                                |             |            |
 
-### 4.2 Semantic definition of fields in AV1 video descriptor
+### 3.3 Semantic definition of fields in AV1 video descriptor
 
 **descriptor_tag** - This value shall be set to 0x5F.
 
@@ -112,9 +113,9 @@ For an AV1 video stream, the AV1 video descriptor provides basic information for
 
 **initial_presentation_delay_minus_one** - Ignored for MPEG-TS use, included only to aid conversion to/from ISOBMFF.
 
-## 5 Carriage of AV1
+## 4 Carriage of AV1
 
-### 5.1 Constraints for the transport of AV1
+### 4.1 Constraints for the transport of AV1
 
 For AV1 video streams, the following constraints additionally apply:
  * An AV1 video stream conforming to a profile defined in Annex A of AV1 Bitstream & Decoding Process Specification shall be an element of a Rec. ITU-T H.222.0 | ISO/IEC 13818-1 program and the stream_type for this elementary stream shall be equal to 0x06 (Rec. ITU-T H.222.0 | ISO/IEC 13818-1 PES packets containing private data).
@@ -127,7 +128,7 @@ For AV1 video streams, the following constraints additionally apply:
  * Temporal Delimiters may be removed
  * Redundant Frame Headers and Padding OBUs may be used.
 
-### 5.2 Carriage in PES packets
+### 4.2 Carriage in PES packets
 
 AV1 Bitstream & Decoding Process Specification video is carried in PES packets as PES_packet_data_bytes, using the stream_id 0xBD (private_stream_id_1).
 
@@ -140,7 +141,7 @@ For PES packetization, no specific data alignment constraints apply, except when
 
 For synchronization and STD management, PTSs and, when appropriate, DTSs are encoded in the header of the PES packet that carries the AV1 Bitstream & Decoding Process Specification video elementary stream data. For PTS and DTS encoding, the constraints and semantics apply as defined in the PES Header and associated constraints on timestamp intervals.
 
-### 5.3 Buffer Pool management
+### 4.3 Buffer Pool management
 
 Carriage of an AV1 video stream over Rec. ITU-T H.222.0 | ISO/IEC 13818-1 does not impact the size of the Buffer Pool.
 
@@ -152,7 +153,7 @@ If the AV1 video stream provides insufficient information to determine the Sched
  1. The Scheduled Removal Timing of AV1 access unit n is the instant in time indicated by DTS(n) where DTS(n) is the DTS value of AV1 access unit n.
  2. The Presentation Time of AV1 access unit n is the instant in time indicated by PTS(n) where PTS(n) is the PTS value of AV1 access unit n.
 
-### 5.4 T-STD Extensions for AV1
+### 4.4 T-STD Extensions for AV1
 
 When there is an AV1 video stream in an Rec. ITU-T H.222.0 | ISO/IEC 13818-1 program, the T-STD model as described in the section "Transport stream system target decoder" is extended as illustrated in figure X-YY and as specified below.
 
@@ -196,22 +197,22 @@ Rbx<sub>n</sub> = 1.1 × BitRate
 
 If there is PES packet payload data in MB<sub>n</sub>, and buffer EB<sub>n</sub> is not full, the PES packet payload is transferred from MB<sub>n</sub> to EB<sub>n</sub> at a rate equal to Rbx<sub>n</sub>. If EB<sub>n</sub> is full, data are not removed from MB<sub>n</sub>. When a byte of data is transferred from MB<sub>n</sub> to EB<sub>n</sub>, all PES packet header bytes that are in MB<sub>n</sub> and precede that byte are instantaneously removed and discarded. When there is no PES packet payload data present in MB<sub>n</sub>, no data is removed from MB<sub>n</sub>. All data that enters MB<sub>n</sub> leaves it. All PES packet payload data bytes enter EB<sub>n</sub> instantaneously upon leaving MB<sub>n</sub>.
 
-### 5.5 STD delay
+### 4.5 STD delay
 
 The STD delay of any AV1 video through the system target decoders buffers TB<sub>n</sub>, MB<sub>n</sub>, and EB<sub>n</sub> shall be constrained by td<sub>n</sub>(j) – t(i) ≤ 10 seconds for all j, and all bytes i in access unit A<sub>n</sub>(j).
 
-### 5.6 Buffer management conditions
+### 4.6 Buffer management conditions
 
 Transport streams shall be constructed so that the following conditions for buffer management are satisfied:
 * Each TB<sub>n</sub> shall not overflow and shall be empty at least once every second.
 * Each MB<sub>n</sub>, EB<sub>n</sub> and Buffer Pool shall not overflow.
 * EB<sub>n</sub> shall not underflow, except when the Operating parameters info syntax has low_delay_mode_flag set to '1'. Underflow of EB<sub>n</sub> occurs for AV1 access unit A<sub>n</sub>(j) when one or more bytes of A<sub>n</sub>(j) are not present in EB<sub>n</sub> at the decoding time td<sub>n</sub>(j).
 
-## 6 Definition of DTS and PTS
+## 5 Definition of DTS and PTS
 
 An AV1 stream multiplexed into MPEG-TS may contain *decoder_model_info* syntax elements but this is not mandatory.
 
-### 6.1 PTS
+### 5.1 PTS
 
 If a PTS is present in the PES packet header, it shall refer to the first AV1 access unit that commences in this PES packet.
 If a PTS is not present in the PES packet header, it may be possible to compute its value based on the presence of timing information in the bitstream or by other means (e.g by using *equal_picture_interval*).
@@ -224,13 +225,13 @@ The PTS for a DFG with only *show_frame* = 0 is:
 
 To achieve consistency between the STD model and the buffer model defined in Annex E of the AV1 Bitstream & Decoding Process Specification, for each AV1 access unit the PTS value in the STD shall, within the accuracy of their respective clocks, indicate the same instant in time as the PresentationTime in the decoder buffer model, as defined in Annex E of AV1 Bitstream & Decoding Process Specification.
 
-### 6.2 DTS
+### 5.2 DTS
 
 If a DTS is present in the PES packet header, it shall refer to the first AV1 access unit that commences in this PES packet.
 
 To achieve consistency between the STD model and the buffer model defined in Annex E of the AV1 Bitstream & Decoding Process Specification, for each AV1 access unit the DTS value in the STD shall, within the accuracy of their respective clocks, indicate the same instant in time as the ScheduledRemovalTiming in the decoder buffer model, as defined in Annex E of AV1 Bitstream & Decoding Process Specification.
 
-## 7. Acknowledgements
+## 6. Acknowledgements
 
 This Technical Specification has been produced by VideoLAN, with inputs from the authors mentioned below who are from the following companies: ATEME, OpenHeadend, Open Broadcast Systems, Videolabs under the direction of VideoLAN.
 

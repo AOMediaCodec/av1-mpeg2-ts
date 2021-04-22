@@ -94,7 +94,7 @@ For an AV1 video stream, the AV1 video descriptor provides basic information for
 
 **version** - This field indicates the version of the AV1_Descriptor. This value shall be set to 1.
 
-**seq_profile**, **seq_level_idx_0** and **high_bitdepth** - These fields shall be coded according to the semantics defined in AV1 Bitstream and Decoding Process Specification.
+**seq_profile**, **seq_level_idx_0** and **high_bitdepth** - These fields shall be coded according to the semantics defined in AV1 Bitstream and Decoding Process Specification. If these fields are not coded in the Sequence Header OBU in the AV1 stream, the inferred values are coded in the descriptor.
 
 **seq_tier_0**, **twelve_bit**, **monochrome**, **chroma_subsampling_x**, **chroma_subsampling_y**, **chroma_sample_position** - These fields shall be coded according to the same semantics when they are present. If they are not present, they will be coded using the value inferred by the semantics.
 

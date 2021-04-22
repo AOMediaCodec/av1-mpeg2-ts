@@ -94,7 +94,7 @@ For an AV1 video stream, the AV1 video descriptor provides basic information for
 
 **version** - This field indicates the version of the AV1_Descriptor. This value shall be set to 1.
 
-**seq_profile**, **seq_level_idx_0** and **high_bitdepth** - These fields shall be coded according to the semantics defined in AV1 Bitstream and Decoding Process Specification. If these fields are not coded in the Sequence Header OBU in the AV1 stream, the inferred values are coded in the descriptor.
+**seq_profile**, **seq_level_idx_0** and **high_bitdepth** - These fields shall be coded according to the semantics defined in AV1 Bitstream and Decoding Process Specification. If these fields are not coded in the Sequence Header OBU in the AV1 video stream, the inferred values are coded in the descriptor.
 
 **seq_tier_0**, **twelve_bit**, **monochrome**, **chroma_subsampling_x**, **chroma_subsampling_y**, **chroma_sample_position** - These fields shall be coded according to the same semantics when they are present. If they are not present, they will be coded using the value inferred by the semantics.
 
@@ -139,7 +139,7 @@ This specification does not specify the presentation of AV1 Bitstream & Decoding
 
 For PES packetization, no specific data alignment constraints apply, except when *random_access_indicator* is set to 1. *random_access_indicator* shall be set to 1 when the PES packet contains an elementary stream access point. In AV1 an elementary stream access point is the first byte of a Key Frame or a Delayed Key Frame. When *random_access_indicator* is set, a PES_packet shall start, and in its header, data_alignment_indicator shall be set to 1. When error resilience is a consideration, it is recommended to set one, and only one, AV1 access unit per PES, and that all PES have data_alignment_indicator set to 1. Usage of *data_stream_alignment_descriptor* is not specified and the only allowed *alignment_type* is 1 (Access unit level). Future versions of this specification may define other values.
 
-For synchronization and STD management, PTSs and, when appropriate, DTSs are encoded in the header of the PES packet that carries the AV1 Bitstream & Decoding Process Specification video elementary stream data. For PTS and DTS encoding, the constraints and semantics apply as defined in the PES Header and associated constraints on timestamp intervals.
+For synchronization and STD management, PTSs and, when appropriate, DTSs are encoded in the header of the PES packet that carries the AV1 video stream data. For PTS and DTS encoding, the constraints and semantics apply as defined in the PES Header and associated constraints on timestamp intervals.
 
 ### 4.3 Buffer Pool management
 
@@ -210,7 +210,7 @@ Transport streams shall be constructed so that the following conditions for buff
 
 ## 5 Definition of DTS and PTS
 
-An AV1 stream multiplexed into MPEG-TS may contain *decoder_model_info* syntax elements but this is not mandatory.
+An AV1 video stream multiplexed into MPEG-TS may contain *decoder_model_info* syntax elements but this is not mandatory.
 
 ### 5.1 PTS
 

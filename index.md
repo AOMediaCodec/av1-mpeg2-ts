@@ -24,7 +24,7 @@ In the present document "shall", "shall not", "should", "should not", "may", "ne
 
 Referenced normative documents:
 
-* AV1 specification, as hosted on the [AOM website](https://aomedia.org/av1-bitstream-and-decoding-process-specification/), also known as "the AV1 Bitstream & Decoding Process Specification".
+* AV1 specification, as hosted on the [AOM website](http://aomedia.org/av1/specification/), also known as "the AV1 Bitstream & Decoding Process Specification".
 * MPEG-TS specification, **ISO/IEC 13818-1:2018**
 * Digital Video Broadcasting (DVB); Specification for Service Information (SI) in DVB systems, **ETSI EN 300 468**
 

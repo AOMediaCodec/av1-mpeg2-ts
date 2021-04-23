@@ -1,4 +1,4 @@
-# AV1 specification for carriage inside MPEG-TS
+# AV1 specification for carriage inside MPEG-2 TS
 
 **NOTA BENE: this is a work-in-progress specification**
 
@@ -23,7 +23,7 @@ In the present document "shall", "shall not", "should", "should not", "may", "ne
 Referenced normative documents:
 
 * AV1 specification, as hosted on the [AOM website](http://aomedia.org/av1/specification/), also known as "the AV1 Bitstream & Decoding Process Specification".
-* MPEG-TS specification, **ISO/IEC 13818-1:2018**
+* MPEG-2 Transport Stream specification, **ISO/IEC 13818-1:2018**
 * Digital Video Broadcasting (DVB); Specification for Service Information (SI) in DVB systems, **ETSI EN 300 468**
 
 ### 2.2 Informative references
@@ -41,7 +41,7 @@ So far, none.
 > Need to register format_identifier (SMPTE) *and* EN 300 468 Private data specifier descriptor
  https://smpte-ra.org/mpeg-ts-ids.
 
-The presence of a Registration Descriptor, as defined in MPEG-TS, is mandatory with the format_identifier field set to 'AV1 ' ( A-V-1-space). The Registration Descriptor shall be the first in the PMT loop and included before an AV1 video descriptor.
+The presence of a Registration Descriptor, as defined in MPEG-2 TS, is mandatory with the format_identifier field set to 'AV1 ' ( A-V-1-space). The Registration Descriptor shall be the first in the PMT loop and included before an AV1 video descriptor.
 
 The *format_identifier*, as used in the Registration Descriptor is
 
@@ -111,14 +111,14 @@ For an AV1 video stream, the AV1 video descriptor provides basic information for
 
 **initial_presentation_delay_present** - Indicates **initial_presentation_delay_minus_one** field is present.
 
-**initial_presentation_delay_minus_one** - Ignored for MPEG-TS use, included only to aid conversion to/from ISOBMFF.
+**initial_presentation_delay_minus_one** - Ignored for MPEG-2 TS use, included only to aid conversion to/from ISOBMFF.
 
 ## 4 Carriage of AV1
 
 ### 4.1 Constraints for the transport of AV1
 
 For AV1 video streams, the following constraints additionally apply:
- * An AV1 video stream conforming to a profile defined in Annex A of AV1 Bitstream & Decoding Process Specification shall be an element of a Rec. ITU-T H.222.0 | ISO/IEC 13818-1 program and the stream_type for this elementary stream shall be equal to 0x06 (Rec. ITU-T H.222.0 | ISO/IEC 13818-1 PES packets containing private data).
+ * An AV1 video stream conforming to a profile defined in Annex A of AV1 Bitstream & Decoding Process Specification shall be an element of an MPEG-2 program and the stream_type for this elementary stream shall be equal to 0x06 (MPEG-2 PES packets containing private data).
  * An AV1 video stream shall have the low overhead byte stream format as defined in AV1 Bitstream & Decoding Process Specification.
  * An AV1 bitstream is composed of a sequence of OBUs, grouped into Decodable Frame Groups.
  * The sequence_header_obu as specified in AV1 Bitstream & Decoding Process Specification, that are necessary for decoding an AV1 video stream shall be present within the elementary stream carrying that AV1 video stream.
@@ -143,7 +143,7 @@ For synchronization and STD management, PTSs and, when appropriate, DTSs are enc
 
 ### 4.3 Buffer Pool management
 
-Carriage of an AV1 video stream over Rec. ITU-T H.222.0 | ISO/IEC 13818-1 does not impact the size of the Buffer Pool.
+Carriage of an AV1 video stream over MPEG-2 TS does not impact the size of the Buffer Pool.
 
 For decoding of an AV1 video stream in the STD, the size of the Buffer Pool is as defined in AV1 Bitstream & Decoding Process Specification. The Buffer Pool shall be managed as specified in Annex E of AV1 Bitstream & Decoding Process Specification.
 
@@ -210,7 +210,7 @@ Transport streams shall be constructed so that the following conditions for buff
 
 ## 5 Definition of DTS and PTS
 
-An AV1 video stream multiplexed into MPEG-TS may contain *decoder_model_info* syntax elements but this is not mandatory.
+An AV1 video stream multiplexed into MPEG-2 TS may contain *decoder_model_info* syntax elements but this is not mandatory.
 
 ### 5.1 PTS
 

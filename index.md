@@ -50,7 +50,6 @@ The *format_identifier*, as used in the Registration Descriptor is
 ### 3.2 AV1 video descriptor
 
 > Need to use DVB private data specifier descriptor beforehands, with a private data specifier registered from https://www.dvbservices.com/identifiers/private_data_spec_id.
-> Requested 07-12-2018
 
 The AV1 video descriptor is based on a "Private data specifier descriptor" in ETSI EN 300 468.
 

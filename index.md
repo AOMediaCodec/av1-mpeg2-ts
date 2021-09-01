@@ -53,6 +53,8 @@ The *format_identifier*, as used in the Registration Descriptor is
 
 The AV1 video descriptor is based on a "Private data specifier descriptor" in ETSI EN 300 468.
 
+> Note: the group is discussing whether to use a private descriptor or a DVB extension descriptor
+
 For an AV1 video stream, the AV1 video descriptor provides basic information for identifying coding parameters, such as profile and level parameters of that AV1 video stream. The same data structure as **AV1CodecConfigurationRecord** in ISOBMFF is used to aid conversion between the two formats, EXCEPT that two of the reserved bits are used for HDR/WCG identification.
 
 

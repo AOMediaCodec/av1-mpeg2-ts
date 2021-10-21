@@ -38,14 +38,7 @@ So far, none.
 
 ### 3.1 Registration Descriptor
 
-> Need to register format_identifier (SMPTE) *and* EN 300 468 Private data specifier descriptor
- https://smpte-ra.org/mpeg-ts-ids.
-
-The presence of a Registration Descriptor, as defined in MPEG-2 TS, is mandatory with the format_identifier field set to 'AV1 ' ( A-V-1-space). The Registration Descriptor shall be the first in the PMT loop and included before an AV1 video descriptor.
-
-The *format_identifier*, as used in the Registration Descriptor is
-
-'AV1 ' *A-V-1-space*
+The presence of a Registration Descriptor, as defined in MPEG-2 TS, is mandatory with the *format_identifier* field set to 'AV01' (A-V-0-1). The Registration Descriptor shall be the first in the PMT loop and included before an AV1 video descriptor.
 
 ### 3.2 AV1 video descriptor
 

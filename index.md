@@ -178,7 +178,22 @@ This specification does not specify the presentation of AV1 Bitstream & Decoding
 
 For synchronization and STD management, PTSs and, when appropriate, DTSs are encoded in the header of the PES packet that carries the AV1 video stream data. For PTS and DTS encoding, the constraints and semantics apply as defined in the PES Header and associated constraints on timestamp intervals. The PTS and DTS assignment rules are specified in section 5.
 
-### 4.5 Buffer Pool management
+### 4.5 Assignment of DTS and PTS
+
+For AV1 video stream multiplexed into MPEG-2 TS, the *decoder_model_info* may not be present. If the *decoder_model_info* is present, then the STD model shall match with the decoder model defined in Annex E of the AV1 Bitstream & Decoding Process Specification.
+
+To achieve consistency between the STD model and the buffer model defined in Annex E of the AV1 Bitstream & Decoding Process Specification, the following PTS and DTS assignment rules shall be applied :
+
+|show_existing_frame|show_frame|showable_frame |             PTS           |           DTS             |         Interpretation       |
+|:-----------------:|:--------:|:-------------:|:-------------------------:|:-------------------------:|:----------------------------:|
+|          0        |     0    |      0        |ScheduledRemovalTiming[dfg]|ScheduledRemovalTiming[dfg]| PTS value shall not be used  |
+|          0        |     0    |      1        |ScheduledRemovalTiming[dfg]|ScheduledRemovalTiming[dfg]| PTS value shall not be used  |
+|          0        |     1    |     n/a       |PresentationTime[frame]    |ScheduledRemovalTiming[dfg]| PTS and DTS values are valid |
+|          1        |    n/a   |     n/a       |PresentationTime[frame]    |ScheduledRemovalTiming[dfg]| PTS and DTS values are valid |
+
+Note : The ScheduleRemovalTiming[] and PresentationTime[] are defined in the Annex E of the AV1 bitstream specification. For cases where the AV1 frames are decoded but not displayed, the assigned PTS value shall not be used. In this case, a DTS value shall be assigned, but the MPEG-2 TS specification prevent DTS from being transmitted without a PTS, which is the reason why a "dummy" PTS value is assigned.
+
+### 4.6 Buffer Pool management
 
 Carriage of an AV1 video stream over MPEG-2 TS does not impact the size of the Buffer Pool.
 
@@ -190,7 +205,7 @@ If the AV1 video stream provides insufficient information to determine the Sched
  1. The Scheduled Removal Timing of AV1 access unit n is the instant in time indicated by DTS(n) where DTS(n) is the DTS value of AV1 access unit n.
  2. The Presentation Time of AV1 access unit n is the instant in time indicated by PTS(n) where PTS(n) is the PTS value of AV1 access unit n.
 
-### 4.6 T-STD Extensions for AV1
+### 4.7 T-STD Extensions for AV1
 
 When there is an AV1 video stream in an MPEG-2 TS program, the T-STD model as described in the section "Transport stream system target decoder" is extended as as specified below.
 
@@ -234,33 +249,18 @@ Rbx<sub>n</sub> = 1.1 × BitRate
 
 If there is PES packet payload data in MB<sub>n</sub>, and buffer EB<sub>n</sub> is not full, the PES packet payload is transferred from MB<sub>n</sub> to EB<sub>n</sub> at a rate equal to Rbx<sub>n</sub>. If EB<sub>n</sub> is full, data are not removed from MB<sub>n</sub>. When a byte of data is transferred from MB<sub>n</sub> to EB<sub>n</sub>, all PES packet header bytes that are in MB<sub>n</sub> and precede that byte are instantaneously removed and discarded. When there is no PES packet payload data present in MB<sub>n</sub>, no data is removed from MB<sub>n</sub>. All data that enters MB<sub>n</sub> leaves it. All PES packet payload data bytes enter EB<sub>n</sub> instantaneously upon leaving MB<sub>n</sub>.
 
-### 4.7 STD delay
+### 4.8 STD delay
 
 The STD delay of any AV1 video through the system target decoders buffers TB<sub>n</sub>, MB<sub>n</sub>, and EB<sub>n</sub> shall be constrained by td<sub>n</sub>(j) – t(i) ≤ 10 seconds for all j, and all bytes i in access unit A<sub>n</sub>(j).
 
-### 4.8 Buffer management conditions
+### 4.9 Buffer management conditions
 
 Transport streams shall be constructed so that the following conditions for buffer management are satisfied:
 * Each TB<sub>n</sub> shall not overflow and shall be empty at least once every second.
 * Each MB<sub>n</sub>, EB<sub>n</sub> and Buffer Pool shall not overflow.
 * EB<sub>n</sub> shall not underflow, except when the Operating parameters info syntax has low_delay_mode_flag set to '1'. Underflow of EB<sub>n</sub> occurs for AV1 access unit A<sub>n</sub>(j) when one or more bytes of A<sub>n</sub>(j) are not present in EB<sub>n</sub> at the decoding time td<sub>n</sub>(j).
 
-## 5 Assignment of DTS and PTS
-
-An AV1 video stream multiplexed into MPEG-2 TS may contain *decoder_model_info* syntax elements but this is not mandatory.
-
-To achieve consistency between the STD model and the buffer model defined in Annex E of the AV1 Bitstream & Decoding Process Specification, the following PTS and DTS assignment rules shall be applied :
-
-|show_existing_frame|show_frame|showable_frame |             PTS           |           DTS             |         Interpretation       |
-|:-----------------:|:--------:|:-------------:|:-------------------------:|:-------------------------:|:----------------------------:|
-|          0        |     0    |      0        |ScheduledRemovalTiming[dfg]|ScheduledRemovalTiming[dfg]| PTS value shall not be used  |
-|          0        |     0    |      1        |ScheduledRemovalTiming[dfg]|ScheduledRemovalTiming[dfg]| PTS value shall not be used  |
-|          0        |     1    |     n/a       |PresentationTime[frame]    |ScheduledRemovalTiming[dfg]| PTS and DTS values are valid |
-|          1        |    n/a   |     n/a       |PresentationTime[frame]    |ScheduledRemovalTiming[dfg]| PTS and DTS values are valid 
-
-Note : The ScheduleRemovalTiming[] and PresentationTime[] are defined in the Annex E of the AV1 bitstream specification.
-
-## 6. Acknowledgements
+## 5. Acknowledgements
 
 This Technical Specification has been produced by VideoLAN, with inputs from the authors mentioned below who are from the following companies: ATEME, OpenHeadend, Open Broadcast Systems, Videolabs under the direction of VideoLAN.
 

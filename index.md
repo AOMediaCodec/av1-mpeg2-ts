@@ -16,23 +16,11 @@ It defines the carriage of AV1 in a single PID, assuming buffer model info from 
 ### Modal verbs terminology
 In the present document "shall", "shall not", "should", "should not", "may", "need not", "will", "will not", "can" and "cannot" are to be interpreted as described in clause 3.2 of the ETSI Drafting Rules (Verbal forms for the expression of provisions).
 
-## 2. References
-
-### 2.1 Normative references
-
-Referenced normative documents:
+## 2. Normative References
 
 * AV1 specification, as hosted on the [AOM website](http://aomedia.org/av1/specification/), also known as "the AV1 Bitstream & Decoding Process Specification".
 * MPEG-2 Transport Stream specification, **ISO/IEC 13818-1:2018**
 * Digital Video Broadcasting (DVB); Specification for Service Information (SI) in DVB systems, **ETSI EN 300 468**
-
-### 2.2 Informative references
-
-So far, none.
-
-### 2.3 Definitions
-
- * **Decodage Frame Group (DFG)** : a Decodable Frame Group as defined in Annex E of the AV1 Bitstream & Decoding Process Specification.
 
 ## 3. Descriptor
 
@@ -263,8 +251,6 @@ Transport streams shall be constructed so that the following conditions for buff
 ## 5. Acknowledgements
 
 This Technical Specification has been produced by VideoLAN, with inputs from the authors mentioned below who are from the following companies: ATEME, OpenHeadend, Open Broadcast Systems, Videolabs under the direction of VideoLAN.
-
-## Annex A : 
 
 ## Authors
 - Jean Baptiste Kempf (jb@videolan.org)

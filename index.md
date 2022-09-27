@@ -98,7 +98,6 @@ For an AV1 video stream, the AV1 video descriptor provides basic information for
 For AV1 video streams, the following constraints additionally apply:
  * An AV1 video stream conforming to a profile defined in Annex A of AV1 Bitstream & Decoding Process Specification shall be an element of an MPEG-2 program and the stream_type for this elementary stream shall be equal to 0x06 (MPEG-2 PES packets containing private data).
  * An AV1 video stream shall have the low overhead byte stream format as defined in AV1 Bitstream & Decoding Process Specification.
- * An AV1 bitstream is composed of a sequence of OBUs.
  * The sequence_header_obu as specified in AV1 Bitstream & Decoding Process Specification, that are necessary for decoding an AV1 video stream shall be present within the elementary stream carrying that AV1 video stream.
  * An OBU shall contain the *obu_size* field.
  * OBU trailing bits should be limited to byte alignment and should not be used for padding.

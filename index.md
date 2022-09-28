@@ -114,7 +114,7 @@ Prior to carriage into PES, the AV1 **open_bitstream_unit()** is encapsulated in
 | Syntax                                                          | No. Of bits | Mnemonic   |
 |:----------------------------------------------------------------|:-----------:|:----------:|
 | ts_open_bitstream_unit(NumBytesInTsObu) {                       |             |            |
-|    obu_start_code   /* equal to 0x02 */                         | **24**      | **f(24)**  |
+|    obu_start_code   /* equal to 0x01 */                         | **24**      | **f(24)**  |
 |    NumBytesInObu = 0                                            |             |            |
 |    for( i = 2; i < NumBytesInTsObu; i++ ) {                     |             |            |
 |       if( i + 2 < NumBytesInTsObu && next_bits(24) == 0x000003 )| **8**       | **f(8)**   |
@@ -128,7 +128,7 @@ Prior to carriage into PES, the AV1 **open_bitstream_unit()** is encapsulated in
 
 **next_bits(n)** provides the next bits in the bitstream for comparison purposes, without advancing the bitstream pointer. Provides a look at the next n bits in the bitstream with n being its argument. When fewer than n bits remain within the byte stream, next_bits( n ) returns a value of 0.
 
-**obu_start_code** - This value shall be set to 0x000002.
+**obu_start_code** - This value shall be set to 0x000001.
 
 **open_bitstream_unit[i]** - i-th byte of the AV1 open bitstream unit (As defined in section 5.3 of AV1 Bitstream & Decoding Process Specification).
 

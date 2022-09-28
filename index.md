@@ -148,7 +148,7 @@ Within the **ts_open_bitstream_unit()** payload, any four-byte sequence that sta
 ### 4.3 The AV1 Access Unit 
 
 An AV1 Access Unit consists of all OBUs, including headers, between the end of the last OBU associated
-with the previous frame, and the end of the last OBU associated with the current frame. An illustration is provided in the figure below for an IBPP group of pictures.
+with the previous frame, and the end of the last OBU associated with the current frame. An illustration is provided in the figure below for a group of pictures with frames predicted as follows :
 
 ![Practical example of an AV1 Access Unit split](./AccessUnitSplit_Example.png)
 

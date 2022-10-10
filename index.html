@@ -40,23 +40,35 @@ In the present document "shall", "shall not", "should", "should not", "may", "ne
 
 # Descriptor
 
-## Registration Descriptor
+## AV1 Registration Descriptor
 
-The presence of a Registration Descriptor, as defined in MPEG-2 TS, is mandatory with the *format_identifier* field set to 'AV01' (A-V-0-1). The Registration Descriptor shall be the first in the PMT loop and included before an AV1 video descriptor.
-
-## AV1 video descriptor
-
-In a DVB ecosystem, the AV1 video descriptor based on a "Private data specifier descriptor" in ETSI EN 300 468 is used for carriage into DVB-specific tables, whenever it is required.
-
-For an AV1 video stream, the AV1 video descriptor provides basic information for identifying coding parameters, such as profile and level parameters of that AV1 video stream. The same data structure as **AV1CodecConfigurationRecord** in ISOBMFF is used to aid conversion between the two formats, EXCEPT that two of the reserved bits are used for HDR/WCG identification.
+The presence of a Registration Descriptor, as defined in MPEG-2 TS, is mandatory with the *format_identifier* field set to 'AV01' (A-V-0-1). The Registration Descriptor shall be the first in the PMT loop and included before an AV1 video descriptor. The syntax and semantics for this descriptor appears in the table below and in the subsequent text.
 
 
 | Syntax                           | No. Of bits | Mnemonic   |
 |:---------------------------------|:-----------:|:----------:|
+| registration_descriptor() {      |             |            |
+|   **descriptor_tag**             | **8**       | **uimsbf** |
+|   **descriptor_length**          | **8**       | **uimsbf** |
+|   **format_identifier**          | **32**      | **uimsbf** |
+|   **AV1_video_descriptor()**     |             |            |
+| }                                |             |            |
+
+**descriptor_tag** - This value shall be set to 0x5F.
+
+**descriptor_length** - This value shall be set to 8.
+
+**format_identifier** - This value shall be set to 'AV01' (A-V-0-1).
+
+**AV1_video_descriptor()** - The AV1 video descriptor as defined in the next section. Its size is 4 bytes.
+
+## AV1 video descriptor
+
+The AV1 video descriptor provides basic information for identifying coding parameters, such as profile and level parameters of an AV1 video stream. The same data structure as **AV1CodecConfigurationRecord** in ISOBMFF is used to aid conversion between the two formats, EXCEPT that two of the reserved bits are used for HDR/WCG identification. The syntax and semantics for this descriptor appears in the table below and in the subsequent text.
+
+| Syntax                           | No. Of bits | Mnemonic   |
+|:---------------------------------|:-----------:|:----------:|
 | AV1_video_descriptor() {         |             |            |
-|       **descriptor_tag**         | **8**       | **uimsbf** |
-|       **descriptor_length**      | **8**       | **uimsbf** |
-|       **private_data_specifier** | **32**      | **uimsbf** |
 |       **marker**                 | **1**       | **bslbf**  |
 |       **version**                | **7**       | **uimsbf** |
 |       **seq_profile**            | **3**       | **uimsbf** |
@@ -77,12 +89,6 @@ For an AV1 video stream, the AV1 video descriptor provides basic information for
 |       **reserved_zeros**         | **4**       | **uimsbf** |
 |       }                          |             |            |
 | }                                |             |            |
-
-## Semantic definition of fields in AV1 video descriptor
-
-**descriptor_tag** - This value shall be set to 0x5F.
-
-**private_data_specifier** - This value shall be set to FIXME.
 
 **marker** - This value shall be set to 1.
 

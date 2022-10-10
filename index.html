@@ -194,16 +194,18 @@ For synchronization and STD management, PTSs and, when appropriate, DTSs are enc
 
 For AV1 video stream multiplexed into MPEG-2 TS, the *decoder_model_info* may not be present. If the *decoder_model_info* is present, then the STD model shall match with the decoder model defined in Annex E of the AV1 Bitstream & Decoding Process Specification.
 
+There are cases in AV1 bitstreams where a frame is sent a multiple times, first for being decoded, and later on for being displayed. In the case of a frame being decoded but not displayed, it is expected to assign a valid DTS but without need for a PTS. However, the MPEG2-TS specification prevent DTS from being transmitted without a PTS. Hence, a PTS is always assigned for AV1 access units and its value is not relevant for frames being decoded but not displayed. 
+
 To achieve consistency between the STD model and the buffer model defined in Annex E of the AV1 Bitstream & Decoding Process Specification, the following PTS and DTS assignment rules shall be applied :
 
-|show_existing_frame|show_frame|showable_frame |             PTS           |           DTS             |         Interpretation       |
-|:-----------------:|:--------:|:-------------:|:-------------------------:|:-------------------------:|:----------------------------:|
-|          0        |     0    |      0        |ScheduledRemovalTiming[dfg]|ScheduledRemovalTiming[dfg]| PTS value shall not be used  |
-|          0        |     0    |      1        |ScheduledRemovalTiming[dfg]|ScheduledRemovalTiming[dfg]| PTS value shall not be used  |
-|          0        |     1    |     n/a       |PresentationTime[frame]    |ScheduledRemovalTiming[dfg]| PTS and DTS values are valid |
-|          1        |    n/a   |     n/a       |PresentationTime[frame]    |ScheduledRemovalTiming[dfg]| PTS and DTS values are valid |
+|show_existing_frame|show_frame|showable_frame |             PTS           |           DTS             |
+|:-----------------:|:--------:|:-------------:|:-------------------------:|:-------------------------:|
+|          0        |     0    |      0        |ScheduledRemovalTiming[dfg]|ScheduledRemovalTiming[dfg]|
+|          0        |     0    |      1        |ScheduledRemovalTiming[dfg]|ScheduledRemovalTiming[dfg]|
+|          0        |     1    |     n/a       |PresentationTime[frame]    |ScheduledRemovalTiming[dfg]|
+|          1        |    n/a   |     n/a       |PresentationTime[frame]    |ScheduledRemovalTiming[dfg]|
 
-Note : The ScheduleRemovalTiming[] and PresentationTime[] are defined in the Annex E of the AV1 bitstream specification. For cases where the AV1 frames are decoded but not displayed, the assigned PTS value shall not be used. In this case, a DTS value shall be assigned, but the MPEG-2 TS specification prevent DTS from being transmitted without a PTS, which is the reason why a "dummy" PTS value is assigned.
+Note : The ScheduleRemovalTiming[] and PresentationTime[] are defined in the Annex E of the AV1 bitstream specification.
 
 ## Buffer Pool management
 

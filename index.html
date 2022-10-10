@@ -170,12 +170,16 @@ Within the **ts_open_bitstream_unit()** payload, any four-byte sequence that sta
 ## The AV1 Access Unit
 
 An AV1 Access Unit consists of all OBUs, including headers, between the end of the last OBU associated
-with the previous frame, and the end of the last OBU associated with the current frame. An illustration is provided in the figure below for a group of pictures with frames predicted as follows :
+with the previous frame, and the end of the last OBU associated with the current frame. 
+
+An illustration is provided in the figure below for a group of pictures with frames predicted as follows :
 
 <img src="AccessUnitSplit_Example.png" alt="Practical example of an AV1 Access Unit split" width="100%" />
 <figure>
   <figcaption>Practical example of an AV1 Access Unit split</figcaption>
 </figure>
+
+A DFG refers to a Decodable Frame Group as defined in Annex E of the AV1 Bitstream & Decoding Process. A TU refers to a Temporal Unit, as defined in the AV1 Bitstream & Decoding Process. The figure highlights the Access Unit as the intersection between DFG and TU concepts where a single frame is encapsulated (decoded and or displayed), enabling to avoid ambigous cases with multiple frames associated with the same DTS and/or PTS (see section on Assignment of DTS and PTS)
 
 ## Carriage of AV1 Access Units in PES packets
 

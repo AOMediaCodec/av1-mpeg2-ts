@@ -19,30 +19,58 @@
           mailto: "t.biatek@ateme.com",
         }],
         publishDate: "2021-10-04",
-        github: "AOMedia/av1-mpeg2-ts"
+        github: "AOMedia/av1-mpeg2-ts",
+        localBiblio: {
+          "MPEG-2 TS": {
+            title: "Information technology — Generic coding of moving pictures and associated audio information — Part 1: Systems",
+            href: "https://www.iso.org/standard/83239.html",
+            status: "Standard",
+            publisher: "ISO",
+          },
+          "ETSI EN 300 468": {
+            title: "Digital Video Broadcasting (DVB); Specification for Service Information (SI) in DVB systems",
+            href: "https://www.etsi.org/deliver/etsi_en/300400_300499/300468/",
+            status: "Standard",
+            publisher: "ETSI",
+          },
+          "BT-1886": {
+            title: "Recommendation BT.1886 : Reference electro-optical transfer function for flat panel displays used in HDTV studio production",
+            href: "https://www.itu.int/rec/R-REC-BT.1886",
+            status: "Recommendation",
+            publisher: "ITU"
+          },
+          "BT-709": {
+            title: "Recommendation BT.709 : Parameter values for the HDTV standards for production and international programme exchange",
+            href: "https://www.itu.int/rec/R-REC-BT.709",
+            status: "Recommendation",
+            publisher: "ITU"
+          },
+          "BT-2020": {
+            title: "Recommendation BT.2020 : Parameter values for ultra-high definition television systems for production and international programme exchange",
+            href: "https://www.itu.int/rec/R-REC-BT.2020",
+            status: "Recommendation",
+            publisher: "ITU"
+          },
+        },
+
       };
     </script>
   </head>
   <body>
 # Introduction
 
-This document specifies how to carry AV1 video elementary streams in the MPEG-2 Transport Stream format.
+This document specifies how to carry AV1 video elementary streams ([[AV1]]) in the MPEG-2 Transport Stream format ([[MPEG-2 TS]]).
 It defines the carriage of AV1 in a single PID, assuming buffer model info from the first operating point. It may not be optimal for layered streams or streams with multiple operating points. Future versions may incorporate this capability.
 
 ## Modal verbs terminology
 In the present document "shall", "shall not", "should", "should not", "may", "need not", "will", "will not", "can" and "cannot" are to be interpreted as described in clause 3.2 of the ETSI Drafting Rules (Verbal forms for the expression of provisions).
 
-# Normative References
-
-* AV1 specification, as hosted on the [AOM website](http://aomedia.org/av1/specification/), also known as "the AV1 Bitstream & Decoding Process Specification".
-* MPEG-2 Transport Stream specification, **ISO/IEC 13818-1:2018**
-* Digital Video Broadcasting (DVB); Specification for Service Information (SI) in DVB systems, **ETSI EN 300 468**
-
-# Descriptor
+<section class="normative">
+ <h1>Descriptor</h1>
 
 ## AV1 Registration Descriptor
 
-The presence of a Registration Descriptor, as defined in MPEG-2 TS, is mandatory with the *format_identifier* field set to 'AV01' (A-V-0-1). The Registration Descriptor shall be the first in the PMT loop and included before an AV1 video descriptor. The syntax and semantics for this descriptor appears in the table below and in the subsequent text.
+The presence of a Registration Descriptor, as defined in [[!MPEG-2 TS]], is mandatory with the *format_identifier* field set to 'AV01' (A-V-0-1). The Registration Descriptor shall be the first in the PMT loop and included before an AV1 video descriptor. The syntax and semantics for this descriptor appears in the table below and in the subsequent text.
 
 
 | Syntax                           | No. Of bits | Mnemonic   |
@@ -94,16 +122,16 @@ The AV1 video descriptor provides basic information for identifying coding param
 
 **version** - This field indicates the version of the AV1_Descriptor. This value shall be set to 1.
 
-**seq_profile**, **seq_level_idx_0** and **high_bitdepth** - These fields shall be coded according to the semantics defined in AV1 Bitstream and Decoding Process Specification. If these fields are not coded in the Sequence Header OBU in the AV1 video stream, the inferred values are coded in the descriptor.
+**seq_profile**, **seq_level_idx_0** and **high_bitdepth** - These fields shall be coded according to the semantics defined in [[!AV1]]. If these fields are not coded in the Sequence Header OBU in the AV1 video stream, the inferred values are coded in the descriptor.
 
 **seq_tier_0**, **twelve_bit**, **monochrome**, **chroma_subsampling_x**, **chroma_subsampling_y**, **chroma_sample_position** - These fields shall be coded according to the same semantics when they are present. If they are not present, they will be coded using the value inferred by the semantics.
 
-**hdr_wcg_idc** - The value of this syntax element indicates the presence or absence of high dynamic range (HDR) and/or wide color gamut (WCG) video components in the associated PID according to the table below. HDR is defined to be video that has high dynamic range if the video stream EOTF is higher than the Rec. ITU-R BT.1886 reference EOTF. WCG is defined to be video that is coded using colour primaries with a colour gamut not contained within Rec. ITU-R BT.709.
+**hdr_wcg_idc** - The value of this syntax element indicates the presence or absence of high dynamic range (HDR) and/or wide color gamut (WCG) video components in the associated PID according to the table below. HDR is defined to be video that has high dynamic range if the video stream EOTF is higher than the reference EOTF defined in [[!BT-1886]]. WCG is defined to be video that is coded using colour primaries with a colour gamut not contained within [[!BT-709]].
 
 | **hdr_wcg_idc** | **Description** |
 |:---------------:|:----------------|
-| 0               | SDR, i.e., video is based on the Rec. ITU-R BT.1886 reference EOTF with a color gamut that is contained within Rec. ITU-R BT.709 with a Rec. ITU-R BT.709 container |
-| 1               | WCG only, i.e., video color gamut in a Rec ITU-R BT.2020 container that exceeds Rec. ITU-R BT.709  |
+| 0               | SDR, i.e., video is based on the reference EOTF defined in [[!BT-1886]] with a color gamut that is contained within [[!BT-709]] with a [[!BT-709]] container |
+| 1               | WCG only, i.e., video color gamut in a [[!BT-2020]] container that exceeds [[!BT-709]] |
 | 2               | Both HDR and WCG are to be indicated in the stream |
 | 3               | No indication made regarding HDR/WCG or SDR characteristics of the stream  |
 
@@ -111,16 +139,17 @@ The AV1 video descriptor provides basic information for identifying coding param
 
 **initial_presentation_delay_present** - Indicates **initial_presentation_delay_minus_one** field is present.
 
-**initial_presentation_delay_minus_one** - Ignored for MPEG-2 TS use, included only to aid conversion to/from ISOBMFF.
+**initial_presentation_delay_minus_one** - Ignored for [[MPEG-2 TS]] use, included only to aid conversion to/from ISOBMFF.
+</section>
 
 # Carriage of AV1
 
 ## Constraints for the transport of AV1
 
 For AV1 video streams, the following constraints additionally apply:
- * An AV1 video stream conforming to a profile defined in Annex A of AV1 Bitstream & Decoding Process Specification shall be an element of an MPEG-2 program and the stream_type for this elementary stream shall be equal to 0x06 (MPEG-2 PES packets containing private data).
- * An AV1 video stream shall have the low overhead byte stream format as defined in AV1 Bitstream & Decoding Process Specification.
- * The sequence_header_obu as specified in AV1 Bitstream & Decoding Process Specification, that are necessary for decoding an AV1 video stream shall be present within the elementary stream carrying that AV1 video stream.
+ * An AV1 video stream conforming to a profile defined in Annex A of [[!AV1]] shall be an element of an MPEG-2 program and the stream_type for this elementary stream shall be equal to 0x06 (MPEG-2 PES packets containing private data).
+ * An AV1 video stream shall have the low overhead byte stream format as defined in [[!AV1]].
+ * The sequence_header_obu as specified in [[!AV1]], that are necessary for decoding an AV1 video stream shall be present within the elementary stream carrying that AV1 video stream.
  * An OBU may contain the *obu_size* field. For applications that need easy conversion to MP4, using the *obu_size* field is recommended.
  * OBU trailing bits should be limited to byte alignment and should not be used for padding.
  * Tile List OBUs shall not be used
@@ -152,7 +181,7 @@ Prior to carriage into PES, the AV1 **open_bitstream_unit()** is encapsulated in
 
 **obu_start_code** - This value shall be set to 0x000001.
 
-**open_bitstream_unit[i]** - i-th byte of the AV1 open bitstream unit (As defined in section 5.3 of AV1 Bitstream & Decoding Process Specification).
+**open_bitstream_unit[i]** - i-th byte of the AV1 open bitstream unit (As defined in section 5.3 of [[!AV1]]).
 
 It is the responsability of the TS muxer to prevent start code emulation by escaping all the forbidden three-byte sequences using the **emulation_prevention_three_byte** (always equal to 0x03). The forbidden sequences are defined below.
 
@@ -179,28 +208,28 @@ An illustration is provided in the figure below for a group of pictures with fra
   <figcaption>Practical example of an AV1 Access Unit split</figcaption>
 </figure>
 
-A DFG refers to a Decodable Frame Group as defined in Annex E of the AV1 Bitstream & Decoding Process. A TU refers to a Temporal Unit, as defined in the AV1 Bitstream & Decoding Process. The figure highlights the Access Unit as the intersection between DFG and TU concepts where a single frame is encapsulated (decoded and or displayed), enabling to avoid ambigous cases with multiple frames associated with the same DTS and/or PTS (see section on Assignment of DTS and PTS)
+A DFG refers to a Decodable Frame Group as defined in Annex E of [[!AV1]]. A TU refers to a Temporal Unit, as defined in the [[!AV1]]. The figure highlights the Access Unit as the intersection between DFG and TU concepts where a single frame is encapsulated (decoded and or displayed), enabling to avoid ambigous cases with multiple frames associated with the same DTS and/or PTS (see section on Assignment of DTS and PTS)
 
 ## Carriage of AV1 Access Units in PES packets
 
-AV1 Bitstream & Decoding Process Specification video encapsulated as defined in clause 4.2 is carried in PES packets as PES_packet_data_bytes, using the stream_id 0xBD (private_stream_id_1).
+AV1 video encapsulated as defined in clause 4.2 is carried in PES packets as PES_packet_data_bytes, using the stream_id 0xBD (private_stream_id_1).
 
 A PES shall encapsulate one, and only one, AV1 access unit as defined in clause 4.3. All the PES shall have data_alignment_indicator set to 1. Usage of *data_stream_alignment_descriptor* is not specified and the only allowed *alignment_type* is 1 (Access unit level).
 
 The highest level that may occur in an AV1 video stream, as well as a profile and tier that the entire stream conforms to, shall be signalled using the AV1 video descriptor.
 
 If an AV1 video descriptor is associated with an AV1 video stream, then this descriptor shall be conveyed in the descriptor loop for the respective elementary stream entry in the program map table.
-This specification does not specify the presentation of AV1 Bitstream & Decoding Process Specification streams in the context of a program stream.
+This specification does not specify the presentation of AV1 streams in the context of a program stream.
 
 For synchronization and STD management, PTSs and, when appropriate, DTSs are encoded in the header of the PES packet that carries the AV1 video stream data setting the PTS_DTS_flags to '01' or '11'. For PTS and DTS encoding, the constraints and semantics apply as defined in the PES Header and associated constraints on timestamp intervals. The PTS and DTS assignment rules are specified in section 5.
 
 ## Assignment of DTS and PTS
 
-For AV1 video stream multiplexed into MPEG-2 TS, the *decoder_model_info* may not be present. If the *decoder_model_info* is present, then the STD model shall match with the decoder model defined in Annex E of the AV1 Bitstream & Decoding Process Specification.
+For AV1 video stream multiplexed into [[!MPEG-2 TS]], the *decoder_model_info* may not be present. If the *decoder_model_info* is present, then the STD model shall match with the decoder model defined in Annex E of [[!AV1]].
 
 There are cases in AV1 bitstreams where a frame is sent a multiple times, first for being decoded, and later on for being displayed. In the case of a frame being decoded but not displayed, it is expected to assign a valid DTS but without need for a PTS. However, the MPEG2-TS specification prevent DTS from being transmitted without a PTS. Hence, a PTS is always assigned for AV1 access units and its value is not relevant for frames being decoded but not displayed. 
 
-To achieve consistency between the STD model and the buffer model defined in Annex E of the AV1 Bitstream & Decoding Process Specification, the following PTS and DTS assignment rules shall be applied :
+To achieve consistency between the STD model and the buffer model defined in Annex E of [[!AV1]], the following PTS and DTS assignment rules shall be applied :
 
 |show_existing_frame|show_frame|showable_frame |             PTS           |           DTS             |
 |:-----------------:|:--------:|:-------------:|:-------------------------:|:-------------------------:|
@@ -209,13 +238,13 @@ To achieve consistency between the STD model and the buffer model defined in Ann
 |          0        |     1    |     n/a       |PresentationTime[frame]    |ScheduledRemovalTiming[dfg]|
 |          1        |    n/a   |     n/a       |PresentationTime[frame]    |ScheduledRemovalTiming[dfg]|
 
-Note : The ScheduleRemovalTiming[] and PresentationTime[] are defined in the Annex E of the AV1 bitstream specification.
+Note : The ScheduleRemovalTiming[] and PresentationTime[] are defined in the Annex E of [[!AV1]].
 
 ## Buffer Pool management
 
-Carriage of an AV1 video stream over MPEG-2 TS does not impact the size of the Buffer Pool.
+Carriage of an AV1 video stream over [[!MPEG-2 TS]] does not impact the size of the Buffer Pool.
 
-For decoding of an AV1 video stream in the STD, the size of the Buffer Pool is as defined in AV1 Bitstream & Decoding Process Specification. The Buffer Pool shall be managed as specified in Annex E of AV1 Bitstream & Decoding Process Specification.
+For decoding of an AV1 video stream in the STD, the size of the Buffer Pool is as defined in [[!AV1]]. The Buffer Pool shall be managed as specified in Annex E of [[!AV1]].
 
 A decoded AV1 access unit enters the Buffer Pool instantaneously upon decoding the AV1 access unit, hence at the Scheduled Removal Timing of the AV1 access unit. A decoded AV1 access unit is presented at the Presentation Time.
 
@@ -225,7 +254,7 @@ If the AV1 video stream provides insufficient information to determine the Sched
 
 ## T-STD Extensions for AV1
 
-When there is an AV1 video stream in an MPEG-2 TS program, the T-STD model as described in the section "Transport stream system target decoder" is extended as as specified below.
+When there is an AV1 video stream in an [[!MPEG-2 TS]] program, the T-STD model as described in the section "Transport stream system target decoder" is extended as as specified below.
 
 <img src="t-std.svg" alt="T-STD Extensions for AV1" width="100%" />
 <figure>
@@ -259,7 +288,7 @@ where BS<sub>oh</sub>, packet overhead buffering, is defined as:
 BS<sub>oh</sub> = (1/750) seconds × max{ 1100 × BitRate, 2 000 000 bit/s}
 and BS<sub>mux</sub>, additional mutliplex buffering, is defined as:
 BS<sub>mux</sub> = 0.004 seconds ×max{ 1100 × BitRate, 2 000 000 bit/s}
-BufferSize and BitRate are defined in Annex E of the AV1 Bitstream & Decoding Process Specification
+BufferSize and BitRate are defined in Annex E of the [[!AV1]]
  * There is exactly one elementary stream buffer EB<sub>n</sub> for all the elementary streams in the set of received elementary streams associated by hierarchy descriptors, with a total size EBS<sub>n</sub>:
 EBS<sub>n</sub> = BufferSize
  * Transfer from TB<sub>n</sub> to MB<sub>n</sub> is applied as follows:
@@ -294,5 +323,6 @@ This Technical Specification has been produced by VideoLAN, with inputs from the
 - Mathieu Monnier (m.monnier@ateme.com)
 - Mickael Raulet (m.raulet@ateme.com)
 - Thibaud Biatek (t.biatek@ateme.com)
+
 </body>
 </html>

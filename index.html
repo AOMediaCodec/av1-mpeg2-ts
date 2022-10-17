@@ -228,11 +228,11 @@ The highest level that may occur in an AV1 video stream, as well as a profile an
 If an AV1 video subdescriptor is associated with an AV1 video stream, then this descriptor shall be conveyed in the descriptor loop for the respective elementary stream entry in the program map table.
 This specification does not specify the presentation of AV1 streams in the context of a program stream.
 
-For synchronization and STD management, PTSs and, when appropriate, DTSs are encoded in the header of the PES packet that carries the AV1 video stream data setting the PTS_DTS_flags to '01' or '11'. For PTS and DTS encoding, the constraints and semantics apply as defined in the PES Header and associated constraints on timestamp intervals. The PTS and DTS assignment rules are specified in section 5.
-
 ## Assignment of DTS and PTS
 
 For AV1 video stream multiplexed into [[!MPEG-2 TS]], the *decoder_model_info* may not be present. If the *decoder_model_info* is present, then the STD model shall match with the decoder model defined in Annex E of [[!AV1]].
+
+For synchronization and STD management, PTSs and, when appropriate, DTSs are encoded in the header of the PES packet that carries the AV1 video stream data setting the PTS_DTS_flags to '01' or '11'. For PTS and DTS encoding, the constraints and semantics apply as defined in the PES Header and associated constraints on timestamp intervals.
 
 There are cases in AV1 bitstreams where a frame is sent a multiple times, first for being decoded, and later on for being displayed. In the case of a frame being decoded but not displayed, it is expected to assign a valid DTS but without need for a PTS. However, the MPEG-2 TS specification prevent DTS from being transmitted without a PTS. Hence, a PTS is always assigned for AV1 access units and its value is not relevant for frames being decoded but not displayed. 
 

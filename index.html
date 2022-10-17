@@ -234,7 +234,7 @@ For AV1 video stream multiplexed into [[!MPEG-2 TS]], the *decoder_model_info* m
 
 For synchronization and STD management, PTSs and, when appropriate, DTSs are encoded in the header of the PES packet that carries the AV1 video stream data setting the PTS_DTS_flags to '01' or '11'. For PTS and DTS encoding, the constraints and semantics apply as defined in the PES Header and associated constraints on timestamp intervals.
 
-There are cases in AV1 bitstreams where a frame is sent a multiple times, first for being decoded, and later on for being displayed. In the case of a frame being decoded but not displayed, it is expected to assign a valid DTS but without need for a PTS. However, the MPEG-2 TS specification prevent DTS from being transmitted without a PTS. Hence, a PTS is always assigned for AV1 access units and its value is not relevant for frames being decoded but not displayed. 
+There are cases in AV1 bitstreams where information about a frame is sent multiple times. For example, first to be decoded, and subsequently to be displayed. In the case of a frame being decoded but not displayed, it is desired to assign a valid DTS but without need for a PTS. However, the MPEG2-TS specification prevents a DTS from being transmitted without a PTS. Hence, a PTS is always assigned for AV1 access units and its value is not relevant for frames being decoded but not displayed.
 
 To achieve consistency between the STD model and the buffer model defined in Annex E of [[!AV1]], the following PTS and DTS assignment rules shall be applied :
 

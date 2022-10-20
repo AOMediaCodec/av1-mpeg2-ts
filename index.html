@@ -27,6 +27,12 @@
             status: "Standard",
             publisher: "ISO",
           },
+          "HEVC": {
+            title: "Information technology — High efficiency coding and media delivery in heterogeneous environments — Part 2: High efficiency video coding",
+            href: "https://www.iso.org/standard/35424.html",
+            status: "Standard",
+            publisher: "ISO",
+          },
           "ETSI EN 300 468": {
             title: "Digital Video Broadcasting (DVB); Specification for Service Information (SI) in DVB systems",
             href: "https://www.etsi.org/deliver/etsi_en/300400_300499/300468/",
@@ -65,12 +71,15 @@ It defines the carriage of AV1 in a single PID, assuming buffer model info from 
 ## Modal verbs terminology
 In the present document "shall", "shall not", "should", "should not", "may", "need not", "will", "will not", "can" and "cannot" are to be interpreted as described in clause 3.2 of the ETSI Drafting Rules (Verbal forms for the expression of provisions).
 
+## Definition of mnemonics, syntax functions and syntax descriptors
+In the present documents the mnemonics, the syntax functions, and the syntax descriptors are to be interpreted as described in other MPEG specficiations. The **uimsbf** and **bslbf** mnemonics are defined in Section 2.2.6 of ([[MPEG-2 TS]]). The syntax descriptor **f(n)** and the syntax function **next_bits(n)** are defined in Section 7.2 of ([[HEVC]]).
+
 <section class="normative">
  <h1>Identifying AV1 streams in MPEG-2 TS</h1>
 
-## AV1 Registration Descriptor
+## AV1 registration descriptor
 
-The presence of a Registration Descriptor, as defined in [[!MPEG-2 TS]], is mandatory with the *format_identifier* field set to 'AV01' (A-V-0-1). The Registration Descriptor shall be the first in the PMT loop and embeds the AV1 video subdescriptor.
+The presence of a Registration Descriptor, as defined in [[!MPEG-2 TS]], is mandatory with the *format_identifier* field set to 'AV01' (A-V-0-1). The Registration Descriptor shall be the first in the PMT loop and included before an AV1 video descriptor.
 
 ### Syntax
 
@@ -80,28 +89,27 @@ The presence of a Registration Descriptor, as defined in [[!MPEG-2 TS]], is mand
 |   **descriptor_tag**             | **8**       | **uimsbf** |
 |   **descriptor_length**          | **8**       | **uimsbf** |
 |   **format_identifier**          | **32**      | **uimsbf** |
-|   **AV1_video_subdescriptor()**  |             |            |
 | }                                |             |            |
 
 ### Semantics 
 
 **descriptor_tag** - This value shall be set to 0x05.
 
-**descriptor_length** - This value shall be set to 8.
+**descriptor_length** - This value shall be set to 4.
 
 **format_identifier** - This value shall be set to 'AV01' (A-V-0-1).
 
-**AV1_video_subdescriptor()** - The AV1 video descriptor as defined in the next section. Its size is 4 bytes.
+## AV1 video descriptor
 
-## AV1 video subdescriptor
-
-The AV1 video subdescriptor provides basic information for identifying coding parameters, such as profile and level parameters of an AV1 video stream. The same data structure as **AV1CodecConfigurationRecord** in ISOBMFF is used to aid conversion between the two formats, EXCEPT that two of the reserved bits are used for HDR/WCG identification. 
+The AV1 video descriptor provides basic information for identifying coding parameters, such as profile and level parameters of an AV1 video stream. The same data structure as **AV1CodecConfigurationRecord** in ISOBMFF is used to aid conversion between the two formats, EXCEPT that two of the reserved bits are used for HDR/WCG identification. The syntax and semantics for this descriptor appears in the table below and in the subsequent text.
 
 ### Syntax
 
 | Syntax                           | No. Of bits | Mnemonic   |
 |:---------------------------------|:-----------:|:----------:|
-| AV1_video_subdescriptor() {      |             |            |
+| AV1_video_descriptor() {         |             |            |
+|       **descriptor_tag**         | **8**       | **uimsbf** |
+|       **descriptor_length**      | **8**       | **uimsbf** |
 |       **marker**                 | **1**       | **bslbf**  |
 |       **version**                | **7**       | **uimsbf** |
 |       **seq_profile**            | **3**       | **uimsbf** |
@@ -125,9 +133,13 @@ The AV1 video subdescriptor provides basic information for identifying coding pa
 
 ### Semantics
 
+**descriptor_tag** - This value shall be set to TBD (pick in H.222 user private range).
+
+**descriptor_length** - This value shall be set to 4.
+
 **marker** - This value shall be set to 1.
 
-**version** - This field indicates the version of the AV1_video_subdescriptor. This value shall be set to 1.
+**version** - This field indicates the version of the AV1_video_descriptor. This value shall be set to 1.
 
 **seq_profile**, **seq_level_idx_0** and **high_bitdepth** - These fields shall be coded according to the semantics defined in [[!AV1]]. If these fields are not coded in the Sequence Header OBU in the AV1 video stream, the inferred values are coded in the descriptor.
 
@@ -169,22 +181,20 @@ In addition, a start code insertion and emulation prevention process shall be pe
 
 Prior to carriage into PES, the AV1 **open_bitstream_unit()** is encapsulated into **ts_open_bitstream_unit()**. This is required to provide direct access to OBU through a start-code mechanism inserted prior to each OBU. The following syntax describes how to retrieve the **open_bitstream_unit()** from the **ts_open_bitstream_unit()** (tsOBU).
 
-| Syntax                                                            | No. Of bits | Mnemonic   |
-|:------------------------------------------------------------------|:-----------:|:----------:|
-| ts_open_bitstream_unit(NumBytesInTsObu) {                         |             |            |
-|    obu_start_code   /* equal to 0x01 */                           | **24**      | **f(24)**  |
-|    NumBytesInObu = 0                                              |             |            |
-|    for( i = 2; i < NumBytesInTsObu; i++ ) {                       |             |            |
-|       if( i + 2 < NumBytesInTsObu && next_bits(24) == 0x000003 ) {|             |            |
-|          open_bitstream_unit[NumBytesInObu++]                     | **8**       | **f(8)**   |
-|          open_bitstream_unit[NumBytesInObu++]                     | **8**       | **f(8)**   |
-|          i += 2                                                   |             |            |
-|          emulation_prevention_three_byte /* equal to 0x03 */      | **8**       | **f(8)**   |
-|       } else                                                      |             |            |
-|          open_bitstream_unit[NumBytesInObu++]                     | **8**       | **f(8)**   |
-| }                                                                 |             |            |
-
-**next_bits(n)** provides the next bits in the bitstream for comparison purposes, without advancing the bitstream pointer. Provides a look at the next n bits in the bitstream with n being its argument. When fewer than n bits remain within the byte stream, next_bits( n ) returns a value of 0.
+| Syntax                                                            | Descriptor |
+|:------------------------------------------------------------------|:----------:|
+| ts_open_bitstream_unit(NumBytesInTsObu) {                         |            |
+|    obu_start_code   /* equal to 0x01 */                           | **f(24)**  |
+|    NumBytesInObu = 0                                              |            |
+|    for( i = 2; i < NumBytesInTsObu; i++ ) {                       |            |
+|       if( i + 2 < NumBytesInTsObu && next_bits(24) == 0x000003 ) {|            |
+|          open_bitstream_unit[NumBytesInObu++]                     | **f(8)**   |
+|          open_bitstream_unit[NumBytesInObu++]                     | **f(8)**   |
+|          i += 2                                                   |            |
+|          emulation_prevention_three_byte /* equal to 0x03 */      | **f(8)**   |
+|       } else                                                      |            |
+|          open_bitstream_unit[NumBytesInObu++]                     | **f(8)**   |
+| }                                                                 |            |
 
 **obu_start_code** - This value shall be set to 0x000001.
 
@@ -219,9 +229,9 @@ AV1 video encapsulated as defined in clause 4.2 is carried in PES packets as PES
 
 A PES shall encapsulate one, and only one, AV1 access unit as defined in clause 4.3. All the PES shall have data_alignment_indicator set to 1. Usage of *data_stream_alignment_descriptor* is not specified and the only allowed *alignment_type* is 1 (Access unit level).
 
-The highest level that may occur in an AV1 video stream, as well as a profile and tier that the entire stream conforms to, shall be signalled using the AV1 video subdescriptor.
+The highest level that may occur in an AV1 video stream, as well as a profile and tier that the entire stream conforms to, shall be signalled using the AV1 video descriptor.
 
-If an AV1 video subdescriptor is associated with an AV1 video stream, then this descriptor shall be conveyed in the descriptor loop for the respective elementary stream entry in the program map table.
+If an AV1 video descriptor is associated with an AV1 video stream, then this descriptor shall be conveyed in the descriptor loop for the respective elementary stream entry in the program map table.
 This specification does not specify the presentation of AV1 streams in the context of a program stream.
 
 ## Assignment of DTS and PTS

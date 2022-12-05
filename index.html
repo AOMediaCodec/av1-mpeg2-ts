@@ -66,14 +66,14 @@ It defines the carriage of AV1 in a single PID, assuming buffer model info from 
 In the present document "shall", "shall not", "should", "should not", "may", "need not", "will", "will not", "can" and "cannot" are to be interpreted as described in clause 3.2 of the ETSI Drafting Rules (Verbal forms for the expression of provisions).
 
 ## Definition of mnemonics and syntax function
-In the present documents the mnemonics, the syntax functions, and the syntax descriptors are to be interpreted as described in ([[MPEG-2 TS]]). The **uimsbf** and **bslbf** mnemonics are defined in Section 2.2.6 of ([[MPEG-2 TS]]). The **nextbits()** function is interpreted as in ([[MPEG-2 TS]]).
+In the present document the mnemonics, the syntax functions, and the syntax descriptors are to be interpreted as described in ([[MPEG-2 TS]]). The **uimsbf** and **bslbf** mnemonics are defined in Section 2.2.6 of [[MPEG-2 TS]]. The **nextbits()** function is interpreted as in ([[MPEG-2 TS]]).
 
 <section class="normative">
  <h1>Identifying AV1 streams in MPEG-2 TS</h1>
 
 ## AV1 registration descriptor
 
-The presence of a Registration Descriptor, as defined in [[!MPEG-2 TS]], is mandatory with the *format_identifier* field set to 'AV01' (A-V-0-1). The Registration Descriptor shall be the first in the PMT loop and included before an AV1 video descriptor.
+The presence of a Registration Descriptor, as defined in [[!MPEG-2 TS]], is mandatory with the *format_identifier* field set to 'AV01' (A-V-0-1). The Registration Descriptor shall be the first in the PMT loop and included before the AV1 video descriptor.
 
 ### Syntax
 
@@ -127,7 +127,7 @@ The AV1 video descriptor provides basic information for identifying coding param
 
 ### Semantics
 
-**descriptor_tag** - This value shall be set to TBD (pick in H.222 user private range).
+**descriptor_tag** - This value shall be set to 101 (pick in [[MPEG-2 TS]] user private range).
 
 **descriptor_length** - This value shall be set to 4.
 

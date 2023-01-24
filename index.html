@@ -59,8 +59,9 @@
   <body>
 # Introduction
 
-This document specifies how to carry AV1 video elementary streams ([[AV1]]) in the MPEG-2 Transport Stream format ([[MPEG-2 TS]]).
-It defines the carriage of AV1 in a single PID, assuming buffer model info from the first operating point. It may not be optimal for layered streams or streams with multiple operating points. Future versions may incorporate this capability.
+This document specifies how to carry AV1 video elementary streams ([[AV1]]) in the MPEG-2 Transport Stream format ([[MPEG-2 TS]]). It does not specify the presentation of AV1 streams in the context of a program stream.
+
+This document defines the carriage of AV1 in a single PID, assuming buffer model info from the first operating point. It may not be optimal for layered streams or streams with multiple operating points. Future versions may incorporate this capability.
 
 ## Modal verbs terminology
 In the present document "shall", "shall not", "should", "should not", "may", "need not", "will", "will not", "can" and "cannot" are to be interpreted as described in clause 3.2 of the ETSI Drafting Rules (Verbal forms for the expression of provisions).
@@ -96,6 +97,8 @@ The presence of a Registration Descriptor, as defined in [[!MPEG-2 TS]], is mand
 ## AV1 video descriptor
 
 The AV1 video descriptor provides basic information for identifying coding parameters, such as profile and level parameters of an AV1 video stream. The same data structure as **AV1CodecConfigurationRecord** in ISOBMFF is used to aid conversion between the two formats, EXCEPT that two of the reserved bits are used for HDR/WCG identification. The syntax and semantics for this descriptor appears in the table below and in the subsequent text.
+
+If an AV1 video descriptor is associated with an AV1 video stream, then this descriptor shall be conveyed in the descriptor loop for the respective elementary stream entry in the program map table.
 
 ### Syntax
 
@@ -224,9 +227,6 @@ AV1 video encapsulated as defined in clause 4.2 is carried in PES packets as PES
 A PES shall encapsulate one, and only one, AV1 access unit as defined in clause 4.3. All the PES shall have data_alignment_indicator set to 1. Usage of *data_stream_alignment_descriptor* is not specified and the only allowed *alignment_type* is 1 (Access unit level).
 
 The highest level that may occur in an AV1 video stream, as well as a profile and tier that the entire stream conforms to, shall be signalled using the AV1 video descriptor.
-
-If an AV1 video descriptor is associated with an AV1 video stream, then this descriptor shall be conveyed in the descriptor loop for the respective elementary stream entry in the program map table.
-This specification does not specify the presentation of AV1 streams in the context of a program stream.
 
 ## Assignment of DTS and PTS
 

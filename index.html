@@ -21,6 +21,12 @@
         publishDate: "2021-10-04",
         github: "AOMedia/av1-mpeg2-ts",
         localBiblio: {
+          "AV1-ISOBMFF": {
+            title: "AV1 Codec ISO Media File Format Binding, v1.2.0, AOM Final Deliverable, 12 December 2019",
+            href: "https://aomediacodec.github.io/av1-isobmff/",
+            status: "Standard",
+            publisher: "AOM",
+          },
           "MPEG-2 TS": {
             title: "Information technology — Generic coding of moving pictures and associated audio information — Part 1: Systems",
             href: "https://www.iso.org/standard/83239.html",
@@ -73,7 +79,7 @@ In the present document the mnemonics, the syntax functions, and the syntax desc
 
 ## AV1 registration descriptor
 
-The presence of a Registration Descriptor, as defined in [[!MPEG-2 TS]], is mandatory with the *format_identifier* field set to 'AV01' (A-V-0-1). The Registration Descriptor shall be the first in the PMT loop and included before the AV1 video descriptor.
+The presence of a <a data-cite="MPEG-2 TS">Registration Descriptor</a> is mandatory. It shall be the first in the <a data-cite="MPEG-2 TS">PMT loop</a> and included before the <a>AV1_video_descriptor</a>.
 
 ### Syntax
 
@@ -87,15 +93,15 @@ The presence of a Registration Descriptor, as defined in [[!MPEG-2 TS]], is mand
 
 ### Semantics 
 
-**descriptor_tag** - This value shall be set to 0x05.
+**descriptor_tag** - This value shall be set to <code>0x05</code>.
 
-**descriptor_length** - This value shall be set to 4.
+**descriptor_length** - This value shall be set to <code>4</code>.
 
-**format_identifier** - This value shall be set to 'AV01' (A-V-0-1).
+**format_identifier** - This value shall be set to <code>AV01</code>.
 
-## AV1 video descriptor
+## AV1 video descriptor {#AV1-video-descriptor}
 
-The AV1 video descriptor provides basic information for identifying coding parameters, such as profile and level parameters of an AV1 video stream. The same data structure as **AV1CodecConfigurationRecord** in ISOBMFF is used to aid conversion between the two formats, EXCEPT that two of the reserved bits are used for HDR/WCG identification. The syntax and semantics for this descriptor appears in the table below and in the subsequent text.
+The <dfn>AV1_video_descriptor</dfn> provides basic information for identifying coding parameters, such as profile and level parameters of an AV1 video stream. The same data structure as <dfn data-cite="AV1-ISOBMFF/#av1codecconfigurationbox-section">AV1CodecConfigurationRecord</dfn> is used to aid conversion between the two formats, EXCEPT that two of the reserved bits are used for HDR/WCG identification. The syntax and semantics for this descriptor appears in the table below and in the subsequent text.
 
 ### Syntax
 
@@ -127,13 +133,13 @@ The AV1 video descriptor provides basic information for identifying coding param
 
 ### Semantics
 
-**descriptor_tag** - This value shall be set to 0x80.
+**descriptor_tag** - This value shall be set to <code>0x80</code>.
 
-**descriptor_length** - This value shall be set to 4.
+**descriptor_length** - This value shall be set to <code>4</code>.
 
-**marker** - This value shall be set to 1.
+**marker** - This value shall be set to <code>1</code>.
 
-**version** - This field indicates the version of the AV1_video_descriptor. This value shall be set to 1.
+**version** - This field indicates the version of the <a>AV1_video_descriptor</a>. This value shall be set to <code>1</code>.
 
 **seq_profile**, **seq_level_idx_0** and **high_bitdepth** - These fields shall be coded according to the semantics defined in [[!AV1]]. If these fields are not coded in the Sequence Header OBU in the AV1 video stream, the inferred values are coded in the descriptor.
 
@@ -148,7 +154,7 @@ The AV1 video descriptor provides basic information for identifying coding param
 | 2               | Both HDR and WCG are to be indicated in the stream |
 | 3               | No indication made regarding HDR/WCG or SDR characteristics of the stream  |
 
-**reserved_zeros** - Will be set to zeroes.
+**reserved_zeros** - Will be set to <code>0</code>.
 
 **initial_presentation_delay_present** - Indicates **initial_presentation_delay_minus_one** field is present.
 
@@ -160,20 +166,20 @@ The AV1 video descriptor provides basic information for identifying coding param
 ## General constraints
 
 For AV1 video streams, the following constraints apply:
- * An AV1 video stream conforming to a profile defined in Annex A of [[!AV1]] shall be an element of an MPEG-2 program and the stream_type for this elementary stream shall be equal to 0x06 (MPEG-2 PES packets containing private data).
+ * An AV1 video stream conforming to a profile defined in Annex A of [[!AV1]] shall be an element of an MPEG-2 program and the <a data-cite="MPEG-2 TS">stream_type</a> for this elementary stream shall be equal to <code>0x06</code> (MPEG-2 PES packets containing private data).
  * An AV1 video stream shall have the low overhead byte stream format as defined in [[!AV1]].
- * The sequence_header_obu as specified in [[!AV1]], that are necessary for decoding an AV1 video stream shall be present within the elementary stream carrying that AV1 video stream.
- * An OBU may contain the *obu_size* field. For applications that need easy conversion to MP4, using the *obu_size* field is recommended.
- * OBU trailing bits should be limited to byte alignment and should not be used for padding.
- * Tile List OBUs shall not be used
- * Temporal Delimiters may be removed
- * Redundant Frame Headers and Padding OBUs may be used.
+ * The <a data-cite="AV1">sequence_header_obu</a> as specified in [[!AV1]], that are necessary for decoding an AV1 video stream shall be present within the elementary stream carrying that AV1 video stream.
+ * An OBU may contain the <a data-cite="AV1">obu_size</a> field. For applications that need easy conversion to MP4, using the <a data-cite="AV1">obu_size</a> field is recommended.
+ * OBU <a data-cite="AV1">trailing bits</a> should be limited to byte alignment and should not be used for padding.
+ * <a data-cite="AV1">Tile List OBUs</a> shall not be used
+ * <a data-cite="AV1">Temporal Delimiters</a> may be removed
+ * <a data-cite="AV1">Redundant Frame Headers</a> and <a data-cite="AV1">Padding OBUs</a> may be used.
 
-In addition, a start code insertion and emulation prevention process shall be performed on the AV1 Bitstream prior to its PES encapsulation. This process is described in section 3.2.
+In addition, a start code insertion and emulation prevention process shall be performed on the AV1 Bitstream prior to its PES encapsulation. This process is described in [[[#start-codes]]].
 
-## Start-code based format
+## Start-code based format {#start-codes}
 
-Prior to carriage into PES, the AV1 **open_bitstream_unit()** is encapsulated into **ts_open_bitstream_unit()**. This is required to provide direct access to OBU through a start-code mechanism inserted prior to each OBU. The following syntax describes how to retrieve the **open_bitstream_unit()** from the **ts_open_bitstream_unit()** (tsOBU).
+Prior to carriage into PES, the AV1 <code><a data-cite="AV1">open_bitstream_unit</a></code> is encapsulated into <code><dfn>ts_open_bitstream_unit</dfn></code>. This is required to provide direct access to OBU through a start-code mechanism inserted prior to each OBU. The following syntax describes how to retrieve the <code><a data-cite="AV1">open_bitstream_unit</a></code> from the <a>ts_open_bitstream_unit</a>.
 
 | Syntax                                                            | No. Of bits |  Mnemonic  |
 |:------------------------------------------------------------------|:-----------:|:----------:|
@@ -190,27 +196,27 @@ Prior to carriage into PES, the AV1 **open_bitstream_unit()** is encapsulated in
 |          open_bitstream_unit[NumBytesInObu++]                     |    **8**    | **uimsbf** |
 | }                                                                 |             |            |
 
-**obu_start_code** - This value shall be set to 0x000001.
+**obu_start_code** - This value shall be set to <code>0x000001</code>.
 
 **open_bitstream_unit[i]** - i-th byte of the AV1 open bitstream unit (As defined in section 5.3 of [[!AV1]]).
 
-It is the responsability of the TS muxer to prevent start code emulation by escaping all the forbidden three-byte sequences using the **emulation_prevention_three_byte** (always equal to 0x03). The forbidden sequences are defined below.
+It is the responsability of the TS muxer to prevent start code emulation by escaping all the forbidden three-byte sequences using the <dfn>emulation_prevention_three_byte</dfn> (always equal to <code>0x03</code>). The forbidden sequences are defined below.
 
-Within the **ts_open_bitstream_unit()** payload, the following three-byte sequences shall not occur at any byte-aligned position : 
-* 0x000000
-* 0x000001
-* 0x000002
+Within the <a>ts_open_bitstream_unit</a> payload, the following three-byte sequences shall not occur at any byte-aligned position : 
+* <code>0x000000</code>
+* <code>0x000001</code>
+* <code>0x000002</code>
 
-Within the **ts_open_bitstream_unit()** payload, any four-byte sequence that starts with 0x000003 other than the following sequences shall not occur at any byte-aligned position :
-* 0x00000300
-* 0x00000301
-* 0x00000302
-* 0x00000303
+Within the <a>ts_open_bitstream_unit</a> payload, any four-byte sequence that starts with <code>0x000003</code> other than the following sequences shall not occur at any byte-aligned position :
+* <code>0x00000300</code>
+* <code>0x00000301</code>
+* <code>0x00000302</code>
+* <code>0x00000303</code>
 
 ## The AV1 Access Unit
 
-An AV1 Access Unit consists of all OBUs, including headers, between the end of the last OBU associated
-with the previous frame, and the end of the last OBU associated with the current frame. With this definition, an Access Unit sometimes maps with a Decodable Frame Group (DFG) as defined in Annex E of [[!AV1]] and some other times to a Temporal Unit (TU) as defined in [[!AV1]], or both, as illustrated in the figure below. An illustration is provided in the figure below for a group of pictures with frames predicted as follows :
+An <dfn>AV1 Access Unit</dfn> consists of all <a data-cite="AV1">OBUs</a>, including headers, between the end of the last OBU associated
+with the previous frame, and the end of the last OBU associated with the current frame. With this definition, an Access Unit sometimes maps with a <a data-cite="AV1">Decodable Frame Group</a> (DFG) as defined in Annex E of [[!AV1]] and some other times to a <a data-cite="AV1">Temporal Unit</a> (TU) as defined in [[!AV1]], or both, as illustrated in the figure below. An illustration is provided in the figure below for a group of pictures with frames predicted as follows :
 
 <img src="AccessUnitSplit_Example.png" alt="Practical example of an AV1 Access Unit split" width="100%" />
 <figure>
@@ -219,22 +225,22 @@ with the previous frame, and the end of the last OBU associated with the current
 
 ## Use of PES packets
 
-AV1 video encapsulated as defined in clause 4.2 is carried in PES packets as PES_packet_data_bytes, using the stream_id 0xBD (private_stream_id_1).
+AV1 video encapsulated as defined in [[[#start-codes]]] is carried in PES packets as <a data-cite="MPEG-2 TS">PES_packet_data_bytes</a>, using the <a data-cite="MPEG-2 TS">stream_id</a> <code>0xBD</code> (private_stream_id_1).
 
-A PES shall encapsulate one, and only one, AV1 access unit as defined in clause 4.3. All the PES shall have data_alignment_indicator set to 1. Usage of *data_stream_alignment_descriptor* is not specified and the only allowed *alignment_type* is 1 (Access unit level).
+A PES shall encapsulate one, and only one, <a>AV1 access unit</a>. All the PES shall have <a data-cite="MPEG-2 TS">data_alignment_indicator</a> set to <code>1</code>. Usage of <a data-cite="MPEG-2 TS">data_stream_alignment_descriptor</a> is not specified and the only allowed <a data-cite="MPEG-2 TS">alignment_type</a> is <code>1</code> (Access unit level).
 
-The highest level that may occur in an AV1 video stream, as well as a profile and tier that the entire stream conforms to, shall be signalled using the AV1 video descriptor.
+The highest level that may occur in an AV1 video stream, as well as a profile and tier that the entire stream conforms to, shall be signalled using the <a>AV1_video_descriptor</a>.
 
 If an AV1 video descriptor is associated with an AV1 video stream, then this descriptor shall be conveyed in the descriptor loop for the respective elementary stream entry in the program map table.
 This specification does not specify the presentation of AV1 streams in the context of a program stream.
 
 ## Assignment of DTS and PTS
 
-For AV1 video stream multiplexed into [[!MPEG-2 TS]], the *decoder_model_info* may not be present. If the *decoder_model_info* is present, then the STD model shall match with the decoder model defined in Annex E of [[!AV1]].
+For AV1 video stream multiplexed into [[!MPEG-2 TS]], the <a data-cite="AV1">decoder_model_info</a> may not be present. If the <a data-cite="AV1">decoder_model_info</a> is present, then the STD model shall match with the decoder model defined in Annex E of [[!AV1]].
 
-For synchronization and STD management, PTSs and, when appropriate, DTSs are encoded in the header of the PES packet that carries the AV1 video stream data setting the PTS_DTS_flags to '01' or '11'. For PTS and DTS encoding, the constraints and semantics apply as defined in the PES Header and associated constraints on timestamp intervals.
+For synchronization and STD management, PTSs and, when appropriate, DTSs are encoded in the header of the PES packet that carries the AV1 video stream data setting the <a data-cite="MPEG-2 TS">PTS_DTS_flags</a> to <code>01</code> or <code>11</code>. For PTS and DTS encoding, the constraints and semantics apply as defined in the PES Header and associated constraints on timestamp intervals.
 
-There are cases in AV1 bitstreams where information about a frame is sent multiple times. For example, first to be decoded, and subsequently to be displayed. In the case of a frame being decoded but not displayed, it is desired to assign a valid DTS but without need for a PTS. However, the MPEG2-TS specification prevents a DTS from being transmitted without a PTS. Hence, a PTS is always assigned for AV1 access units and its value is not relevant for frames being decoded but not displayed.
+There are cases in AV1 bitstreams where information about a frame is sent multiple times. For example, first to be decoded, and subsequently to be displayed. In the case of a frame being decoded but not displayed, it is desired to assign a valid DTS but without need for a PTS. However, the [[!MPEG-2 TS]] specification prevents a DTS from being transmitted without a PTS. Hence, a PTS is always assigned for <a>AV1 access units</a> and its value is not relevant for frames being decoded but not displayed.
 
 To achieve consistency between the STD model and the buffer model defined in Annex E of [[!AV1]], the following PTS and DTS assignment rules shall be applied :
 
@@ -245,21 +251,21 @@ To achieve consistency between the STD model and the buffer model defined in Ann
 |          0        |     1    |     n/a       |PresentationTime[frame]    |ScheduledRemovalTiming[dfg]|
 |          1        |    n/a   |     n/a       |PresentationTime[frame]    |ScheduledRemovalTiming[dfg]|
 
-Note : The ScheduleRemovalTiming[] and PresentationTime[] are defined in the Annex E of [[!AV1]].
+Note : The <dfn data-cite="AV1">ScheduledRemovalTiming</dfn> and <dfn data-cite="AV1">PresentationTime</dfn> are defined in the Annex E of [[!AV1]].
 
 ## Buffer considerations
 
 ### Buffer pool management
 
-Carriage of an AV1 video stream over [[!MPEG-2 TS]] does not impact the size of the Buffer Pool.
+Carriage of an AV1 video stream over [[!MPEG-2 TS]] does not impact the size of the <dfn data-cite="AV1">Buffer Pool</dfn>.
 
-For decoding of an AV1 video stream in the STD, the size of the Buffer Pool is as defined in [[!AV1]]. The Buffer Pool shall be managed as specified in Annex E of [[!AV1]].
+For decoding of an AV1 video stream in the STD, the size of the <a>Buffer Pool</a> is as defined in [[!AV1]]. The <a data-cite="AV1"> shall be managed as specified in Annex E of [[!AV1]].
 
-A decoded AV1 access unit enters the Buffer Pool instantaneously upon decoding the AV1 access unit, hence at the Scheduled Removal Timing of the AV1 access unit. A decoded AV1 access unit is presented at the Presentation Time.
+A decoded <a>AV1 access unit</a> enters the <a>Buffer Pool</a> instantaneously upon decoding the <a>AV1 access unit</a>, hence at the <a>ScheduledRemovalTiming</a> of the <a>AV1 access unit</a>. A decoded <a>AV1 access unit</a> is presented at the <a>PresentationTime</a>.
 
-If the AV1 video stream provides insufficient information to determine the Scheduled Removal Timing and the Presentation Time of AV1 access units, then these time instants shall be determined in the STD model from PTS and DTS timestamps as follows:
- 1. The Scheduled Removal Timing of AV1 access unit n is the instant in time indicated by DTS(n) where DTS(n) is the DTS value of AV1 access unit n.
- 2. The Presentation Time of AV1 access unit n is the instant in time indicated by PTS(n) where PTS(n) is the PTS value of AV1 access unit n.
+If the AV1 video stream provides insufficient information to determine the <a>ScheduledRemovalTiming</a> and the <a>PresentationTime</a> of <a>AV1 access units</a>, then these time instants shall be determined in the STD model from PTS and DTS timestamps as follows:
+ 1. The <a>ScheduledRemovalTiming</a> of <a>AV1 access unit</a> n is the instant in time indicated by DTS(n) where DTS(n) is the DTS value of <a>AV1 access unit</a> n.
+ 2. The <a>PresentationTime</a> of <a>AV1 access unit</a> n is the instant in time indicated by PTS(n) where PTS(n) is the PTS value of <a>AV1 access unit</a> n.
 
 ### T-STD Extensions for AV1
 

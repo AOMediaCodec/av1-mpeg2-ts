@@ -74,7 +74,7 @@ In the present document the mnemonics, the syntax functions, and the syntax desc
 
 ## AV1 registration descriptor
 
-The presence of a Registration Descriptor, as defined in [[!MPEG-2 TS]], is mandatory with the *format_identifier* field set to 'AV01' (A-V-0-1). The Registration Descriptor shall be the first in the PMT loop and included before the AV1 video descriptor.
+The presence of a Registration Descriptor, as defined in [[!MPEG-2 TS]], is mandatory with the *format_identifier* field set to 'AV01' (A-V-0-1). The Registration Descriptor shall be conveyed in the descriptor loop for the respective elementary stream entry in the program map table, and included before the AV1 video descriptor.
 
 ### Syntax
 

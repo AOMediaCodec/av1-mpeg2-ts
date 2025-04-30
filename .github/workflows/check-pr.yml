@@ -4,8 +4,8 @@ on:
 
 jobs:
   main:
-    name: Run checks for specification and conformance
-    runs-on: ubuntu-20.04
+    name: Run checks for specification
+    runs-on: ubuntu-24.04
 
     steps:
       - uses: actions/checkout@v4
@@ -13,25 +13,9 @@ jobs:
         with:
           python-version: 3.12
           cache: 'pip'
-      - run: pip install bikeshed
-
-      - name: Install Poetry
-        uses: abatilo/actions-poetry@v3
-
-      - name: Setup a local virtual environment
-        run: |
-          poetry config virtualenvs.create true --local
-          poetry config virtualenvs.in-project true --local
-      - uses: actions/cache@v3
-        name: Define a cache for the virtual environment based on the dependencies lock file
-        with:
-          path: ./.venv
-          key: venv-${{ hashFiles('poetry.lock') }}
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
+      - run: pip install -r requirements.txt
 
       - name: Run bikeshed
-        run: bikeshed spec
+        run: |
+            bikeshed --version
+            bikeshed spec

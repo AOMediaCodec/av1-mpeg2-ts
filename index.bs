@@ -539,7 +539,7 @@ If the AV1 video stream provides insufficient information to determine the Sched
 
 When there is an AV1 video stream in an [[!MPEG-2-TS]] program, the T-STD model as described in the section "Transport stream system target decoder" is extended as specified below.
 
-<img src="t-std.svg" alt="T-STD Extensions for AV1" width="100%" >
+<img src="images/t-std.svg" alt="T-STD Extensions for AV1" width="100%" >
 <figure>
   <figcaption>T-STD Extensions for AV1</figcaption>
 </figure>

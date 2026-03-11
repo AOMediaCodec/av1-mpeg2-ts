@@ -40,6 +40,7 @@ jobs:
           path: |
             index.html
             index.pdf
+            images/
           retention-days: 30
 
       - name: Create or update PR comment

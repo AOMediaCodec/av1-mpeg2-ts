@@ -44,6 +44,7 @@ jobs:
           mkdir -p dist
           cp index.html dist/
           cp index.pdf dist/
+          cp -r images/ dist/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

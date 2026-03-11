@@ -367,7 +367,6 @@ For AV1 video streams, the following constraints apply:
 * The time interval between two successive changes in seq_profile, seq_tier or seq_level_idx carried in the sequence_header_obu syntax structure shall be greater than or equal to one second.
 * The still_picture and reduced_still_picture_header flags shall both be set to 0.
 * The encoder shall place RAPs in the PES at least once every 2 seconds. Where rapid channel change times are important or for applications such as PVR it may be appropriate for RAPs to occur more frequently, such as every 1 second. The time interval between successive RAPs shall be measured as the difference between their respective DTS values.
-* The display aspect ratio of the AV1 coded frame, after conformance cropping is applied, shall be 16:9.
 
 In addition, a start code insertion and emulation prevention process shall be performed on the AV1 Bitstream prior to its PES encapsulation. This process is described in section 3.2.
 

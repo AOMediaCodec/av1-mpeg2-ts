@@ -643,6 +643,10 @@ def main() -> None:
             msg = f"No changes to {SOURCE} between {args.base} and {head_label}."
             if args.ci:
                 _write_summary(f"### Visual Diff\n{msg}")
+                Path(args.output).write_text(
+                    f"<!DOCTYPE html><html><body><p>{msg}</p></body></html>",
+                    encoding="utf-8",
+                )
             else:
                 print(msg)
             return
@@ -694,6 +698,10 @@ def main() -> None:
         if args.ci:
             _write_summary(f"### Visual Diff\n:warning: {e}")
             print(f"vdiff warning: {e}", file=sys.stderr)
+            Path(args.output).write_text(
+                f"<!DOCTYPE html><html><body><p>Visual diff unavailable: {e}</p></body></html>",
+                encoding="utf-8",
+            )
         else:
             print(f"Error: {e}", file=sys.stderr)
             sys.exit(1)

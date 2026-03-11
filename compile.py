@@ -150,6 +150,14 @@ figure img {
     width: auto !important;
     height: auto !important;
 }
+.spec-table {
+    width: 100% !important;
+    table-layout: fixed;
+}
+.spec-table td, .spec-table th {
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
 """
 
 

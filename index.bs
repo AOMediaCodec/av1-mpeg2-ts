@@ -103,7 +103,7 @@ table th {
 
 This document specifies how to carry [[!AV1]] video elementary streams in the MPEG-2 Transport Stream format [[MPEG-2-TS]]. It does not specify the presentation of AV1 streams in the context of a program stream.
 
-This document defines the carriage of AV1 in a single PID, assuming buffer model info from the first operating point. It may not be optimal for layered streams or streams with multiple operating points. Future versions may incorporate this capability.
+This document defines the carriage of AV1 in a single PID (Packet Identifier), assuming buffer model info from the first operating point. It may not be optimal for layered streams or streams with multiple operating points. Future versions may incorporate this capability.
 
 ## Modal verbs terminology
 In the present document "shall", "shall not", "should", "should not", "may", "need not", "will", "will not", "can" and "cannot" are to be interpreted as described in clause 3.2 of the ETSI Drafting Rules (Verbal forms for the expression of provisions).
@@ -115,7 +115,7 @@ In the present document the mnemonics, the syntax functions, and the syntax desc
 
 ## AV1 registration descriptor
 
-The presence of a Registration Descriptor, as defined in [[!MPEG-2-TS]], is mandatory with the <b><code>format_identifier</code></b> field set to 'AV01' (A-V-0-1). The Registration Descriptor shall be the first descriptor in the respective elementary stream entry in the descriptor loop and included before the AV1 video descriptor.
+The presence of a Registration Descriptor, as defined in [[!MPEG-2-TS]], is mandatory with the <b><code>format_identifier</code></b> field set to 'AV01' (A-V-0-1). The Registration Descriptor shall be the first descriptor in the respective elementary stream entry in the descriptor loop of the PMT (Program Map Table) and included before the AV1 video descriptor.
 
 ### Syntax
 
@@ -348,7 +348,7 @@ If an AV1 video descriptor is associated with an AV1 video stream, then this des
 ## General constraints
 
 For AV1 video streams, the following constraints apply:
- * An AV1 video stream conforming to a profile defined in Annex A of [[!AV1]] shall be an element of an MPEG-2 program and the stream_type for this elementary stream shall be equal to 0x06 (MPEG-2 PES packets containing private data).
+ * An AV1 video stream conforming to a profile defined in Annex A of [[!AV1]] shall be an element of an MPEG-2 program and the stream_type for this elementary stream shall be equal to 0x06 (MPEG-2 PES (Packetized Elementary Stream) packets containing private data).
  * An AV1 video stream shall have the low overhead byte stream format as defined in [[!AV1]].
  * The sequence_header_obu as specified in [[!AV1]], that are necessary for decoding an AV1 video stream shall be present within the elementary stream carrying that AV1 video stream.
  * An OBU may contain the *obu_size* field. For applications that need easy conversion to MP4, using the *obu_size* field is recommended.
@@ -475,9 +475,9 @@ The highest level that may occur in an AV1 video stream, as well as a profile an
 
 ## Assignment of DTS and PTS
 
-For AV1 video stream multiplexed into [[!MPEG-2-TS]], the *decoder_model_info* may not be present. If the *decoder_model_info* is present, then the STD model shall match with the decoder model defined in Annex E of [[!AV1]].
+For AV1 video stream multiplexed into [[!MPEG-2-TS]], the *decoder_model_info* may not be present. If the *decoder_model_info* is present, then the STD (System Target Decoder) model shall match with the decoder model defined in Annex E of [[!AV1]].
 
-For synchronization and STD management, PTSs and, when appropriate, DTSs shall be encoded in the header of the PES packet that carries the AV1 video stream data setting the PTS_DTS_flags to '01' or '11'. For PTS and DTS encoding, the constraints and semantics apply as defined in the PES Header and associated constraints on timestamp intervals.
+For synchronization and STD management, PTSs (Presentation Time Stamps) and, when appropriate, DTSs (Decoding Time Stamps) shall be encoded in the header of the PES packet that carries the AV1 video stream data setting the PTS_DTS_flags to '01' or '11'. For PTS and DTS encoding, the constraints and semantics apply as defined in the PES Header and associated constraints on timestamp intervals.
 
 There are cases in AV1 bitstreams where information about a frame is sent multiple times. For example, first to be decoded, and subsequently to be displayed. In the case of a frame being decoded but not displayed, it is desired to assign a valid DTS but without need for a PTS. However, the MPEG2-TS specification prevents a DTS from being transmitted without a PTS. Hence, a PTS is always assigned for AV1 access units and its value is not relevant for frames being decoded but not displayed.
 

@@ -215,9 +215,12 @@ _IMG_RE = re.compile(
     re.DOTALL,
 )
 
-# Sentinel prefixes used to replace tables/images with placeholders behfore diffing.
-_TABLE_PLACEHOLDER = "\u200b\u200bTABLE_PLACEHOLDER_{}\u200b\u200b"
-_IMG_PLACEHOLDER = "\u200b\u200bIMG_PLACEHOLDER_{}\u200b\u200b"
+# Sentinel prefixes used to replace tables/images with placeholders before diffing.
+# Old and new sides use distinct prefixes so they survive htmldiff without collision.
+_OLD_TABLE_PLACEHOLDER = "\u200b\u200bOLD_TABLE_PLACEHOLDER_{}\u200b\u200b"
+_NEW_TABLE_PLACEHOLDER = "\u200b\u200bNEW_TABLE_PLACEHOLDER_{}\u200b\u200b"
+_OLD_IMG_PLACEHOLDER = "\u200b\u200bOLD_IMG_PLACEHOLDER_{}\u200b\u200b"
+_NEW_IMG_PLACEHOLDER = "\u200b\u200bNEW_IMG_PLACEHOLDER_{}\u200b\u200b"
 
 
 def _split_by_pattern(
@@ -263,27 +266,43 @@ def _match_elements(
 
     Returns a list of (old_element, new_element) tuples. Either side can be None
     for added/removed elements.
+
+    Matching strategy:
+      1. Exact signature match (unchanged elements).
+      2. Positional match for remaining unmatched elements at the same index
+         (modified elements that kept their position).
+      3. Anything still unmatched is treated as added or removed.
     """
     old_sigs = {i: _signature_of(el) for i, el in enumerate(old_elements)}
     new_sigs = {i: _signature_of(el) for i, el in enumerate(new_elements)}
 
-    # Build mapping: new index -> best old index by signature
     matched_old: set[int] = set()
-    pairs: list[tuple[str | None, str | None]] = []
+    matched_new: set[int] = set()
 
-    # First pass: match new elements to old by signature
+    # First pass: exact signature match
     new_to_old: dict[int, int] = {}
     for ni, nsig in new_sigs.items():
         for oi, osig in old_sigs.items():
             if oi not in matched_old and nsig == osig:
                 new_to_old[ni] = oi
                 matched_old.add(oi)
+                matched_new.add(ni)
                 break
+
+    # Second pass: positional match for remaining unmatched elements.
+    # Tables generally keep their order, so old[i] ↔ new[i] when both are
+    # unmatched is very likely the same table with modified content.
+    for i in range(min(len(old_elements), len(new_elements))):
+        if i not in matched_old and i not in matched_new:
+            new_to_old[i] = i
+            matched_old.add(i)
+            matched_new.add(i)
 
     # Collect unmatched old elements (removals)
     unmatched_old = [i for i in range(len(old_elements)) if i not in matched_old]
 
     # Build result: interleave removals and matched/added elements
+    pairs: list[tuple[str | None, str | None]] = []
     removal_idx = 0
     for ni in range(len(new_elements)):
         if ni in new_to_old:
@@ -389,35 +408,55 @@ def extract_head(raw_html: str) -> str:
     return tostring(head, encoding="unicode")
 
 
+def _placeholder_regex(placeholder_text: str) -> re.Pattern:
+    """Build a regex that matches a placeholder even when wrapped in diff tags.
+
+    htmldiff may wrap placeholders in <ins>, <del>, or <span> tags either
+    around or inside the <p>.  We handle both patterns:
+      - <ins><p>PLACEHOLDER</p></ins>   (tags outside <p>)
+      - <p><ins>PLACEHOLDER</ins></p>   (tags inside <p>)
+      - <p>PLACEHOLDER</p>              (no wrapping)
+    """
+    escaped = re.escape(placeholder_text)
+    _DIFF_TAG_OPEN = r"(?:<(?:ins|del|span)[^>]*>\s*)*"
+    _DIFF_TAG_CLOSE = r"(?:\s*</(?:ins|del|span)>)*"
+    return re.compile(
+        _DIFF_TAG_OPEN
+        + r"<p>\s*"
+        + _DIFF_TAG_OPEN
+        + escaped
+        + _DIFF_TAG_CLOSE
+        + r"\s*</p>"
+        + _DIFF_TAG_CLOSE,
+        re.DOTALL,
+    )
+
+
 def _restore_elements(
     diffed: str,
     old_elements: list[str],
     new_elements: list[str],
-    placeholder_template: str,
+    old_placeholder_template: str,
+    new_placeholder_template: str,
     label: str,
 ) -> str:
     """Restore placeholders with matched element pairs."""
     pairs = _match_elements(old_elements, new_elements)
-
-    # Remove all placeholders first — we'll append element diffs at the
-    # locations of the *new* element placeholders.
-    # Collect new-side placeholder positions for insertion.
     result = diffed
 
-    # Remove old-side placeholders that no longer have a match
+    # Remove old-side placeholders (htmldiff typically wraps these in <del>)
     for i in range(len(old_elements)):
-        placeholder = f"<p>{placeholder_template.format(i)}</p>"
-        result = result.replace(placeholder, "", 1)
+        pat = _placeholder_regex(old_placeholder_template.format(i))
+        result = pat.sub("", result, count=1)
 
-    # Now insert matched content at new-side placeholder positions
+    # Replace new-side placeholders with the appropriate content
     for i in range(len(new_elements)):
-        placeholder = f"<p>{placeholder_template.format(i)}</p>"
+        pat = _placeholder_regex(new_placeholder_template.format(i))
         # Find the corresponding pair for this new element
         replacement = ""
         for old_el, new_el in pairs:
             if new_el is not None and new_el == new_elements[i]:
                 if old_el is None:
-                    # Added
                     replacement = (
                         f'<div class="table-diff-block" style="border-color:#28a745">'
                         f'<div class="table-diff-side new-side">'
@@ -429,7 +468,7 @@ def _restore_elements(
                 else:
                     replacement = _make_diff_block(old_el, new_el, label)
                 break
-        result = result.replace(placeholder, replacement, 1)
+        result = pat.sub(replacement, result, count=1)
 
     # Append removed elements at end
     removed_html = ""
@@ -458,18 +497,18 @@ def make_visual_diff(
     base_segments, base_tables = _split_by_pattern(base_body, _TABLE_RE)
     cur_segments, cur_tables = _split_by_pattern(current_body, _TABLE_RE)
 
-    # Replace tables with placeholders
+    # Replace tables with distinct old/new placeholders
     base_prose = ""
     for i, seg in enumerate(base_segments):
         base_prose += seg
         if i < len(base_tables):
-            base_prose += f"<p>{_TABLE_PLACEHOLDER.format(i)}</p>"
+            base_prose += f"<p>{_OLD_TABLE_PLACEHOLDER.format(i)}</p>"
 
     cur_prose = ""
     for i, seg in enumerate(cur_segments):
         cur_prose += seg
         if i < len(cur_tables):
-            cur_prose += f"<p>{_TABLE_PLACEHOLDER.format(i)}</p>"
+            cur_prose += f"<p>{_NEW_TABLE_PLACEHOLDER.format(i)}</p>"
 
     # Now pull images out of the table-free prose
     base_parts, base_images = _split_by_pattern(base_prose, _IMG_RE)
@@ -479,30 +518,39 @@ def make_visual_diff(
     for i, seg in enumerate(base_parts):
         base_prose += seg
         if i < len(base_images):
-            base_prose += f"<p>{_IMG_PLACEHOLDER.format(i)}</p>"
+            base_prose += f"<p>{_OLD_IMG_PLACEHOLDER.format(i)}</p>"
 
     cur_prose = ""
     for i, seg in enumerate(cur_parts):
         cur_prose += seg
         if i < len(cur_images):
-            cur_prose += f"<p>{_IMG_PLACEHOLDER.format(i)}</p>"
+            cur_prose += f"<p>{_NEW_IMG_PLACEHOLDER.format(i)}</p>"
 
     # Diff only the prose portions
     diffed = htmldiff(base_prose, cur_prose)
 
     # Restore tables using content-based matching
     diffed = _restore_elements(
-        diffed, base_tables, cur_tables, _TABLE_PLACEHOLDER, "Table"
+        diffed, base_tables, cur_tables,
+        _OLD_TABLE_PLACEHOLDER, _NEW_TABLE_PLACEHOLDER, "Table",
     )
 
     # Restore images using content-based matching
     diffed = _restore_elements(
-        diffed, base_images, cur_images, _IMG_PLACEHOLDER, "Image"
+        diffed, base_images, cur_images,
+        _OLD_IMG_PLACEHOLDER, _NEW_IMG_PLACEHOLDER, "Image",
     )
 
-    # Clean up any leftover placeholders
+    # Clean up any leftover placeholders (old or new side, with optional diff-tag wrapping)
     diffed = re.sub(
-        r"<p>\u200b\u200b(?:TABLE|IMG)_PLACEHOLDER_\d+\u200b\u200b</p>", "", diffed
+        r"(?:<(?:ins|del|span)[^>]*>\s*)*"
+        r"<p>\s*"
+        r"(?:<(?:ins|del|span)[^>]*>\s*)*"
+        r"\u200b\u200b(?:OLD|NEW)_(?:TABLE|IMG)_PLACEHOLDER_\d+\u200b\u200b"
+        r"(?:\s*</(?:ins|del|span)>)*"
+        r"\s*</p>"
+        r"(?:\s*</(?:ins|del|span)>)*",
+        "", diffed,
     )
 
     head = extract_head(current_html)
@@ -561,6 +609,11 @@ def main() -> None:
         default="diff.html",
         help="Output HTML file (default: diff.html)",
     )
+    parser.add_argument(
+        "--debug",
+        action="store_true",
+        help="Save intermediate base and current rendered HTML files alongside the output",
+    )
     args = parser.parse_args()
 
     try:
@@ -611,6 +664,15 @@ def main() -> None:
                     f"Rendering {SOURCE} from {head_label}..."
                 )
             current_html = render_to_html(current_source, tmpdir)
+
+        if args.debug:
+            out = Path(args.output)
+            base_out = out.with_stem(out.stem + "_base")
+            cur_out = out.with_stem(out.stem + "_current")
+            base_out.write_text(base_html, encoding="utf-8")
+            cur_out.write_text(current_html, encoding="utf-8")
+            if not args.ci:
+                print(f"Debug: saved {base_out} and {cur_out}")
 
         if not args.ci:
             print("Generating visual diff...")

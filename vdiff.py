@@ -88,7 +88,119 @@ del img { border: 3px solid #dc3545; }
 }
 .table-diff-label.old-label { color: #dc3545; }
 .table-diff-label.new-label { color: #28a745; }
+
+#diff-nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #343a40;
+    padding: 6px 16px;
+    font-family: system-ui, sans-serif;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: wrap;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+#diff-nav .diff-nav-label {
+    color: #adb5bd;
+    margin-right: 6px;
+    white-space: nowrap;
+}
+#diff-nav a {
+    display: inline-block;
+    min-width: 24px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    border-radius: 4px;
+    background: #495057;
+    color: #f8f9fa;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 12px;
+    padding: 0 5px;
+    transition: background 0.15s;
+}
+#diff-nav a:hover { background: #6c757d; }
+#diff-nav a.active { background: #0d6efd; color: #fff; }
+.diff-change-highlight {
+    outline: 3px solid #0d6efd;
+    outline-offset: 2px;
+    border-radius: 3px;
+}
 </style>
+"""
+
+DIFF_NAV_SCRIPT = """
+<script>
+(function() {
+  // Collect all change elements: ins, del, and table-diff-block containers
+  var changeEls = document.querySelectorAll('ins, del, .table-diff-block');
+  if (!changeEls.length) return;
+
+  // Group nearby changes (within 80px vertically) into single change locations
+  var groups = [];
+  var MERGE_DISTANCE = 80; // px
+  changeEls.forEach(function(el) {
+    // Skip elements inside the nav bar or legend
+    if (el.closest('#diff-nav') || el.closest('[data-fill-with]')) return;
+    var rect = el.getBoundingClientRect();
+    var absTop = rect.top + window.scrollY;
+    if (groups.length && absTop - groups[groups.length - 1].bottom < MERGE_DISTANCE) {
+      var g = groups[groups.length - 1];
+      g.bottom = Math.max(g.bottom, absTop + rect.height);
+      g.elements.push(el);
+    } else {
+      groups.push({ top: absTop, bottom: absTop + rect.height, elements: [el] });
+    }
+  });
+
+  if (!groups.length) return;
+
+  // Add anchor ids to the first element of each group
+  groups.forEach(function(g, i) {
+    var anchor = g.elements[0];
+    if (!anchor.id) anchor.id = 'diff-change-' + (i + 1);
+    g.id = anchor.id;
+  });
+
+  // Build the nav bar
+  var nav = document.createElement('div');
+  nav.id = 'diff-nav';
+  var label = document.createElement('span');
+  label.className = 'diff-nav-label';
+  label.textContent = 'Changes (' + groups.length + '):';
+  nav.appendChild(label);
+
+  var currentHighlight = null;
+  groups.forEach(function(g, i) {
+    var a = document.createElement('a');
+    a.href = '#' + g.id;
+    a.textContent = i + 1;
+    a.title = 'Go to change ' + (i + 1);
+    a.addEventListener('click', function(e) {
+      e.preventDefault();
+      // Remove previous highlight
+      if (currentHighlight) currentHighlight.classList.remove('diff-change-highlight');
+      // Scroll and highlight
+      var target = document.getElementById(g.id);
+      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      target.classList.add('diff-change-highlight');
+      currentHighlight = target;
+      // Update active link
+      nav.querySelectorAll('a').forEach(function(l) { l.classList.remove('active'); });
+      a.classList.add('active');
+      // Remove highlight after a delay
+      setTimeout(function() { target.classList.remove('diff-change-highlight'); }, 2000);
+    });
+    nav.appendChild(a);
+  });
+
+  document.body.insertBefore(nav, document.body.firstChild);
+})();
+</script>
 """
 
 # Matches <table ...>...</table> (outermost tables only via non-greedy + no nesting)
@@ -400,13 +512,14 @@ def make_visual_diff(
 <html>
 {head}
 <body>
-<div style="background: #fff3cd; padding: 8px 16px; margin-bottom: 16px; border-radius: 4px; font-family: system-ui, sans-serif; font-size: 14px;">
+<div style="background: #f1f3f5; padding: 8px 16px; margin-bottom: 16px; border-radius: 4px; font-family: system-ui, sans-serif; font-size: 14px;">
   Visual diff: <code>{base_ref}</code> &rarr; <code>{head_label}</code> &mdash;
   <span style="background:#d4edda; padding:2px 6px; border-radius:3px;">additions</span>
   <span style="background:#f8d7da; padding:2px 6px; border-radius:3px; text-decoration:line-through;">deletions</span>
   <span style="background:#fff3cd; padding:2px 6px; border-radius:3px; border:1px solid #856404;">table changes</span>
 </div>
 {diffed}
+{DIFF_NAV_SCRIPT}
 </body>
 </html>
 """

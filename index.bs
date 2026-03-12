@@ -311,7 +311,10 @@ A PES shall encapsulate one, and only one, AV1 access unit as defined in clause 
 
 When the PES encapsulates a AV1 Key Frame or Delayed Key Frame:
 * The payload_unit_start_indicator bit shall be set to "1" in the transport packet header and the adaptation_field_control bits shall be set to "11".
-* In addition, the random_access_indicator bit in the adaptation header shall be set to "1" whenever a AV1 Key Frame or a Delayed Key Frame occurs in video streams. NOTE:  The random_access_indicator bit should only be set in the transport packet containing PES packet containing the first byte of the Key Frame or a Delayed Key Frame.
+* In addition, the random_access_indicator bit in the adaptation header shall be set to "1" whenever a AV1 Key Frame or a Delayed Key Frame occurs in video streams. 
+
+Note: The random_access_indicator bit should only be set in the transport packet containing PES packet containing the first byte of the Key Frame or a Delayed Key Frame.
+
 * The elementary_stream_priority_indicator bit shall also be set to "1" in the same adaptation header if this transport packet contains the first slice start code of the AV1 Key Frame or Delayed Key Frame access unit.
 
 The highest level that may occur in an AV1 video stream, as well as a profile and tier that the entire stream conforms to, shall be signalled using the AV1 video descriptor.
@@ -367,7 +370,7 @@ To achieve consistency between the STD model and the buffer model defined in Ann
 </tr>
 </tbody></table>
 
-Note : The ScheduleRemovalTiming[] and PresentationTime[] are defined in the Annex E of [[!AV1]].
+Note: The ScheduleRemovalTiming[] and PresentationTime[] are defined in the Annex E of [[!AV1]].
 
 ## Buffer considerations
 

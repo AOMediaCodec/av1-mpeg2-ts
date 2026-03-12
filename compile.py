@@ -5,6 +5,7 @@ Usage:
   python compile.py            # Build with SDL syntax tables (default)
   python compile.py --no-sdl   # Build with raw code blocks (same as bikeshed spec)
   python compile.py --pdf      # Build with SDL tables and generate PDF via WeasyPrint
+  python compile.py --date 2025-06-01  # Override the spec date
 """
 
 import argparse
@@ -12,6 +13,7 @@ import os
 import re
 import subprocess
 import sys
+from datetime import date as _date
 from html import escape
 from pathlib import Path
 
@@ -28,6 +30,9 @@ DESCRIPTOR_RE = re.compile(
 
 # Matches function/syntax header: word_chars(optional params) {
 HEADER_RE = re.compile(r"^\w[\w\s]*\([^)]*\)\s*\{")
+
+# Matches the Date: field in the Bikeshed metadata block
+DATE_RE = re.compile(r"^Date:\s*\S+", re.MULTILINE)
 
 
 def _escape(text: str) -> str:
@@ -110,25 +115,29 @@ def convert_sdl_blocks(content: str) -> str:
     return pattern.sub(replace, content)
 
 
-def build(use_sdl: bool = True, generate_pdf: bool = False) -> None:
+def build(use_sdl: bool = True, generate_pdf: bool = False, spec_date: str = None) -> None:
     if not SOURCE.exists():
         sys.exit(f"Error: {SOURCE} not found. Run from the repository root.")
 
+    if spec_date is None:
+        spec_date = _date.today().isoformat()
+
+    mode = "SDL syntax tables" if use_sdl else "raw code blocks"
+    print(f"Building {HTML_OUT} ({mode}, date: {spec_date}) …")
+
+    content = SOURCE.read_text(encoding="utf-8")
+    content = DATE_RE.sub(f"Date: {spec_date}", content)
     if use_sdl:
-        print(f"Building {HTML_OUT} with SDL syntax tables …")
-        content = SOURCE.read_text(encoding="utf-8")
         content = convert_sdl_blocks(content)
-        COMPILED.write_text(content, encoding="utf-8")
-        try:
-            subprocess.run(
-                ["bikeshed", "spec", str(COMPILED), str(HTML_OUT)],
-                check=True,
-            )
-        finally:
-            COMPILED.unlink(missing_ok=True)
-    else:
-        print(f"Building {HTML_OUT} (raw code blocks) …")
-        subprocess.run(["bikeshed", "spec"], check=True)
+
+    COMPILED.write_text(content, encoding="utf-8")
+    try:
+        subprocess.run(
+            ["bikeshed", "spec", str(COMPILED), str(HTML_OUT)],
+            check=True,
+        )
+    finally:
+        COMPILED.unlink(missing_ok=True)
 
     print(f"HTML written to {HTML_OUT}")
 
@@ -224,8 +233,13 @@ def main() -> None:
         action="store_true",
         help="Generate PDF output via WeasyPrint (requires: pip install weasyprint)",
     )
+    parser.add_argument(
+        "--date",
+        metavar="YYYY-MM-DD",
+        help="Override the spec date (default: today's date)",
+    )
     args = parser.parse_args()
-    build(use_sdl=not args.no_sdl, generate_pdf=args.pdf)
+    build(use_sdl=not args.no_sdl, generate_pdf=args.pdf, spec_date=args.date)
 
 
 if __name__ == "__main__":

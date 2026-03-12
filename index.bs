@@ -482,19 +482,3 @@ Transport streams shall be constructed so that the following conditions for buff
 # Acknowledgements and previous authors # {#acknowledgements}
 
 A previous draft of this specification has been produced by VideoLAN, with inputs from different authors (Jean Baptiste Kempf, Kieran Kunhya, Adrien Maglo, Christophe Massiot, Mathieu Monnier and Mickael Raulet) from the following companies: ATEME, OpenHeadend, Open Broadcast Systems, Videolabs under the direction of VideoLAN.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

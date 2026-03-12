@@ -188,6 +188,10 @@ figure img {{
     word-break: break-word;
     overflow-wrap: break-word;
 }}
+/* Prevent SDL syntax table header from repeating on page breaks */
+.sdl-syntax-table thead {{
+    display: table-row-group;
+}}
 /* TOC page numbers */
 #toc .toc a {{
     display: flex;

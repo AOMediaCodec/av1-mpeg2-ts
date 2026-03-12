@@ -94,7 +94,7 @@ Max ToC Depth: 3
     font-weight: bold;
 }
 .sdl-syntax-table thead th {
-    padding: 0.75rem;
+    padding: 0.35rem 0.75rem;
     text-align: left;
     border-bottom: 2px solid #ccc;
     border-right: 1px solid #ccc;
@@ -107,7 +107,7 @@ Max ToC Depth: 3
 .sdl-syntax-table tbody tr:nth-child(odd)  { background-color: #f8f9fa; }
 .sdl-syntax-table tbody tr:nth-child(even) { background-color: #ffffff; }
 .sdl-syntax-table tbody td {
-    padding: 0.4rem 0.75rem;
+    padding: 0.15rem 0.6rem;
     vertical-align: middle;
 }
 .sdl-syntax-table tbody td:not(:last-child) { border-right: 1px solid #ccc; }

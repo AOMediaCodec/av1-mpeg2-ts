@@ -13,6 +13,7 @@ Repository: AOMediaCodec/av1-mpeg2-ts
 Inline Github Issues: full
 Boilerplate: property-index no, issues-index no, copyright yes
 Markup Shorthands: css no
+Boilerplate: conformance no
 </pre>
 
 <pre class='biblio'>
@@ -124,6 +125,10 @@ This document defines the carriage of AV1 in a single PID (Packet Identifier), a
 
 ## Modal verbs terminology ## {#modal-verbs}
 In the present document "shall", "shall not", "should", "should not", "may", "need not", "will", "will not", "can" and "cannot" are to be interpreted as described in clause 3.2 of the ETSI Drafting Rules (Verbal forms for the expression of provisions).
+
+Informative notes begin with the word “Note” and are set apart from the normative text with class="note", like this:
+
+Note: this is an informative note.
 
 ## Definition of mnemonics and syntax function ## {#mnemonics}
 In the present document the mnemonics, the syntax functions, and the syntax descriptors are to be interpreted as described in [[!MPEG-2-TS]]. The <b><code>uimsbf</code></b> and <b><code>bslbf</code></b> mnemonics are defined in Section 2.2.6 of [[!MPEG-2-TS]]. The <b><code>nextbits()</code></b> function is interpreted as in [[!MPEG-2-TS]].

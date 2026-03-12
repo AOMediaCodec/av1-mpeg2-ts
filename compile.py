@@ -171,6 +171,24 @@ figure img {
     word-break: break-word;
     overflow-wrap: break-word;
 }
+/* Page number in footer on every page */
+@page {
+    @bottom-right {
+        content: counter(page);
+        font-size: 9pt;
+    }
+}
+/* TOC page numbers */
+#toc .toc a {
+    display: flex;
+    align-items: baseline;
+}
+#toc .toc a::after {
+    content: target-counter(attr(href), page);
+    flex-shrink: 0;
+    margin-left: auto;
+    padding-left: 1em;
+}
 """
 
 

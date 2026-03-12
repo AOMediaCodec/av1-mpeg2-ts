@@ -14,6 +14,7 @@ Inline Github Issues: full
 Boilerplate: property-index no, issues-index no, copyright yes
 Markup Shorthands: css no
 Boilerplate: conformance no
+Max ToC Depth: 3
 </pre>
 
 <pre class='biblio'>

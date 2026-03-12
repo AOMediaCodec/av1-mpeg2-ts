@@ -356,6 +356,7 @@ For AV1 video streams, the following constraints apply:
  * Tile List OBUs shall not be used
  * Temporal Delimiters may be removed
  * Redundant Frame Headers and Padding OBUs may be used.
+ * Metadata OBUs may be used.
  * Mastering display colour volume metadata OBU (<code>metadata_hdr_mdcv</code>): It is recommended that HDR bitstreams using PQ10 include a <code>metadata_hdr_mdcv</code> OBU with valid values for all fields as defined in [[!AV1]]. If the values for all fields are unknown, it is recommended that no <code>metadata_hdr_mdcv</code> OBU is present. If the value for any individual field is unknown, it is recommended that the unknown field is set to 0. 
  
  NOTE: The fixed-point representations used in <code>metadata_hdr_mdcv</code> differ from those used in SMPTE ST 2086 and ISOBMFF: chromaticity values use 0.16 fixed-point (1/65536 resolution), <code>luminance_min</code> uses 18.14 fixed-point (1/16384 cd/m² resolution), and <code>luminance_max</code> uses 24.8 fixed-point (1/256 cd/m² resolution). Standard mastering display chromaticity and luminance values from SMPTE ST 2086 cannot be represented exactly in these fields. Implementers converting mastering metadata from SMPTE ST 2086 or ISOBMFF should use round-to-nearest when populating these fields.

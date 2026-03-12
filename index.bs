@@ -247,16 +247,16 @@ AV1_video_descriptor() {
 ## General constraints ## {#general-constraints}
 
 For AV1 video streams, the following constraints apply:
- * An AV1 video stream conforming to a profile defined in Annex A of [[!AV1]] shall be an element of an MPEG-2 program and the stream_type for this elementary stream shall be equal to 0x06 (MPEG-2 PES (Packetized Elementary Stream) packets containing private data).
+ * An AV1 video stream conforming to a profile defined in Annex A of [[!AV1]] shall be an element of an MPEG-2 program and the <b><code>stream_type</code></b> for this elementary stream shall be equal to 0x06 (MPEG-2 PES (Packetized Elementary Stream) packets containing private data).
  * An AV1 video stream shall have the low overhead byte stream format as defined in [[!AV1]].
- * The sequence_header_obu as specified in [[!AV1]], that are necessary for decoding an AV1 video stream shall be present within the elementary stream carrying that AV1 video stream.
- * An OBU may contain the *obu_size* field. For applications that need easy conversion to MP4, using the *obu_size* field is recommended.
+ * The <b><code>sequence_header_obu</code></b> as specified in [[!AV1]], that are necessary for decoding an AV1 video stream shall be present within the elementary stream carrying that AV1 video stream.
+ * An OBU may contain the <b><code>obu_size</code></b> field. For applications that need easy conversion to MP4, using the <b><code>obu_size</code></b> field is recommended.
  * OBU trailing bits should be limited to byte alignment and should not be used for padding.
  * Tile List OBUs shall not be used
  * Temporal Delimiters may be removed
  * Redundant Frame Headers and Padding OBUs may be used.
 
-In addition, a start code insertion and emulation prevention process shall be performed on the AV1 Bitstream prior to its PES encapsulation. This process is described in section 3.2.
+In addition, a start code insertion and emulation prevention process shall be performed on the AV1 Bitstream prior to its PES encapsulation. This process is described in [[#start-code]].
 
 ## Start-code based format ## {#start-code}
 
@@ -282,7 +282,7 @@ ts_open_bitstream_unit(NumBytesInTsObu) {
 
 <b><code>open_bitstream_unit[i]</code></b> - i-th byte of the AV1 open bitstream unit (As defined in section 5.3 of [[!AV1]]).
 
-It is the responsability of the TS muxer to prevent start code emulation by escaping all the forbidden three-byte sequences using the <b><code>emulation_prevention_three_byte</code></b> (always equal to 0x03). The forbidden sequences are defined below.
+It is the responsibility of the TS muxer to prevent start code emulation by escaping all the forbidden three-byte sequences using the <b><code>emulation_prevention_three_byte</code></b> (always equal to 0x03). The forbidden sequences are defined below.
 
 Within the <b><code>ts_open_bitstream_unit()</code></b> payload, the following three-byte sequences shall not occur at any byte-aligned position : 
 * 0x000000
@@ -298,7 +298,7 @@ Within the <b><code>ts_open_bitstream_unit()</code></b> payload, any four-byte s
 ## The AV1 Access Unit ## {#access-unit}
 
 An AV1 Access Unit consists of all OBUs, including headers, between the end of the last OBU associated
-with the previous frame, and the end of the last OBU associated with the current frame. With this definition, an Access Unit sometimes maps with a Decodable Frame Group (DFG) as defined in Annex E of [[!AV1]] and some other times to a Temporal Unit (TU) as defined in [[!AV1]], or both, as illustrated in the figure below. An illustration is provided in the figure below for a group of pictures with frames predicted as follows :
+with the previous frame, and the end of the last OBU associated with the current frame. With this definition, an Access Unit sometimes maps with a Decodable Frame Group (DFG) as defined in Annex E of [[!AV1]] and some other times to a Temporal Unit (TU) as defined in [[!AV1]], or both, as illustrated in the figure below.
 
 <img src="images/AccessUnitSplit_Example.png" alt="Practical example of an AV1 Access Unit split" width="100%" >
 <figure>
@@ -309,23 +309,23 @@ with the previous frame, and the end of the last OBU associated with the current
 
 AV1 video encapsulated as defined in clause [[#start-code]] is carried in PES packets as PES_packet_data_bytes, using the stream_id 0xBD (private_stream_id_1).
 
-A PES shall encapsulate one, and only one, AV1 access unit as defined in clause [[#access-unit]]. All the PES shall have data_alignment_indicator set to 1. Usage of *data_stream_alignment_descriptor* is not specified and the only allowed *alignment_type* is 1 (Access unit level).
+A PES shall encapsulate one, and only one, AV1 access unit as defined in clause [[#access-unit]]. All the PES shall have <b><code>data_alignment_indicator</code></b> set to 1. Usage of <b><code>data_stream_alignment_descriptor</code></b> is not specified and the only allowed <b><code>alignment_type</code></b> is 1 (Access unit level).
 
-When the PES encapsulates a AV1 Key Frame or Delayed Key Frame:
-* The payload_unit_start_indicator bit shall be set to "1" in the transport packet header and the adaptation_field_control bits shall be set to "11".
-* In addition, the random_access_indicator bit in the adaptation header shall be set to "1" whenever a AV1 Key Frame or a Delayed Key Frame occurs in video streams. 
+When the PES encapsulates an AV1 Key Frame or Delayed Key Frame:
+* The <b><code>payload_unit_start_indicator</code></b> bit shall be set to "1" in the transport packet header and the <b><code>adaptation_field_control</code></b> bits shall be set to "11".
+* In addition, the <b><code>random_access_indicator</code></b> bit in the adaptation header shall be set to "1" whenever an AV1 Key Frame or a Delayed Key Frame occurs in video streams.
 
-Note: The random_access_indicator bit should only be set in the transport packet containing PES packet containing the first byte of the Key Frame or a Delayed Key Frame.
+Note: The <b><code>random_access_indicator</code></b> bit should only be set in the transport packet containing PES packet containing the first byte of the Key Frame or a Delayed Key Frame.
 
-* The elementary_stream_priority_indicator bit shall also be set to "1" in the same adaptation header if this transport packet contains the first slice start code of the AV1 Key Frame or Delayed Key Frame access unit.
+* The <b><code>elementary_stream_priority_indicator</code></b> bit shall also be set to "1" in the same adaptation header if this transport packet contains the first slice start code of the AV1 Key Frame or Delayed Key Frame access unit.
 
 The highest level that may occur in an AV1 video stream, as well as a profile and tier that the entire stream conforms to, shall be signalled using the AV1 video descriptor.
 
 ## Assignment of DTS and PTS ## {#dts-pts}
 
-For AV1 video stream multiplexed into [[!MPEG-2-TS]], the *decoder_model_info* may not be present. If the *decoder_model_info* is present, then the STD (System Target Decoder) model shall match with the decoder model defined in Annex E of [[!AV1]].
+For AV1 video stream multiplexed into [[!MPEG-2-TS]], the <b><code>decoder_model_info</code></b> may not be present. If the <b><code>decoder_model_info</code></b> is present, then the STD (System Target Decoder) model shall match with the decoder model defined in Annex E of [[!AV1]].
 
-For synchronization and STD management, PTSs (Presentation Time Stamps) and, when appropriate, DTSs (Decoding Time Stamps) shall be encoded in the header of the PES packet that carries the AV1 video stream data setting the PTS_DTS_flags to '01' or '11'. For PTS and DTS encoding, the constraints and semantics apply as defined in the PES Header and associated constraints on timestamp intervals.
+For synchronization and STD management, PTSs (Presentation Time Stamps) and, when appropriate, DTSs (Decoding Time Stamps) shall be encoded in the header of the PES packet that carries the AV1 video stream data setting the <b><code>PTS_DTS_flags</code></b> to '01' or '11'. For PTS and DTS encoding, the constraints and semantics apply as defined in the PES Header and associated constraints on timestamp intervals.
 
 There are cases in AV1 bitstreams where information about a frame is sent multiple times. For example, first to be decoded, and subsequently to be displayed. In the case of a frame being decoded but not displayed, it is desired to assign a valid DTS but without need for a PTS. However, the MPEG2-TS specification prevents a DTS from being transmitted without a PTS. Hence, a PTS is always assigned for AV1 access units and its value is not relevant for frames being decoded but not displayed.
 
@@ -372,7 +372,7 @@ To achieve consistency between the STD model and the buffer model defined in Ann
 </tr>
 </tbody></table>
 
-Note: The ScheduleRemovalTiming[] and PresentationTime[] are defined in the Annex E of [[!AV1]].
+Note: The ScheduledRemovalTiming[] and PresentationTime[] are defined in the Annex E of [[!AV1]].
 
 ## Buffer considerations ## {#buffer-considerations}
 
@@ -460,7 +460,7 @@ The following additional notations are used to describe the T-STD extensions and
 
 The following apply:
  * There is exactly one transport buffer TB<sub>n</sub> for the received AV1 video stream where the size TBS is fixed to 512 bytes.
- * There is exactly one multiplexing buffer MB<sub>n</sub> for the AV1 video stream, where the size MBS<sub>n</sub> of the multiplexing buffer MB is constrained as follows: MBS<sub>n</sub> = BS<sub>mux</sub> + BS<sub>oh</sub> + 0.1 x BufferSize where BS<sub>oh</sub>, packet overhead buffering, is defined as: BS<sub> oh</sub> = (1/750) seconds × max{ 1100 × BitRate, 2 000 000 bit/s} and BS<sub>mux</sub>, additional mutliplex buffering, is defined as: BS<sub>mux</sub> = 0.004 seconds ×max{ 1100 × BitRate, 2 000 000 bit/s} BufferSize and BitRate are defined in Annex E of the [[!AV1]]
+ * There is exactly one multiplexing buffer MB<sub>n</sub> for the AV1 video stream, where the size MBS<sub>n</sub> of the multiplexing buffer MB is constrained as follows: MBS<sub>n</sub> = BS<sub>mux</sub> + BS<sub>oh</sub> + 0.1 x BufferSize where BS<sub>oh</sub>, packet overhead buffering, is defined as: BS<sub> oh</sub> = (1/750) seconds × max{ 1100 × BitRate, 2 000 000 bit/s} and BS<sub>mux</sub>, additional multiplex buffering, is defined as: BS<sub>mux</sub> = 0.004 seconds ×max{ 1100 × BitRate, 2 000 000 bit/s} BufferSize and BitRate are defined in Annex E of the [[!AV1]]
  * There is exactly one elementary stream buffer EB<sub>n</sub> for all the elementary streams in the set of received elementary streams associated by hierarchy descriptors, with a total size EBS<sub>n</sub>: EBS<sub>n</sub> = BufferSize
  * Transfer from TB<sub>n</sub> to MB<sub>n</sub> is applied as follows: When there is no data in TB<sub>n</sub> then Rx<sub>n</sub> is equal to zero. Otherwise: Rx<sub>n</sub> = 1.1 x BitRate
  * The leak method shall be used to transfer data from MB<sub>n</sub> to EB<sub>n</sub> as follows: Rbx<sub>n</sub> = 1.1 × BitRate
@@ -477,7 +477,7 @@ The STD delay of any AV1 video through the system target decoders buffers TB<sub
 Transport streams shall be constructed so that the following conditions for buffer management are satisfied:
 * Each TB<sub>n</sub> shall not overflow and shall be empty at least once every second.
 * Each MB<sub>n</sub>, EB<sub>n</sub> and Buffer Pool shall not overflow.
-* EB<sub>n</sub> shall not underflow, except when the Operating parameters info syntax has low_delay_mode_flag set to '1'. Underflow of EB<sub>n</sub> occurs for AV1 access unit A<sub>n</sub>(j) when one or more bytes of A<sub>n</sub>(j) are not present in EB<sub>n</sub> at the decoding time td<sub>n</sub>(j).
+* EB<sub>n</sub> shall not underflow, except when the Operating parameters info syntax has <b><code>low_delay_mode_flag</code></b> set to '1'. Underflow of EB<sub>n</sub> occurs for AV1 access unit A<sub>n</sub>(j) when one or more bytes of A<sub>n</sub>(j) are not present in EB<sub>n</sub> at the decoding time td<sub>n</sub>(j).
 
 # Acknowledgements and previous authors # {#acknowledgements}
 

@@ -133,6 +133,8 @@ Note: this is an informative note.
 ## Definition of mnemonics and syntax function ## {#mnemonics}
 In the present document the mnemonics, the syntax functions, and the syntax descriptors are to be interpreted as described in [[!MPEG-2-TS]]. The <b><code>uimsbf</code></b> and <b><code>bslbf</code></b> mnemonics are defined in Section 2.2.6 of [[!MPEG-2-TS]]. The <b><code>nextbits()</code></b> function is interpreted as in [[!MPEG-2-TS]].
 
+In the syntax tables of this document, the type and bit width of each field are expressed together in the form <b><code>mnemonic(N)</code></b>, where <code>N</code> is the number of bits. For example, <b><code>uimsbf(8)</code></b> denotes an 8-bit unsigned integer, most significant bit first.
+
 # Identifying AV1 streams in MPEG-2 TS # {#identifying-av1-streams}
 
 ## AV1 registration descriptor ## {#registration-descriptor}

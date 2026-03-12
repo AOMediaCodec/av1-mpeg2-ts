@@ -115,6 +115,7 @@ def build(use_sdl: bool = True, generate_pdf: bool = False) -> None:
         sys.exit(f"Error: {SOURCE} not found. Run from the repository root.")
 
     if use_sdl:
+        print(f"Building {HTML_OUT} with SDL syntax tables …")
         content = SOURCE.read_text(encoding="utf-8")
         content = convert_sdl_blocks(content)
         COMPILED.write_text(content, encoding="utf-8")
@@ -126,7 +127,10 @@ def build(use_sdl: bool = True, generate_pdf: bool = False) -> None:
         finally:
             COMPILED.unlink(missing_ok=True)
     else:
+        print(f"Building {HTML_OUT} (raw code blocks) …")
         subprocess.run(["bikeshed", "spec"], check=True)
+
+    print(f"HTML written to {HTML_OUT}")
 
     if generate_pdf:
         _generate_pdf()

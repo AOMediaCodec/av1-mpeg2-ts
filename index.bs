@@ -276,7 +276,7 @@ Prior to carriage into PES, the AV1 <b><code>open_bitstream_unit()</code></b> is
 
 ```cpp
 ts_open_bitstream_unit(NumBytesInTsObu) {
-    uimsbf(24) obu_start_code;   /* equal to 0x01 */
+    uimsbf(24) obu_start_code;   /* equal to 0x000001 */
     NumBytesInObu = 0
     for( i = 2; i < NumBytesInTsObu; i++ ) {
         if( i + 2 < NumBytesInTsObu && nextbits(24) == 0x000003 ) {

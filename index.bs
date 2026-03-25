@@ -235,7 +235,7 @@ AV1_video_descriptor() {
 </tr>
 </tbody></table>
 
-<b><code>reserved_zeros</code></b> - Will be set to zeroes.
+<b><code>reserved_zeros</code></b> - Shall be set to zeroes.
 
 <b><code>initial_presentation_delay_present</code></b> - Indicates <b><code>initial_presentation_delay_minus_one</code></b> field is present.
 

@@ -5,6 +5,7 @@ Usage:
   python compile.py            # Build with SDL syntax tables (default)
   python compile.py --no-sdl   # Build with raw code blocks (same as bikeshed spec)
   python compile.py --pdf      # Build with SDL tables and generate PDF via WeasyPrint
+  python compile.py --date 2025-06-01  # Override the spec date
 """
 
 import argparse
@@ -12,6 +13,7 @@ import os
 import re
 import subprocess
 import sys
+from datetime import date as _date
 from html import escape
 from pathlib import Path
 
@@ -28,6 +30,9 @@ DESCRIPTOR_RE = re.compile(
 
 # Matches function/syntax header: word_chars(optional params) {
 HEADER_RE = re.compile(r"^\w[\w\s]*\([^)]*\)\s*\{")
+
+# Matches the Date: field in the Bikeshed metadata block
+DATE_RE = re.compile(r"^Date:\s*\S+", re.MULTILINE)
 
 
 def _escape(text: str) -> str:
@@ -110,64 +115,116 @@ def convert_sdl_blocks(content: str) -> str:
     return pattern.sub(replace, content)
 
 
-def build(use_sdl: bool = True, generate_pdf: bool = False) -> None:
+def build(use_sdl: bool = True, generate_pdf: bool = False, spec_date: str = None) -> None:
     if not SOURCE.exists():
         sys.exit(f"Error: {SOURCE} not found. Run from the repository root.")
 
+    if spec_date is None:
+        spec_date = _date.today().isoformat()
+
+    mode = "SDL syntax tables" if use_sdl else "raw code blocks"
+    print(f"Building {HTML_OUT} ({mode}, date: {spec_date}) …")
+
+    content = SOURCE.read_text(encoding="utf-8")
+    content = DATE_RE.sub(f"Date: {spec_date}", content)
     if use_sdl:
-        content = SOURCE.read_text(encoding="utf-8")
         content = convert_sdl_blocks(content)
-        COMPILED.write_text(content, encoding="utf-8")
-        try:
-            subprocess.run(
-                ["bikeshed", "spec", str(COMPILED), str(HTML_OUT)],
-                check=True,
-            )
-        finally:
-            COMPILED.unlink(missing_ok=True)
-    else:
-        subprocess.run(["bikeshed", "spec"], check=True)
+
+    COMPILED.write_text(content, encoding="utf-8")
+    try:
+        subprocess.run(
+            ["bikeshed", "spec", str(COMPILED), str(HTML_OUT)],
+            check=True,
+        )
+    finally:
+        COMPILED.unlink(missing_ok=True)
+
+    print(f"HTML written to {HTML_OUT}")
 
     if generate_pdf:
-        _generate_pdf()
+        _generate_pdf(spec_date)
 
 
-PDF_CSS = """
-@page {
+SPEC_TITLE = "Carriage of AV1 in MPEG-2 TS"
+
+PDF_CSS_TEMPLATE = """
+@page {{
     size: A4;
-    margin: 2.5cm 2cm;
-}
-body {
+    margin: 2.5cm 2cm 2cm 2cm;
+    @bottom-left {{
+        content: "{title}";
+        font-size: 8pt;
+        color: #555;
+    }}
+    @bottom-center {{
+        content: "{date}";
+        font-size: 8pt;
+        color: #555;
+    }}
+    @bottom-right {{
+        content: "Page " counter(page) " of " counter(pages);
+        font-size: 8pt;
+        color: #555;
+    }}
+}}
+body {{
     font-size: 9pt;
     line-height: 1.4;
-}
-img {
+}}
+img {{
     max-width: 100% !important;
     height: auto !important;
-}
-figure img {
+}}
+figure img {{
     max-width: 100% !important;
     width: auto !important;
     height: auto !important;
-}
-.spec-table {
+}}
+.spec-table {{
     width: 100% !important;
     table-layout: fixed;
-}
-.spec-table td, .spec-table th {
+}}
+.spec-table td, .spec-table th {{
     word-break: break-word;
     overflow-wrap: break-word;
-}
+}}
+/* Prevent SDL syntax table header from repeating on page breaks */
+.sdl-syntax-table thead {{
+    display: table-row-group;
+}}
+/* TOC page numbers */
+#toc .toc a {{
+    display: flex;
+    align-items: baseline;
+}}
+#toc .toc a::after {{
+    content: target-counter(attr(href), page);
+    flex-shrink: 0;
+    margin-left: auto;
+    padding-left: 1em;
+}}
 """
 
 
-def _generate_pdf() -> None:
+def _format_date_long(iso_date: str) -> str:
+    """Convert YYYY-MM-DD to 'D Month YYYY' (e.g. '11 March 2026')."""
+    from datetime import datetime
+    d = datetime.strptime(iso_date, "%Y-%m-%d")
+    return f"{d.day} {d.strftime('%B')} {d.year}"
+
+
+def _generate_pdf(spec_date: str) -> None:
     if not HTML_OUT.exists():
         sys.exit(f"Error: {HTML_OUT} not found. Build HTML first.")
 
+    pdf_css = PDF_CSS_TEMPLATE.format(
+        title=SPEC_TITLE,
+        date=_format_date_long(spec_date),
+    )
+
     # Inject PDF-specific styles into the HTML
     html_content = HTML_OUT.read_text(encoding="utf-8")
-    pdf_style_tag = f"<style>{PDF_CSS}</style>"
+    pdf_style_tag = f"<style>{pdf_css}</style>"
     if "</head>" in html_content:
         html_content = html_content.replace("</head>", f"{pdf_style_tag}\n</head>", 1)
     else:
@@ -220,8 +277,13 @@ def main() -> None:
         action="store_true",
         help="Generate PDF output via WeasyPrint (requires: pip install weasyprint)",
     )
+    parser.add_argument(
+        "--date",
+        metavar="YYYY-MM-DD",
+        help="Override the spec date (default: today's date)",
+    )
     args = parser.parse_args()
-    build(use_sdl=not args.no_sdl, generate_pdf=args.pdf)
+    build(use_sdl=not args.no_sdl, generate_pdf=args.pdf, spec_date=args.date)
 
 
 if __name__ == "__main__":

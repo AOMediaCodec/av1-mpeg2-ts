@@ -77,7 +77,7 @@ The output is written to `index.html` (and `index.pdf` if requested). Open eithe
 
 - **FFmpeg**: https://code.ffmpeg.org/FFmpeg/FFmpeg/pulls/21307
 - **VLC**: https://code.videolan.org/videolan/vlc/-/merge_requests/6837
-- **GStreamer**: https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/4442
+- **GStreamer (WIP)**: https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/11015
 
 ## License
 

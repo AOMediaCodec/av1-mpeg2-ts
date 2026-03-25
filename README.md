@@ -5,4 +5,4 @@ Official specification of the AOM group for the carriage of AV1 in MPEG-2 Transp
 
 - **FFmpeg**: https://code.ffmpeg.org/FFmpeg/FFmpeg/pulls/21307
 - **VLC**: https://code.videolan.org/videolan/vlc/-/merge_requests/6837
-- **GStreamer**: https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/4442
+- **GStreamer (WIP)**: https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/11015

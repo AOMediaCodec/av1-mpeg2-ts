@@ -26,28 +26,28 @@ Max ToC Depth: 3
     "publisher": "ISO"
   },
   "BT-1886": {
-    "title": "Recommendation ITU-R BT.1886-0 (2011), Reference electro-optical transfer function for flat panel displays used in HDTV studio production",
+    "title": "Recommendation ITU-R BT.1886-0, Reference electro-optical transfer function for flat panel displays used in HDTV studio production",
     "href": "https://www.itu.int/rec/R-REC-BT.1886",
     "status": "Recommendation",
     "publisher": "ITU",
     "date": "2011"
   },
   "BT-709": {
-    "title": "Recommendation ITU-R BT.709-6 (2015), Parameter values for the HDTV standards for production and international programme exchange",
+    "title": "Recommendation ITU-R BT.709-6, Parameter values for the HDTV standards for production and international programme exchange",
     "href": "https://www.itu.int/rec/R-REC-BT.709",
     "status": "Recommendation",
     "publisher": "ITU",
     "date": "2015"
   },
   "BT-2100": {
-    "title": "Recommendation ITU-R BT.2100-2 (2018), Image parameter values for high dynamic range television for use in production and international programme exchange",
+    "title": "Recommendation ITU-R BT.2100-2, Image parameter values for high dynamic range television for use in production and international programme exchange",
     "href": "https://www.itu.int/rec/R-REC-BT.2100",
     "status": "Recommendation",
     "publisher": "ITU",
     "date": "2018"
   },
   "BT-2020": {
-    "title": "Recommendation ITU-R BT.2020-2 (2015), Parameter values for ultra-high definition television systems for production and international programme exchange",
+    "title": "Recommendation ITU-R BT.2020-2, Parameter values for ultra-high definition television systems for production and international programme exchange",
     "href": "https://www.itu.int/rec/R-REC-BT.2020",
     "status": "Recommendation",
     "publisher": "ITU",

@@ -1,0 +1,217 @@
+/**
+ * WeasyPrint-specific CSS for PDF generation
+ * Provides headers, footers, and table formatting
+ */
+
+@media print {
+  /**
+   * Page setup with headers and footers
+   */
+  @page {
+    margin: 1.5cm 1.1cm;
+
+    /* Page header */
+    @top-center {
+      content: "AV2 Bitstream & Decoding Process Specification";
+      font-size: 9pt;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    /* Page footer with page numbers */
+    @bottom-right {
+      content: "Page " counter(page) " of " counter(pages);
+      font-size: 9pt;
+      font-family: Arial, Helvetica, sans-serif;
+      padding-right: 0.5cm;
+    }
+  }
+
+  /**
+   * Table Headers - Do NOT repeat on every page
+   */
+  thead {
+    display: table-row-group !important;
+  }
+
+  table thead {
+    display: table-row-group !important;
+  }
+
+  /**
+   * Center tables and figures with their captions
+   *
+   * Override per-element with classes in .bs source:
+   *   .align-left     — left-align (override default centering)
+   *   .align-right    — right-align
+   *   .align-center   — explicit center (same as default)
+   *   .full-width     — table spans 100% width (no centering)
+   */
+
+  /* Center figures */
+  figure {
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  figure img,
+  figure svg,
+  figure object {
+    display: inline-block !important;
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  figure figcaption {
+    text-align: center !important;
+  }
+
+  /* Center tables (auto-width, centered via margins) */
+  table:not(.full-width) {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: auto !important;
+    max-width: 100% !important;
+  }
+
+  table caption,
+  figcaption {
+    text-align: center !important;
+    caption-side: top !important;
+  }
+
+  .sdl-syntax-table caption {
+    text-align: center !important;
+  }
+
+  /* Full-width tables (opt-in override) */
+  table.full-width {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* Per-element alignment overrides */
+  .align-left,
+  .align-left caption,
+  .align-left figcaption {
+    text-align: left !important;
+    margin-left: 0 !important;
+    margin-right: auto !important;
+  }
+
+  .align-right,
+  .align-right caption,
+  .align-right figcaption {
+    text-align: right !important;
+    margin-left: auto !important;
+    margin-right: 0 !important;
+  }
+
+  .align-center,
+  .align-center caption,
+  .align-center figcaption {
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  /**
+   * Better table breaking
+   */
+  table {
+    page-break-inside: auto;
+  }
+
+  tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+
+  .sdl-syntax-table {
+    page-break-inside: auto;
+  }
+
+  .sdl-syntax-table tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+
+  /**
+   * Math Equations - Center formulas on the page
+   * Equations in section 4.8 and elsewhere should be centered like in HTML version
+   */
+
+  /* Center all display math elements (MathJax CHTML output) */
+  mjx-container[display="true"],
+  mjx-container[display="block"],
+  mjx-container[jax="CHTML"][display="true"] {
+    display: block !important;
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-top: 1.5em !important;
+    margin-bottom: 1.5em !important;
+    overflow: visible !important;
+    max-width: 100% !important;
+    position: relative !important;
+    /* Improve font rendering quality */
+    text-rendering: optimizeLegibility !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+  }
+
+  /* MathJax CHTML inner content */
+  mjx-container[display="true"] mjx-math {
+    display: inline-block !important;
+  }
+
+  /* Remove MathJax's default margins that push equations off-center */
+  mjx-container[display="true"] mjx-table {
+    margin-left: auto !important;  /* Override left margin from inline style */
+    margin-right: auto !important;  /* Override right margin from inline style */
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* Equation labels container (for equation numbers when side="right") */
+  mjx-container[display="true"] mjx-labels {
+    position: absolute !important;
+    right: 0 !important;
+    top: 0 !important;
+    width: auto !important;
+  }
+
+  /* Individual equation label (number) */
+  mjx-container[display="true"] mjx-labels mjx-mtd {
+    text-align: right !important;
+    padding-right: 1em !important;
+  }
+
+  /* Improve font rendering for all MathJax elements */
+  mjx-container *,
+  mjx-math *,
+  mjx-mtext *,
+  mjx-mi *,
+  mjx-mn *,
+  mjx-mo * {
+    text-rendering: optimizeLegibility !important;
+    -webkit-font-smoothing: antialiased !important;
+  }
+
+  /* SVG equations (if any remain) */
+  mjx-container[display="true"] > svg,
+  mjx-container[display="block"] > svg {
+    width: auto !important;
+    height: auto !important;
+    max-width: 100% !important;
+    display: block !important;
+  }
+
+  /* Legacy equation number classes */
+  .eqno,
+  .equation-number {
+    float: right !important;
+    margin-left: 1em !important;
+  }
+}

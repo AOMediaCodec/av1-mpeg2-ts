@@ -1,0 +1,659 @@
+/**
+ * Multipage Navigation Styles for AV2 Specification
+ *
+ * This stylesheet provides styling for the multipage HTML version of the spec,
+ * including sidebar TOC, breadcrumb, prev/next buttons, and dropdown selector.
+ */
+
+/* ===== Layout Structure ===== */
+
+/* Override Bikeshed's body max-width constraint for multipage layout */
+body.sidebar-left,
+body.sidebar-right {
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+/* Body without sidebar */
+body.no-sidebar #multipage-sidebar {
+  display: none;
+}
+
+body.no-sidebar #multipage-content {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+/* ===== Sidebar TOC ===== */
+
+#multipage-sidebar {
+  position: fixed;
+  top: 0;
+  width: 280px;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #f8f9fa;
+  border-right: 1px solid #dee2e6;
+  padding: 20px;
+  box-sizing: border-box;
+  z-index: 1000;
+  font-size: 14px;
+}
+
+body.sidebar-left #multipage-sidebar {
+  left: 0;
+}
+
+body.sidebar-right #multipage-sidebar {
+  right: 0;
+  border-right: none;
+  border-left: 1px solid #dee2e6;
+}
+
+/* Sidebar header */
+.multipage-toc-header h2 {
+  margin: 0 0 20px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.multipage-toc-header a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.multipage-toc-header a:hover {
+  color: #007bff;
+}
+
+/* TOC list */
+.multipage-toc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.multipage-toc-list li {
+  margin-bottom: 8px;
+  position: relative;
+}
+
+/* TOC item wrapper for buttons + links */
+.multipage-toc-list > li {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Collapse/expand toggle buttons */
+.toc-toggle {
+  position: absolute;
+  left: -20px;
+  top: 8px;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #6c757d;
+  font-size: 10px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.toc-toggle:hover {
+  color: #007bff;
+}
+
+.toc-toggle-icon {
+  display: inline-block;
+  transition: transform 0.2s;
+}
+
+.toc-toggle[data-expanded="false"] .toc-toggle-icon {
+  transform: rotate(0deg);
+}
+
+.toc-toggle[data-expanded="true"] .toc-toggle-icon {
+  transform: rotate(0deg);
+}
+
+/* Level 2 toggle positioning */
+.toc-toggle-level-2 {
+  left: -18px;
+  top: 6px;
+  font-size: 9px;
+}
+
+.multipage-toc-list a {
+  display: flex;
+  align-items: flex-start;
+  padding: 8px 12px;
+  color: #495057;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.2s, color 0.2s;
+  line-height: 1.4;
+}
+
+.multipage-toc-list a:hover {
+  background-color: #e9ecef;
+  color: #212529;
+}
+
+/* Current section highlighting */
+.multipage-toc-list li.current-section > a {
+  background-color: #007bff;
+  color: white;
+  font-weight: 600;
+}
+
+.multipage-toc-list li.current-section > a:hover {
+  background-color: #0056b3;
+  color: white;
+}
+
+/* TOC number and title */
+.toc-number {
+  flex-shrink: 0;
+  margin-right: 8px;
+  font-weight: 500;
+}
+
+.toc-title {
+  flex-grow: 1;
+  word-break: break-word;
+}
+
+/* Subsections styling (Level 2 - h3) */
+.multipage-toc-subsections {
+  list-style: none;
+  padding: 0;
+  margin: 4px 0 0 0;
+  padding-left: 20px;
+}
+
+.multipage-toc-subsections li {
+  margin-bottom: 4px;
+  position: relative;
+}
+
+.multipage-toc-subsections a {
+  padding: 6px 10px;
+  font-size: 13px;
+  background-color: transparent;
+}
+
+.multipage-toc-subsections a:hover {
+  background-color: #e9ecef;
+}
+
+.multipage-toc-subsections .toc-number {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+/* Sub-subsections styling (Level 3 - h4) */
+.multipage-toc-subsubsections {
+  list-style: none;
+  padding: 0;
+  margin: 4px 0 0 0;
+  padding-left: 20px;
+}
+
+.multipage-toc-subsubsections li {
+  margin-bottom: 3px;
+}
+
+.multipage-toc-subsubsections a {
+  padding: 5px 8px;
+  font-size: 12px;
+  background-color: transparent;
+}
+
+.multipage-toc-subsubsections a:hover {
+  background-color: #e9ecef;
+}
+
+.multipage-toc-subsubsections .toc-number {
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+.multipage-toc-subsubsections .toc-title {
+  font-size: 12px;
+}
+
+/* ===== Table overflow handling ===== */
+
+/* Tables in the content area: make them fit by allowing horizontal scroll */
+#multipage-content table {
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Allow code inside table cells to wrap (Bikeshed sets overflow-wrap:normal on code) */
+#multipage-content table td code,
+#multipage-content table th code {
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+}
+
+/* If the table is still too wide, make it horizontally scrollable */
+#multipage-content main > table,
+#multipage-content main > .table-wrapper {
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+
+
+#multipage-content {
+  min-height: 100vh;
+  padding: 20px 40px;
+  box-sizing: border-box;
+  max-width: none;  /* fill available width; sidebar handles its own constraint */
+}
+
+/* Hide the original Bikeshed TOC in main content (we have sidebar TOC) */
+#multipage-content #toc,
+#multipage-content nav[id="toc"] {
+  display: none;
+}
+
+body.sidebar-left #multipage-content {
+  margin-left: 320px;
+  margin-right: auto;
+}
+
+body.sidebar-right #multipage-content {
+  margin-right: 320px;
+  margin-left: auto;
+}
+
+/* ===== Breadcrumb ===== */
+
+.multipage-breadcrumb {
+  margin-bottom: 20px;
+  padding: 12px 16px;
+  background: #f8f9fa;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.breadcrumb-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.breadcrumb-item {
+  display: inline;
+}
+
+.breadcrumb-item a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb-separator {
+  margin: 0 8px;
+  color: #6c757d;
+}
+
+.breadcrumb-current {
+  color: #495057;
+  font-weight: 500;
+}
+
+/* ===== Prev/Next Navigation Buttons ===== */
+
+.multipage-nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-top: 40px;
+  padding: 20px 0;
+  border-top: 2px solid #dee2e6;
+}
+
+.nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  color: #495057;
+  text-decoration: none;
+  transition: all 0.2s;
+  font-size: 14px;
+  flex: 1;
+  max-width: 300px;
+}
+
+.nav-btn:hover {
+  background: #e9ecef;
+  border-color: #adb5bd;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.nav-btn.nav-prev {
+  justify-content: flex-start;
+}
+
+.nav-btn.nav-next {
+  justify-content: flex-end;
+}
+
+.nav-btn.nav-home {
+  flex: 0 1 auto;
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.nav-btn.nav-home:hover {
+  background: #0056b3;
+  border-color: #0056b3;
+}
+
+.nav-btn.nav-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.nav-arrow {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.nav-label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.nav-btn.nav-next .nav-label {
+  align-items: flex-end;
+}
+
+.nav-label-text {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #6c757d;
+}
+
+.nav-btn.nav-home .nav-label-text,
+.nav-btn.nav-home .nav-label {
+  color: white;
+}
+
+.nav-label-title {
+  font-size: 14px;
+  font-weight: 500;
+  max-width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ===== Dropdown Selector ===== */
+
+.multipage-dropdown-container {
+  position: sticky;
+  top: 0;
+  background: white;
+  padding: 12px 20px;
+  border-bottom: 1px solid #dee2e6;
+  margin-bottom: 20px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+body.sidebar-left .multipage-dropdown-container {
+  margin-left: -40px;
+  margin-right: -40px;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+body.sidebar-right .multipage-dropdown-container {
+  margin-left: -40px;
+  margin-right: -40px;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.dropdown-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #495057;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.section-selector {
+  flex: 1;
+  max-width: 500px;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  background: white;
+  color: #495057;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.section-selector:hover {
+  border-color: #80bdff;
+}
+
+.section-selector:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+/* ===== Mobile Responsive Design ===== */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  #multipage-sidebar {
+    width: 240px;
+  }
+
+  body.sidebar-left #multipage-content {
+    margin-left: 260px;
+  }
+
+  body.sidebar-right #multipage-content {
+    margin-right: 260px;
+  }
+
+  #multipage-content {
+    padding: 20px 30px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  /* Hide sidebar by default, show as overlay when opened */
+  #multipage-sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+  }
+
+  body.sidebar-right #multipage-sidebar {
+    transform: translateX(100%);
+    box-shadow: -2px 0 8px rgba(0,0,0,0.1);
+  }
+
+  #multipage-sidebar.open {
+    transform: translateX(0);
+  }
+
+  #multipage-content {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 15px 20px;
+  }
+
+  /* Mobile menu toggle button */
+  .mobile-menu-toggle {
+    display: block;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1001;
+    padding: 10px 15px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  /* Adjust navigation buttons for mobile */
+  .multipage-nav-buttons {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .nav-btn {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .nav-label-title {
+    max-width: none;
+  }
+
+  /* Dropdown takes full width */
+  .multipage-dropdown-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .section-selector {
+    max-width: none;
+  }
+
+  /* Breadcrumb adjustments */
+  .multipage-breadcrumb {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+}
+
+/* Very small mobile */
+@media (max-width: 480px) {
+  #multipage-content {
+    padding: 10px 15px;
+  }
+
+  .nav-btn {
+    padding: 10px 15px;
+    font-size: 13px;
+  }
+
+  .nav-arrow {
+    font-size: 16px;
+  }
+
+  .multipage-breadcrumb {
+    font-size: 11px;
+  }
+}
+
+/* ===== Print Styles ===== */
+
+@media print {
+  #multipage-sidebar,
+  .multipage-breadcrumb,
+  .multipage-nav-buttons,
+  .multipage-dropdown-container {
+    display: none !important;
+  }
+
+  #multipage-content {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}
+
+/* ===== Accessibility ===== */
+
+/* Focus styles for keyboard navigation */
+.multipage-toc-list a:focus,
+.nav-btn:focus,
+.section-selector:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .nav-btn {
+    border-width: 2px;
+  }
+
+  .multipage-toc-list li.current-section a {
+    border: 2px solid currentColor;
+  }
+}
+
+/* ===== Scrollbar Styling (Webkit) ===== */
+
+#multipage-sidebar::-webkit-scrollbar {
+  width: 8px;
+}
+
+#multipage-sidebar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+#multipage-sidebar::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+#multipage-sidebar::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

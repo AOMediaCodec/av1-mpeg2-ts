@@ -1,0 +1,304 @@
+/* Dark Mode Support
+   Three modes: light (default), dark, auto (follows OS preference).
+   Works by redefining the CSS custom properties from custom.css. */
+
+/* ── Dark theme variable overrides ──────────────────────────────── */
+
+[data-theme="dark"] {
+  --color-text:         #e0e0e0;
+  --color-body:         #d4d4d4;
+  --color-meta:         #b0b0b0;
+  --color-muted:        #999;
+  --color-accent:       #5ba3d9;
+  --color-link:         #6cb6ff;
+
+  --border-color:       #444;
+  --border-light:       #3a3a3a;
+  --border-subtle:      #333;
+  --border-medium:      #555;
+
+  --bg-code:            #1e1e1e;
+  --bg-header:          #2a2a2a;
+  --bg-white:           #252525;
+
+  --hl-name:            #6cb6ff;
+  --hl-keyword:         #f472b6;
+  --hl-number:          #f59e0b;
+  --hl-punctuation:     #aaa;
+  --hl-comment:         #6a9955;
+  --hl-descriptor:      #6cb6ff;
+
+  /* Bikeshed boilerplate variables */
+  --text:               #e0e0e0;
+  --bg:                 #1a1a1a;
+  --a-normal-text:      #6cb6ff;
+  --a-normal-underline: #4a7ab5;
+  --a-visited-text:     #b48eff;
+  --a-visited-underline:#7a5ab5;
+  --a-hover-bg:         rgba(100, 180, 255, 0.1);
+  --tocnav-normal-text: #999;
+  --tocnav-normal-bg:   #1a1a1a;
+  --tocnav-hover-bg:    #252525;
+  --tocsidebar-text:    #d4d4d4;
+  --tocsidebar-bg:      #222;
+  --tocsidebar-shadow:  rgba(0, 0, 0, 0.4);
+  --tocsidebar-heading-text: #999;
+  --toclink-text:       #d4d4d4;
+  --toclink-underline:  #5ba3d9;
+  --toclink-visited-text: #b48eff;
+  --toclink-visited-underline: #7a5ab5;
+}
+
+/* Auto mode: apply dark variables when OS prefers dark */
+@media (prefers-color-scheme: dark) {
+  [data-theme="auto"] {
+    --color-text:         #e0e0e0;
+    --color-body:         #d4d4d4;
+    --color-meta:         #b0b0b0;
+    --color-muted:        #999;
+    --color-accent:       #5ba3d9;
+    --color-link:         #6cb6ff;
+
+    --border-color:       #444;
+    --border-light:       #3a3a3a;
+    --border-subtle:      #333;
+    --border-medium:      #555;
+
+    --bg-code:            #1e1e1e;
+    --bg-header:          #2a2a2a;
+    --bg-white:           #252525;
+
+    --hl-name:            #6cb6ff;
+    --hl-keyword:         #f472b6;
+    --hl-number:          #f59e0b;
+    --hl-punctuation:     #aaa;
+    --hl-comment:         #6a9955;
+    --hl-descriptor:      #6cb6ff;
+
+    /* Bikeshed boilerplate variables */
+    --text:               #e0e0e0;
+    --bg:                 #1a1a1a;
+    --a-normal-text:      #6cb6ff;
+    --a-normal-underline: #4a7ab5;
+    --a-visited-text:     #b48eff;
+    --a-visited-underline:#7a5ab5;
+    --a-hover-bg:         rgba(100, 180, 255, 0.1);
+    --tocnav-normal-text: #999;
+    --tocnav-normal-bg:   #1a1a1a;
+    --tocnav-hover-bg:    #252525;
+    --tocsidebar-text:    #d4d4d4;
+    --tocsidebar-bg:      #222;
+    --tocsidebar-shadow:  rgba(0, 0, 0, 0.4);
+    --tocsidebar-heading-text: #999;
+    --toclink-text:       #d4d4d4;
+    --toclink-underline:  #5ba3d9;
+    --toclink-visited-text: #b48eff;
+    --toclink-visited-underline: #7a5ab5;
+  }
+}
+
+/* ── Body and page background ───────────────────────────────────── */
+
+[data-theme="dark"] body,
+[data-theme="dark"] {
+  background-color: #1a1a1a;
+  color: var(--color-body);
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-theme="auto"] body,
+  [data-theme="auto"] {
+    background-color: #1a1a1a;
+    color: var(--color-body);
+  }
+}
+
+/* ── Bikeshed boilerplate overrides ─────────────────────────────── */
+/* Override inline styles and boilerplate that don't use CSS variables */
+
+[data-theme="dark"] .head,
+[data-theme="dark"] .head h1 {
+  color: var(--color-text);
+}
+
+[data-theme="dark"] a {
+  color: var(--color-link);
+}
+
+[data-theme="dark"] a:visited {
+  color: #b48eff;
+}
+
+[data-theme="dark"] h1, [data-theme="dark"] h2,
+[data-theme="dark"] h3, [data-theme="dark"] h4,
+[data-theme="dark"] h5, [data-theme="dark"] h6 {
+  color: var(--color-text);
+}
+
+[data-theme="dark"] p,
+[data-theme="dark"] li,
+[data-theme="dark"] dd,
+[data-theme="dark"] dt {
+  color: var(--color-body);
+}
+
+/* Tables */
+[data-theme="dark"] table {
+  color: var(--color-body);
+}
+
+[data-theme="dark"] td,
+[data-theme="dark"] th {
+  border-color: var(--border-color);
+  color: var(--color-body);
+}
+
+[data-theme="dark"] thead th {
+  background-color: var(--bg-header);
+  border-bottom-color: var(--border-medium);
+}
+
+[data-theme="dark"] .table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+/* Code */
+[data-theme="dark"] pre,
+[data-theme="dark"] code {
+  color: var(--color-body);
+}
+
+[data-theme="dark"] pre.highlight {
+  background-color: var(--bg-code);
+  border-color: var(--border-light);
+  border-left-color: var(--color-accent);
+}
+
+@media screen {
+  [data-theme="dark"] code {
+    background-color: var(--bg-code);
+  }
+}
+
+/* TOC */
+[data-theme="dark"] #toc,
+[data-theme="dark"] .toc {
+  color: var(--color-body);
+}
+
+[data-theme="dark"] #toc a {
+  color: var(--color-link);
+}
+
+/* Inline notes, issues, examples (Bikeshed generates these) */
+[data-theme="dark"] .note,
+[data-theme="dark"] .advisement,
+[data-theme="dark"] details.note {
+  background-color: #1e2a1e;
+  border-color: #4a7a4a;
+  color: var(--color-body);
+}
+
+[data-theme="dark"] .issue {
+  background-color: #2a1e1e;
+  border-color: #7a4a4a;
+  color: var(--color-body);
+}
+
+[data-theme="dark"] .example {
+  background-color: #1e1e2a;
+  border-color: #4a4a7a;
+  color: var(--color-body);
+}
+
+/* Definition lists and terms */
+[data-theme="dark"] dfn {
+  color: var(--color-text);
+}
+
+/* Horizontal rules */
+[data-theme="dark"] hr {
+  border-color: var(--border-color);
+}
+
+/* ── Auto mode: duplicate overrides for prefers-color-scheme ──── */
+
+@media (prefers-color-scheme: dark) {
+  [data-theme="auto"] .head,
+  [data-theme="auto"] .head h1 { color: var(--color-text); }
+  [data-theme="auto"] a { color: var(--color-link); }
+  [data-theme="auto"] a:visited { color: #b48eff; }
+  [data-theme="auto"] h1, [data-theme="auto"] h2,
+  [data-theme="auto"] h3, [data-theme="auto"] h4,
+  [data-theme="auto"] h5, [data-theme="auto"] h6 { color: var(--color-text); }
+  [data-theme="auto"] p,
+  [data-theme="auto"] li,
+  [data-theme="auto"] dd,
+  [data-theme="auto"] dt { color: var(--color-body); }
+  [data-theme="auto"] table { color: var(--color-body); }
+  [data-theme="auto"] td,
+  [data-theme="auto"] th { border-color: var(--border-color); color: var(--color-body); }
+  [data-theme="auto"] thead th { background-color: var(--bg-header); border-bottom-color: var(--border-medium); }
+  [data-theme="auto"] .table-striped tbody tr:nth-of-type(odd) { background-color: rgba(255,255,255,0.04); }
+  [data-theme="auto"] pre,
+  [data-theme="auto"] code { color: var(--color-body); }
+  [data-theme="auto"] pre.highlight { background-color: var(--bg-code); border-color: var(--border-light); border-left-color: var(--color-accent); }
+  [data-theme="auto"] code { background-color: var(--bg-code); }
+  [data-theme="auto"] #toc,
+  [data-theme="auto"] .toc { color: var(--color-body); }
+  [data-theme="auto"] #toc a { color: var(--color-link); }
+  [data-theme="auto"] .note,
+  [data-theme="auto"] .advisement,
+  [data-theme="auto"] details.note { background-color: #1e2a1e; border-color: #4a7a4a; color: var(--color-body); }
+  [data-theme="auto"] .issue { background-color: #2a1e1e; border-color: #7a4a4a; color: var(--color-body); }
+  [data-theme="auto"] .example { background-color: #1e1e2a; border-color: #4a4a7a; color: var(--color-body); }
+  [data-theme="auto"] dfn { color: var(--color-text); }
+  [data-theme="auto"] hr { border-color: var(--border-color); }
+}
+
+/* ── Theme toggle button ────────────────────────────────────────── */
+
+@media screen {
+  #dark-mode-toggle {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.4rem 0.7rem;
+    border: 1px solid var(--border-color, #ccc);
+    border-radius: 2rem;
+    background: var(--bg-white, #fff);
+    color: var(--color-muted, #666);
+    font-size: 0.75rem;
+    font-family: system-ui, -apple-system, sans-serif;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  #dark-mode-toggle:hover {
+    border-color: var(--color-accent, #034575);
+    color: var(--color-text, #000);
+  }
+
+  #dark-mode-toggle .dm-icon {
+    font-size: 1rem;
+    line-height: 1;
+  }
+
+  #dark-mode-toggle .dm-label {
+    font-weight: 500;
+  }
+}
+
+/* Hide toggle in print */
+@media print {
+  #dark-mode-toggle {
+    display: none !important;
+  }
+}

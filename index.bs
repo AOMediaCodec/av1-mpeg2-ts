@@ -7,7 +7,7 @@ URL: https://AOMediaCodec.github.io/av1-mpeg2-ts
 Shortname: av1-mpeg2-ts
 Editor: Kieran Kunhya
 Editor: Thibaud Biatek
-Abstract: This document specifies how to carry [[!AV1]] video elementary streams in the MPEG-2 Transport Stream format.
+Abstract: This document specifies how to carry [[!AV1]] video elementary streams (test edit) in the MPEG-2 Transport Stream format.
 Date: 2021-10-04
 Repository: AOMediaCodec/av1-mpeg2-ts
 Inline Github Issues: full

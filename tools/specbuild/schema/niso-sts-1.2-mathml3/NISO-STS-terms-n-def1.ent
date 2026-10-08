@@ -1,0 +1,413 @@
+<!-- ============================================================= -->
+<!--  MODULE:    NISO STS Non-TBX Terms and Definitions Section    -->
+<!--  VERSION:   ANSI/NISO Z39.102-2022, STS:                      --> 
+<!--             Standards Standards Tag Suite (Version 1.2)       --> 
+<!--  DATE:      October 2022                                      -->
+<!--                                                               -->
+<!-- ============================================================= -->
+<!--                    PUBLIC DOCUMENT TYPE DEFINITION            -->
+<!--                        TYPICAL INVOCATION                     -->
+<!--
+"-//NISO//DTD NISO STS Non-TBX Terms and Definitions Sections v1.2 20221031//EN"
+     Delivered as file "NISO-STS-terms-n-def1.ent"                 -->
+
+<!-- ============================================================= -->
+<!-- SYSTEM:     NISO Standards Tag Suite (NISO STS)               -->
+<!--                                                               -->
+<!--             This new module extends the capabilities of       -->
+<!--             ISO STS V1.1 DTD.                                 -->
+<!--                                                               -->
+<!-- PURPOSE:    Defines a simpler model for Terms and Definitions -->
+<!--             for organizations where the TBX model is overly   -->
+<!--             complex. Allows terms and definitions to be       -->
+<!--             captured semantically, but in ordinary reading    -->
+<!--             sequence, or not captured semantically at all.    -->
+<!--                                                               -->
+<!-- COPYRIGHT AND LICENSE:                                        -->
+<!--             Copyright © 2017, 2022 by ISO, the American       -->
+<!--             Society of  Mechanical Engineers (ASME),          -->
+<!--             ASTM International, Mulberry Technologies, Inc.,  -->
+<!--             and the National Information Standards            -->
+<!--             Organization (NISO).                              -->
+<!--                                                               -->
+<!--             This work is licensed under a Creative Commons    -->
+<!--             Attribution-ShareAlike 4.0 International License. -->
+<!--             To view a copy of this license, visit             -->
+<!--                http://creativecommons.org/licenses/by-sa/4.0/ -->
+<!--             or send a letter to Creative Commons, PO Box 1866,-->
+<!--             Mountain View, CA 94042, USA                      -->
+<!--                                                               -->
+<!-- ORIGINAL CREATION DATE:                                       -->
+<!--             October 2016                                      -->
+<!--                                                               -->
+<!-- ============================================================= -->
+
+<!-- ============================================================= -->
+<!--                    DTD VERSION/CHANGE HISTORY                 -->
+<!-- ============================================================= -->
+<!--
+Version  Reason/Occasion                   (who) vx.x (yyyy-mm-dd)  
+     =============================================================
+     NISO STS Version 1.2 (ANSI/NISO Z39.102-2022)
+                                      (DAL/BTU) v1.2 (2022-10-31)
+      
+     ANSI NISO STS is a continuing maintenance NISO Standard, 
+     which requires voting by both the NISO and ANSI memberships 
+     to be changed. This version of the NISO STS was approved 
+     by ANSI vote on October 21, 2022, so it supersedes the 
+     2017 version and all committee drafts, becoming 
+     NISO STS v1.2 20221031 (ANSI/NISO Z39.102-2022).
+
+     The formal public identifiers have been changed in the  
+     modules and the OASIS XML catalogs.
+ 
+  4. NISO STS 'v1.1d1 20210831' becomes 'v1.2 20221031'
+     'ANSI/NISO Z39.102-2017' becomes 'ANSI/NISO Z39.102-2022'
+ 
+     =============================================================
+     NISO STS Version 1.1d1 (ANSI/NISO Z39.102-202x)
+                                  (DAL/BTU) v1.1d1 (2021-08-31)
+      
+     ANSI NISO STS is a continuing maintenance NISO Standard, 
+     which requires voting by the NISO and ANSI memberships 
+     to be changed. 
+      
+     This ***DRAFT*** DTD represents an interim version of the
+     non-normative STS DTD Suite, as an indication to STS users
+     of the decisions that have been made by the STS Standing
+     Committee. This DRAFT has not yet been given public review 
+     or voting; it is for Standing Committee review and
+     testing. 
+
+     The formal public identifiers have been changed in the  
+     modules and the OASIS XML catalogs.
+
+  3. TERM DISPLAY STRING - Added <term-display-string> to hold
+     displayed text of various sorts inside <term-display>.
+     Added <target> to %term-sec-link.class to be used inside
+     <term-display-string>.
+
+  2. RELATED TERM TYPE VALUES - @related-term-type values are 
+     a closed set. The value "custom" was added to the list of 
+     values and the attribute @custom-type added to:  
+      - <related-term>. 
+
+  1. STS 'v1.0 20171031' becomes 'v1.1d1 20210831' 
+                                                                   -->   
+
+<!-- ============================================================= -->
+<!--                    TERM AND DEFINITION SECTION DESIGN NOTE    -->
+<!-- ============================================================= -->
+
+<!--       There are two very different ways the term and 
+           definitions in a standard may be tagged. Both occur 
+           optionally inside a Term Section (<term-sec>):
+
+             - <tbx:termEntry> models a term using the 
+               TBX-namespaced vocabulary and ontology for terms.
+ 
+            - <term-display> uses natural language to describe terms,
+               which may OR MAY NOT incorporate semantic term 
+               elements such as definition and related term. Semantic 
+               tagging is encouraged, but nothing is enforced.
+
+           This module expands the ISO STS <term-display> model,
+           instead of adding a 3rd model for terms and definitions, 
+           so there will be TBX and <term-display> as alternative 
+           ways to tag terms and definitions.
+
+           The goals of the revised <term-display> model are to: 
+
+            - Enable tagging term and definition content in the 
+              sequence in which they appear in the display document
+
+            - Enable, but not require, tagging of the principle semantic 
+              content of term and definition sections, and specifically 
+              to enable tagging that will allow extraction of terms and 
+              definitions for use in glossaries containing terms and 
+              definitions from multiple Standards
+
+            - Make tagging existing terms and definitions easy
+
+            - Be backward compatible with ISO STS V1.1.            -->
+
+<!-- ============================================================= -->
+<!--                    PARAMETER ENTITIES FOR ATTRIBUTE VALUES    -->
+<!-- ============================================================= -->
+
+
+<!--                    NORMATIVE PARTS OF SPEECH                  -->
+<!--                    Note: the part of speech list is restricted,
+                        but this is for the attribute value only. The
+                        content of <part-of-speech> may list any
+                        value in any language.                     -->
+<!ENTITY % norm-parts-of-speech
+                        "noun | verb | adj | adv"                    >               
+
+
+<!--                    TYPES OF RELATED TERMS                     -->
+<!ENTITY % related-term-types
+                        "acronym | contrast-with | deprecatedTerm | 
+                         see | see-also | synonym | custom | 
+                         translation"                                >                           
+            
+<!-- ============================================================= -->
+<!--                    PARAMETER ENTITIES FOR ATTRIBUTE LISTS     -->
+<!-- ============================================================= -->
+
+
+<!--                    TERMINOLOGY SECTION ATTRIBUTES             -->
+<!--                    Attribute list for term-sec element        -->
+<!--                    (same as for sec element)                  -->
+<!ENTITY % term-sec-atts
+            "%jats-common-atts;  
+             xml:lang   NMTOKEN                           #IMPLIED
+             sec-type   CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             %originator-attribute;"                                 >
+
+
+<!--                    TERM-DISPLAY ATTRIBUTES                    -->
+<!ENTITY % term-display-atts
+            "%jats-common-atts;  
+             xml:lang   NMTOKEN                           'en'       
+             specific-use
+                        CDATA                             #IMPLIED"  >
+
+
+<!ENTITY % part-of-speech-atts
+            "%jats-common-atts;
+             xml:lang   NMTOKEN                           'en'
+             norm-part-of-speech (%norm-parts-of-speech;) #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED"  >
+
+
+<!ENTITY % pronunciation-atts
+            "%jats-common-atts;
+             xml:lang   NMTOKEN                           'en'
+             specific-use
+                        CDATA                             #IMPLIED
+             %might-link-atts;"                                       >
+
+
+<!ENTITY % related-term-atts
+            "%jats-common-atts;
+             xml:lang   NMTOKEN                           'en'
+             rid        IDREF                             #IMPLIED
+             related-term-type 
+                        (%related-term-types;)            #REQUIRED
+             custom-type
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED"  >
+
+<!ENTITY % term-display-string-atts
+            "%jats-common-atts;
+             xml:lang   NMTOKEN                           'en'
+             rendering-hint
+                        CDATA                             #IMPLIED
+             content-type
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED"  >
+
+<!ENTITY % term-source-atts
+            "%jats-common-atts;
+             xml:lang   NMTOKEN                           'en'
+             specific-use
+                        CDATA                             #IMPLIED"  >
+
+<!--                    ATTRIBUTES FOR NUM ELEMENT                 -->
+<!--                    Attributes are dsep and gsep.              -->
+<!ENTITY % num-atts
+            "%jats-common-atts;  
+             dsep       CDATA                             #IMPLIED
+             gsep       CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED"  >
+
+
+<!-- ============================================================= -->
+<!--                    TERM SECTION ELEMENTS                      -->
+<!-- ============================================================= -->
+
+
+<!--                    TERMS AND DEFINITIONS SECTION MODEL        -->
+<!--                    Content model for terminology sections in 
+                        a standards document (<term-sec>.          -->
+<!--                      Remarks: Although <term-display> is allowed
+                        to repeat inside a <term-sec>, best practice
+                        is to place one <term-display> per <term-sec>,
+                        either alone or as a complement to a
+                        <tbx:termEntry>. (Nested terms and 
+                        definitions should be inside their own 
+                        <term-sec>s, nested inside a parent 
+                        <term-sec>.)                               -->
+<!ENTITY % term-sec-model
+                       "( (%editing-instructions.class;)*,
+                          label?, 
+                          (%inside-term-sec.mix;)*, 
+                          (%term-sec.class;)*,
+                          (%sec-back.class;)* )"                    >
+
+
+<!--                    TERMS AND DEFINITIONS CONTAINER/SECTION   -->
+<!--                    Content model for terminology sections in 
+                        a standards document, which may include
+                        TBX-based terminology sections or just
+                        natural language <term-display> elements that
+                        describe term and definition material.
+                          Remarks: A <term-sec> is not, in spite of
+                        its English name, a "Section" (like <sec>)
+                        within a standard. A <term-sec> is a 
+                        container element that holds TBX entries 
+                        and/or <term-display> terms. A <term-sec> 
+                        should always be used inside a Section
+                        that has a @sec-type such as 'term'
+                           (<sec sec-type-"terms">)
+                        Best Practice: Although <term-sec> is allowed
+                        directly inside the many elements such as 
+                        <body> and <back>, these are historical 
+                        remnants, and <term-sec> should be restricted
+                        to terminology sections in the front matter or
+                        body. That is, a <term-sec> should only be used 
+                        inside <sec> elements that contain terms and
+                        definitions or recursively inside another
+                        <term-sec>.                                -->
+<!ELEMENT  term-sec     %term-sec-model;                             >
+<!ATTLIST  term-sec
+             %term-sec-atts;                                         >
+
+
+<!--                    TERM-DISPLAY MODEL                         -->
+<!--                    Content model for term-display element     -->
+<!ENTITY % term-display-model  
+                       "(title*, (%inside-term-display.mix;)* )"     >
+
+<!--                    TERM-DISPLAY                               -->
+<!--                    Non-TBX tagging of  term and definition
+                        entries, which may be appearance-oriented
+                        or tagged semantically with terms, 
+                        definitions, parts of speech, etc.
+                        Remarks: Intended to be tagged in the order
+                        of the appearance, as a supplement or
+                        alternative to <tbx:termEntry>             -->
+<!ELEMENT  term-display
+                        %term-display-model;                         >
+<!ATTLIST  term-display
+             %term-display-atts;                                     >
+
+
+<!-- ============================================================= -->
+<!--                    LOWER LEVEL TERM AND DEFINITION ELEMENTS   -->
+<!-- ============================================================= -->
+
+
+<!--                    PART OF SPEECH                             -->
+<!--                    One part-of-speech associated with a
+                        term.
+                        Remarks: The @norm-part-of-speech attribute
+                        can be used to name a normative or base part
+                        of speech, such as 'verb' when the actual 
+                        part of speech has more detail, such as 
+                        transitive verb or to provide an English
+                        gloss for a part-of-speech in another
+                        language.                                 -->
+<!ELEMENT  part-of-speech
+                        (#PCDATA)*                                  >
+<!ATTLIST  part-of-speech
+            %part-of-speech-atts;                                   >
+
+
+<!--                    PRONUNCIATION ELEMENTS                    -->
+<!--                    Elements that may be mixed with #PCDATA 
+                        (data characters) inside a <pronunciation> 
+                        element.                                 -->
+<!ENTITY % pronunciation-elements  
+                        "| %bold-italic.class; | %subsup.class;"   >
+
+
+<!--                    PRONUNCIATION                             -->
+<!--                    One way to pronounce the term.            -->
+<!ELEMENT  pronunciation
+                        (#PCDATA %pronunciation-elements; )*        >
+<!ATTLIST  pronunciation
+             %pronunciation-atts;                                   >
+
+
+
+<!--                    RELATED TERM ELEMENTS                      -->
+<!--                    Elements that may be mixed with #PCDATA 
+                        (data characters) inside a <related-term> 
+                        element. 
+                        Note: This model taken directly from JATS. -->
+<!ENTITY % related-term-elements  
+                        "| %emphasis.class; | %subsup.class; |
+                         %fn.class; | 
+                         %inline-display.class; | 
+                         %inline-math.class; | %math.class; |
+                         %styled-content.class;"                     >
+
+
+<!--                    RELATED TERM ELEMENTS                      -->
+<!--                    A term that is related to the <term> in the
+                        term and definition, by being a synonym,
+                        see or see also, etc.
+                        Remarks: The related-term-type attribute
+                        describes the relationship.                -->
+<!ELEMENT  related-term (#PCDATA %related-term-elements;)*           >
+<!ATTLIST  related-term 
+            %related-term-atts;                                      >
+
+
+<!--                    TERM DISPLAY STRING ELEMENTS               -->
+<!--                    Elements that may be mixed with #PCDATA 
+                        (data characters) inside a 
+                        <term-display-string> element.             -->
+<!ENTITY % term-display-string-elements
+                        " | %break.class; | %emphasis.class; | 
+                         %inline-math.class; | %inline-text.class; |
+                         %math.class; | 
+                         %phrase-content.class; | %subsup.class; | 
+                         %term-semantics-restricted.class; |
+                         %term-sec-link.class;"                      >
+
+
+<!--                    TERM DISPLAY STRING                        -->
+<!--                    Display text inside <term-display> that is not
+                        part of a semantic element such as 
+                        Pronunciation.                             -->
+<!ELEMENT  term-display-string
+                        (#PCDATA %term-display-string-elements;)*    >
+<!ATTLIST  term-display-string
+                        %term-display-string-atts;                   > 
+
+
+<!--                    TERM SOURCE ELEMENTS                       -->
+<!--                    Elements that may be mixed with #PCDATA 
+                        (data characters) inside a <term-source> 
+                        element.                                   -->
+<!ENTITY % term-source-elements
+                        " | %address-link.class; | %emphasis.class; |
+                         %inline-text.class; |
+                         %subsup.class;"                             >
+
+
+<!--                    TERM SOURCE ELEMENTS                       -->
+<!--                    Origination of the term                    -->
+<!ELEMENT  term-source  (#PCDATA %term-source-elements;)*            >
+<!ATTLIST  term-source  %term-source-atts;                           > 
+
+
+<!--                    NUMBER                                     -->
+<!--                    A number in running text.  The 'num' 
+                        element is provided in order to allow
+                        the decimal and group separators used to
+                        be identified.                             -->
+<!ELEMENT  num          (#PCDATA)                                    >
+<!ATTLIST  num          %num-atts;                                   >
+
+
+<!-- ================== End NISO STS Terms and Definitions ======= -->

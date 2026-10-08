@@ -1,0 +1,413 @@
+<!-- ============================================================= -->
+<!--  MODULE:    BITS Structural Index Elements Module             -->
+<!--  VERSION:   BITS 2.0                                          -->
+<!--  DATE:      June 2015                                         -->
+<!--                                                               -->
+<!-- ============================================================= -->
+
+<!-- ============================================================= -->
+<!--                    PUBLIC DOCUMENT TYPE DEFINITION            -->
+<!--                        TYPICAL INVOCATION                     -->
+<!--
+"-//NLM//DTD BITS Structural Index Elements Module v2.0 20151225//EN"
+Delivered as file "BITS-index2.ent"                                -->
+<!-- ============================================================= -->
+
+
+<!-- ============================================================= -->
+<!-- SYSTEM:     Book Interchange Tag Suite                        -->
+<!--                                                               -->
+<!-- PURPOSE:    Defines the elements, attributes, and parameter   -->
+<!--             entities specific for a structural Index.         -->
+<!--                                                               -->
+<!-- TAG SET SPONSOR                                               -->
+<!--             National Center for Biotechnology                 -->
+<!--                Information (NCBI)                             -->
+<!--             National Library of Medicine (NLM)                -->
+<!--                                                               -->
+<!-- CREATED FOR:                                                  -->
+<!--             This DTD was created as a superset customization  -->
+<!--             of the ANSI/NISO JATS Z39.96-2012 Version 1.0     -->
+<!--             Journal Article Tag Set.                          -->
+<!--                                                               -->
+<!--             Digital archives and publishers may use the       -->
+<!--             DTD as is for markup of books or book-like        -->
+<!--             material for archiving and transferring           -->
+<!--             such material between archives or they may create -->
+<!--             a custom XML DTD from the BITS Suite for          -->
+<!--             these purposes.                                   -->
+<!--                                                               -->
+<!--             This DTD is in the public domain. An organization -->
+<!--             that wishes to create its own DTD from the suite  -->
+<!--             may do so without permission from NLM.            -->
+<!--                                                               -->
+<!--             The suite has been set up to be extended using a  -->
+<!--             new DTD file and new DTD-specific customization   -->
+<!--             modules to redefine the many Parameter Entities.  -->
+<!--             Do not modify the suite directly or redistribute  -->
+<!--             modified versions of the suite.                   -->
+<!--                                                               -->
+<!--             In the interest of maintaining consistency and    -->
+<!--             clarity for potential users, NLM requests:        -->
+<!--                                                               -->
+<!--             1. If you create a DTD from the BITS DTD Suite    -->
+<!--                and intend to stay compatible with the suite,  -->
+<!--                then please include the following statement    -->
+<!--                as a comment in all of your DTD modules:       -->
+<!--                   "Created from, and fully compatible with,   -->
+<!--                    the Book Interchange Tag Suite (BITS).     -->
+<!--                                                               -->
+<!--             2. If you alter one or more modules of the suite, -->
+<!--                then please rename your version and all its    -->
+<!--                modules to avoid any confusion with the        -->
+<!--                original suite. Also, please include the       -->
+<!--                following statement as a comment in all your   -->
+<!--                DTD modules:                                   -->
+<!--                   "Based in part on, but not fully compatible -->
+<!--                    with, the Book Interchange Tag Suite       -->
+<!--                    (BITS)."                                   -->
+<!--                                                               -->
+<!-- ORIGINAL CREATION DATE:                                       -->
+<!--             April 2012                                        -->
+<!--                                                               -->
+<!-- CREATED BY: Mulberry Technologies, Inc. for the National      -->
+<!--             National Center for Biotechnology Information     -->
+<!--             (NCBI), a center of the US National Library of    -->
+<!--             Medicine (NLM).                                   -->
+<!--                                                               -->
+<!--             The BITS Book Interchange DTD is built from the   -->
+<!--             Journal Archiving and Interchange DTD of the      -->
+<!--             ANSI/NISO Journal Article Tag Suite (JATS)        -->
+<!--             Version 1.1d1 (Z39.96-2015).                      -->
+<!--                                                               -->
+<!--             Suggestions for refinements and enhancements to   -->
+<!--             this DTD should be sent in email to:              -->
+<!--                 bits@ncbi.nlm.nih.gov                         -->
+<!-- ============================================================= -->
+
+
+<!-- ============================================================= -->
+<!--                    DTD VERSION/CHANGE HISTORY                 -->
+<!-- ============================================================= -->
+<!--
+Version  Reason/Occasion                   (who) vx.x (yyyy-mm-dd)
+    =============================================================
+     BITS Version 2.0                (DAL/BTU) v2.0  (2015-12-25)
+     JATS Version 1.1                (DAL/BTU) v1.1  (2015-12-15)
+
+     JATS is a continuing maintenance NISO Standard, which
+     requires voting by the ANSI and NISO memberships to be changed. 
+     JATS 1.1 was approved in late 2015, and BITS modified to use
+     the most recent version. No other changes to BITS were made.
+ 
+  5. INDEX-TITLE-GROUP
+      - Created new element <index-title-group> which replaces the
+        element <title-group> inside the following elements
+         - <index-group>
+         - <index>
+         - <index-div>
+       The element <title-group> has been reserved for top-level 
+       structures such as standards and articles.
+ 
+  4. BITS remained version "2.0" but became "v2.0 20151225"
+     JATS became version "1.1" and "v1.1 20151215"
+
+    =============================================================
+     BITS Version 2.0                (DAL/BTU) v2.0  (2015-03-15)
+     JATS Version 1.1                (DAL/BTU) v1.1  (2015-03-01)
+
+     BITS was modified, based on user feedback collected in 2014 
+     and January/February 2015, according to the decisions
+     made by the BITS Working Group. This DTD represents current 
+     BITS and an interim version of the non-normative JATS DTD 
+     Suite (version 1.1), as an indication to JATS users of 
+     the decisions that have been made by the JATS Standing
+     Committee. 
+
+     NISO JATS is a continuing maintenance NISO Standard, which
+     requires voting by the NISO membership to be changed. This
+     Committee Draft 1.1 will be sent to the NISO voting
+     membership, to become (if approved) NISO JATS 1.1.
+
+  3. INDEX ENTRY - Changed the model to make it looser and
+     not require a particular order for see refs, page numbers
+     or other links, subentries, etc. 
+
+  2. BITS became version "2.0" and   "v2.0 20150630"
+     JATS became version "1.1" and "v1.1 20150301"
+
+     =============================================================
+     BITS Version 1.1                (DAL/BTU) v1.1    (2014-09-30)
+     JATS Version 1.1d2              (DAL/BTU) v1.1d2  (2014-09-30)
+
+     NISO JATS is a continuing maintenance NISO Standard, which
+     requires voting by the NISO membership to be changed. This
+     Committee Draft 1.1d2 will be sent to the NISO voting
+     membership, to become (if approved) NISO JATS 1.1.
+
+     This catalog represents an interim version of the
+     non-normative JATS DTD Suite, as an indication to JATS users
+     the decisions that have been made by the JATS Standing
+     Committee.
+
+  1. BITS became version "1.1" and   "v1.1 20140930//EN"
+     JATS became version "1.1d2" and "v1.1d2 20140930//EN"
+
+     =============================================================
+                                                                   -->
+
+
+<!-- ============================================================= -->
+<!--                    PARAMETER ENTITIES FOR ATTRIBUTE LISTS     -->
+<!-- ============================================================= -->
+
+
+<!--                    INDEX GROUP ATTRIBUTES                     -->
+<!--                    Attributes for the <index-group> element   -->
+<!ENTITY % index-group-atts
+           "%jats-common-atts;
+             xml:lang   NMTOKEN                           #IMPLIED
+             content-type
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED"  >
+
+
+<!--                    INDEX DIVISION ATTRIBUTES                  -->
+<!--                    Attributes for the <index-div> element     -->
+<!ENTITY % index-div-atts
+           "%jats-common-atts;
+             xml:lang   NMTOKEN                           #IMPLIED
+             content-type
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED"  >
+
+
+<!--                    INDEX ATTRIBUTES                           -->
+<!--                    Attributes for the <index> element         -->
+<!ENTITY % index-atts
+           "%jats-common-atts;
+             xml:lang   NMTOKEN                           #IMPLIED
+             index-type CDATA                             #IMPLIED
+             content-type
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED"  >
+
+
+<!--                    INDEX ENTRY ATTRIBUTES                     -->
+<!--                    Attributes for the <index-entry> element   -->
+<!ENTITY % index-entry-atts
+           "%jats-common-atts;
+             sort-key   CDATA                             #IMPLIED
+             xml:lang   NMTOKEN                           #IMPLIED
+             content-type
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED"  >
+
+
+<!--                    INDEX TITLE GROUP ATTRIBUTES               -->
+<!--                    Attribute list for the <index-title-group> 
+                        element.                                   -->
+<!ENTITY % index-title-group-atts
+            "%jats-common-atts;"                                     >
+
+
+<!--                    SEE ENTRY ATTRIBUTES                       -->
+<!--                    Attributes for the <see-entry> element     -->
+<!ENTITY % see-entry-atts
+           "%jats-common-atts;
+             rid        IDREFS                            #IMPLIED
+             xml:lang   NMTOKEN                           #IMPLIED
+             content-type
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED"  >
+
+
+<!--                    SEE ALSO ENTRY ATTRIBUTES                  -->
+<!--                    Attributes for the <see-also-entry> element-->
+<!ENTITY % see-also-entry-atts
+           "%jats-common-atts;
+             rid        IDREFS                            #IMPLIED
+             xml:lang   NMTOKEN                           #IMPLIED
+             content-type
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED"  >
+
+
+<!-- ============================================================= -->
+<!--                    TOP-LEVEL INDEX ELEMENTS                   -->
+<!-- ============================================================= -->
+
+
+<!--                    INDEX GROUP MODEL                          -->
+<!--                    Content model for the Structural Index Group
+                        <index-group> element.                     -->
+<!ENTITY % index-group-model
+                        "(index-title-group?, (%para-level;)*,
+                          (%index.class;)+  )"                       >
+
+
+<!--                    INDEX GROUP                                -->
+<!--                    Collection of one or more Indexes.
+                        Collected Indexes need not be grouped into
+                        this element. This is a presentational model.
+                        Details at:
+                        http://jats.nlm.nih.gov/extensions/bits/2.0/index.html?elem=index-group
+                                                                   -->
+<!ELEMENT  index-group  %index-group-model;                          >
+<!ATTLIST  index-group
+             %index-group-atts;                                      >
+
+
+<!--                    INDEX MODEL                                -->
+<!--                    Content model for the Structural Index
+                        <index> element.                           -->
+<!ENTITY % index-model  "(index-title-group?, (%para-level-minus-x;)*,
+                          (%index-entry.class; | %index-div.class; |
+                           %x.class;)+  )"                           >
+
+
+<!--                    INDEX                                      -->
+<!--                    Structural, multi-level index, typically used
+                        for capturing a back-of-the-book or similar
+                        index that is already present in a book being
+                        converted to this Tag Set, although it may
+                        also be used for indexes generated from index
+                        terms set within the text.
+                        This is a presentational model.
+                        Details at:
+                        http://jats.nlm.nih.gov/extensions/bits/2.0/index.html?elem=index
+                                                                   -->
+<!ELEMENT  index        %index-model;                                >
+<!ATTLIST  index
+             %index-atts;                                            >
+
+
+<!-- ============================================================= -->
+<!--                    INDEX COMPONENT ELEMENTS                   -->
+<!-- ============================================================= -->
+
+
+<!--                    INDEX ENTRY MODEL                          -->
+<!--                    Content model for the Structural Index
+                        <index-entry> element.                     -->
+<!ENTITY % index-entry-model
+                        "(term, (%index-entry.class; |
+                           %struct-link.class; | 
+                           %see-also-see-entry.class; |
+                           %x.class;)*  )"                           >
+
+
+<!--                    INDEX ENTRY                                -->
+<!--                    One entry, with all its subdivisions,
+                        see and see also, and navigational pointers
+                        (if any) in a structural index.
+                        Details at:
+                        http://jats.nlm.nih.gov/extensions/bits/2.0/index.html?elem=index-entry
+                                                                   -->
+<!ELEMENT  index-entry  %index-entry-model;                          >
+<!ATTLIST  index-entry
+             %index-entry-atts;                                      >
+
+
+<!--                    INDEX DIVISION MODEL                       -->
+<!--                    Content model for the Structural Index
+                        <index-entry> element.                     -->
+<!ENTITY % index-div-model
+                        "(index-title-group?, (%para-level-minus-x;)*,
+			                      (%index-entry.class; | %index-div.class; |
+			                       %x.class;)+                            )"  >
+
+
+<!--                    INDEX DIVISION                             -->
+<!--                    Division, typically for the purposes of
+                        display, in a structural index, for example
+                        a division holding the heading "A" and
+                        all of the initial alphabetically
+                        arranged index entries.
+                        Details at:
+                        http://jats.nlm.nih.gov/extensions/bits/2.0/index.html?elem=index-div
+                                                                   -->
+<!ELEMENT  index-div    %index-div-model;                            >
+<!ATTLIST  index-div
+             %index-div-atts;                                        >
+
+
+<!--                    SEE INDEX ENTRY TERM ELEMENTS              -->
+<!--                    The elements that can be included along with
+                        data characters inside the content model of
+                        a <see-entry> element.
+                        Design Note: All inline mixes begin with an
+                        OR bar, but since %simple-phrase; is an
+                        inline mix, the OR bar is already there.   -->
+<!ENTITY % see-entry-elements
+                        "%simple-phrase; | %block-math.class; |
+                         %simple-display-noalt.class;"               >
+
+
+<!--                    SEE INDEX ENTRY                            -->
+<!--                    A See (meaning use as preferred) entry in a
+                        structural index.
+                        Details at:
+                        http://jats.nlm.nih.gov/extensions/bits/2.0/index.html?elem=see-entry
+                                                                   -->
+<!ELEMENT  see-entry    (#PCDATA %see-entry-elements;)*              >
+<!ATTLIST  see-entry
+             %see-entry-atts;                                        >
+
+
+<!--                    SEE-ALSO INDEX ENTRY TERM ELEMENTS         -->
+<!--                    The elements that can be included along with
+                        data characters inside the content model of
+                        a <see-also-entry> element.
+                        Design Note: All inline mixes begin with an
+                        OR bar, but since %simple-phrase; is an
+                        inline mix, the OR bar is already there.   -->
+<!ENTITY % see-also-entry-elements
+                        "%simple-phrase; | %block-math.class; |
+                         %simple-display-noalt.class;"               >
+
+
+<!--                    SEE-ALSO INDEX ENTRY                       -->
+<!--                    A See Also (meaning see related) entry in a
+                        structural index.
+                        Details at:
+                        http://jats.nlm.nih.gov/extensions/bits/2.0/index.html?elem=see-also-entry
+                                                                   -->
+<!ELEMENT  see-also-entry
+                        (#PCDATA %see-also-entry-elements;)*         >
+<!ATTLIST  see-also-entry
+             %see-also-entry-atts;                                   >
+
+
+<!-- ============================================================= -->
+<!--                    INDEX TITLE GROUP                          -->
+<!-- ============================================================= -->
+
+
+<!--                    INDEX TITLE GROUP MODEL                    -->
+<!--                    Content model for <index-title-group>.     -->
+<!ENTITY % index-title-group-model
+                        "(label?, title?, subtitle*,
+                          trans-title-group*, alt-title*,
+                          fn-group?)"                                >
+
+
+<!--                    INDEX TITLE GROUP                          -->
+<!--                    Container element that holds
+                        all the titles and subtitles for a structural
+                        index. Similar to <title-group> in the
+                        document metadata.                         -->
+<!ELEMENT  index-title-group
+                        %index-title-group-model;                    >
+<!ATTLIST  index-title-group
+             %index-title-group-atts;                                >
+
+
+<!-- ================== End BITS Structural Index Elements ======= -->
+

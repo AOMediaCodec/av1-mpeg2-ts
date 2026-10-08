@@ -178,3 +178,9 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+### specbuild
+*_Spec/
+.specbuild_*.bs
+*.preprocessed.html
+node_modules/
+.gh-pages/

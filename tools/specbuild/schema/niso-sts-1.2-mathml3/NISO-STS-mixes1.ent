@@ -1,0 +1,318 @@
+<!-- ============================================================= -->
+<!--  MODULE:    NISO STS DTD Customize Mixes Module               -->
+<!--  VERSION:   ANSI/NISO Z39.102-2022, STS:                      --> 
+<!--             Standards Standards Tag Suite (Version 1.2)       --> 
+<!--  DATE:      October 2022                                      -->
+<!--                                                               -->
+<!-- ============================================================= -->
+<!--                    PUBLIC DOCUMENT TYPE DEFINITION            -->
+<!--                        TYPICAL INVOCATION                     -->
+<!--
+
+"-//NISO//DTD NISO STS DTD Customize Mixes v1.2 20221031//EN"
+     Delivered as file "NISO-STS-mixes1.ent"
+                                                                   -->
+<!-- ============================================================= -->
+<!-- SYSTEM:     NISO Standards Tag Suite (NISO STS)               -->
+<!--                                                               -->
+<!--             This new module extends the capabilities of       -->
+<!--             ISO STS V1.1 DTD.                                 -->
+<!--                                                               -->
+<!-- PURPOSE:    Declares over-ride values for the default element -->
+<!--             mixes in the Suite. These over-rides are specific -->
+<!--             to the NISO STS DTD. They may override parameter  -->
+<!--             entities from the basic JATS Suite, from the JATS -->
+<!--             Publishing DTD (Blue), or from the BITS Suite.    -->
+<!--                                                               -->
+<!--             Note: Since PEs must be declared before they      -->
+<!--             are used, this module must be called before the   -->
+<!--             default mixes modules (%default-mixes;)           -->
+<!--                                                               -->
+<!-- CONTAINS:   1) PEs that define the element mixes to be        -->
+<!--                over-ridden                                    -->
+<!--                                                               -->
+<!-- CREATED BY: Mulberry Technologies, Inc.                       -->
+<!--             Deborah Aleyne Lapeyre and B. Tommie Usdin        -->
+<!--             in support of NISO and the NISO STS Committee.    -->
+<!--             Mulberry Technologies work was supported by the   -->
+<!--             American Society of Mechanical Engineers (ASME)   -->
+<!--             and ASTM International.                           -->
+<!--                                                               -->
+<!-- COPYRIGHT AND LICENSE:                                        -->
+<!--             Copyright © 2017, 2022 by ISO, the American       -->
+<!--             Society of  Mechanical Engineers (ASME),          -->
+<!--             ASTM International, Mulberry Technologies, Inc.,  -->
+<!--             and the National Information Standards            -->
+<!--             Organization (NISO).                              -->
+<!--                                                               -->
+<!--             This work is licensed under a Creative Commons    -->
+<!--             Attribution-ShareAlike 4.0 International License. -->
+<!--             To view a copy of this license, visit             -->
+<!--                http://creativecommons.org/licenses/by-sa/4.0/ -->
+<!--             or send a letter to Creative Commons, PO Box 1866,-->
+<!--             Mountain View, CA 94042, USA                      -->
+<!--                                                               -->
+<!-- ORIGINAL CREATION DATE:                                       -->
+<!--             October 2016                                      -->
+<!--                                                               -->
+<!-- ============================================================= -->
+
+<!-- ============================================================= -->
+<!--                    DTD VERSION/CHANGE HISTORY                 -->
+<!-- ============================================================= -->
+<!--
+Version  Reason/Occasion                   (who) vx.x (yyyy-mm-dd)  
+     =============================================================
+     NISO STS Version 1.2 (ANSI/NISO Z39.102-2022)
+                                      (DAL/BTU) v1.2 (2022-10-31)
+      
+     ANSI NISO STS is a continuing maintenance NISO Standard, 
+     which requires voting by both the NISO and ANSI memberships 
+     to be changed. This version of the NISO STS was approved 
+     by ANSI vote on October 21, 2022, so it supersedes the 
+     2017 version and all committee drafts, becoming 
+     NISO STS v1.2 20221031 (ANSI/NISO Z39.102-2022).
+
+     The formal public identifiers have been changed in the  
+     modules and the OASIS XML catalogs.
+ 
+  3. NISO STS 'v1.1d1 20210831' becomes 'v1.2 20221031'
+     'ANSI/NISO Z39.102-2017' becomes 'ANSI/NISO Z39.102-2022'
+ 
+     =============================================================
+     NISO STS Version 1.1d1 (ANSI/NISO Z39.102-202x)
+                                  (DAL/BTU) v1.1d1 (2021-08-31)
+      
+     ANSI NISO STS is a continuing maintenance NISO Standard, 
+     which requires voting by the NISO and ANSI memberships 
+     to be changed. 
+      
+     This ***DRAFT*** DTD represents an interim version of the
+     non-normative STS DTD Suite, as an indication to STS users
+     of the decisions that have been made by the STS Standing
+     Committee. This DRAFT has not yet been given public review 
+     or voting; it is for Standing Committee review and
+     testing. 
+
+     The formal public identifiers have been changed in the  
+     modules and the OASIS XML catalogs.
+
+  2. TERM DISPLAY CLASS - Added <term-display-string> to hold
+     displayed text of various sorts inside <term-display>
+     That cannot be tagged using one of the semantic term-display
+     elements.
+     Class is used in side %inside-term-display-mix.
+
+  1. STS 'v1.0 20171031' becomes 'v1.1d1 20210831' 
+                                                                   -->   
+ 
+
+
+<!-- ============================================================= -->
+<!--                    OVERRIDE INLINE TEXT MIX                   -->
+<!-- ============================================================= -->
+
+<!--                    EMPHASIS MIX ELEMENTS                      -->
+<!--                    Elements that may be used inside most of the
+                        emphasis class elements                    -->
+<!ENTITY % emphasized-text
+                        "| %address-link.class; | 
+                         %article-link.class; | %citation.class; | 
+                         %emphasis.class; | %inline-display.class; |
+                         %inline-math.class; | %math.class; |
+                         %phrase.class; | %simple-link.class; |
+                         %std-ref.class; | %subsup.class;"           >
+
+
+<!--                    RENDITION MARKUP PLUS                      -->
+<!--                    Only the simplest of the typographic
+                        emphasis elements, as well as subscript and
+                        superscript.  Usually used in a model that
+                        allows #PCDATA and this restricted mixture.
+                        This mix may be enhanced slightly in some
+                        more permissive DTDs, and should always
+                        contain at least typographic emphasis,
+                        subscript, and superscript.
+                        MAINTENANCE NOTE:: This Parameter Entity
+                        and the related PE "just-rendition" have
+                        been put in place to restrict the amount of
+                        variability that a person modifying the DTD
+                        through PE redefinition can achieve. Some
+                        elements have been set #PCDATA plus one PE
+                        and some have been set to #PCDATA plus the
+                        other in an effort to allow designers to
+                        modify entire groups of elements, but not
+                        to individually change similar models.
+                        modify entire groups of elements, but not
+                        to change similar models individually .
+                        Design Note: Inline mixes begin with an
+                        OR bar                                     -->
+<!ENTITY % rendition-plus
+                        "| %emphasis.class; |  
+                         %subsup.class; | %phrase-content.class;"    >
+
+
+<!-- ============================================================= -->
+<!--                    OVERRIDE INSIDE-CELL                       -->
+<!-- ============================================================= -->
+<!--                    INSIDE TABLE CELL ELEMENTS                 -->
+<!--                    Mixed with #PCDATA inside a table cell, such
+                        as a <td> or <th> element in the XHTML table
+                        model, the <entry> element in the OASIS CALS
+                        table model, etc.  This PE will be used as the
+                        value of %Flow.mix;, %paracon;, etc.
+                        ### Usage Alert ###
+                        Design Note: Inside cell is an exception, an
+                        inline mix that does not start with an OR
+                        bar. This is because it is used within the
+                        PE %Flow.mix;, which is an inline mix
+                        defined in the course of the XHTML Table DTD,
+                        a DTD not under control of this DTD Suite. -->
+<!ENTITY % inside-cell  "%address-link.class; |  %appearance.class; |
+                         %article-link.class; |
+                         %block-math.class; | %break.class; |
+                         %citation.class; | %emphasis.class; |
+                         %inline-display-noalt.class; |
+                         %figures.class; | %inline-math.class; |
+                         %intable-para.class; | %list.class; | 
+                         %math.class; | %all-notes.class; | 
+                         %nothing-but-para.class; |
+                         %phrase.class; | %simple-display.class; |
+                         %simple-link.class; | %subsup.class;"       >
+
+<!-- ============================================================= -->
+<!--                    OVERRIDE INSIDE-TABLE-WRAP                 -->
+<!-- ============================================================= -->
+<!--                    INSIDE TABLE WRAPPER ELEMENTS              -->
+<!--                    Usually a Table Wrapper contains a table,
+                        properly tagged with rows and columns, but
+                        sometimes, a structure that is labeled as
+                        a "table" is actually a list, or two
+                        paragraphs.  This Parameter Entity names
+                        all the alternatives to table that may
+                        occur inside a table wrapper.              -->
+<!ENTITY % inside-table-wrap
+                        "%intable-para.class; | %list.class; |
+                         %simple-intable-display.class;  |
+                         %all-notes.class; | %table.class;"          >
+
+
+<!-- ============================================================= -->
+<!--                    OVERRIDE PARAGRAPH-LEVEL ELEMENT MIX       -->
+<!-- ============================================================= -->
+
+
+<!--                    PARAGRAPH-LEVEL ELEMENTS                   -->
+<!--                    Elements that may be used at the same
+                        structural level as a paragraph, for
+                        example inside a Section
+                        Note: There a major overlap between this
+                        parameter entity and that for the elements
+                        that are at the same level as a paragraph.
+                        Inline elements appear only inside a
+                        paragraph, but block elements such as quotes
+                        and lists may appear either within a
+                        paragraph or at the same level as a
+                        paragraph. This serves a requirement in a
+                        repository DTD, since some incoming material
+                        will have restricted such elements to only
+                        inside a paragraph,  some incoming material
+                        will have restricted them to only outside a
+                        paragraph and some may allow them in both
+                        places. Thus the DTD must allow for them to
+                        be in either or both.                      
+
+                        Change to use %nothing-but-para.class instead
+                        of %just-para.class, to avoid determinism
+                        error (some members of %just-para.class 
+                        are also members of %block-display.class
+                        and would otherwise cause trouble.         -->
+<!ENTITY % para-level   "%block-display.class; | %block-math.class; |
+                         %editing-instructions.class; | 
+                         %list.class; | %math.class; | 
+                         %nothing-but-para.class; | 
+                         %related-article.class; |
+                         %rest-of-para.class;"                       >
+
+<!ENTITY % para-level-minus-x
+                         "%para-level;"                              >
+
+
+<!--                    PARAGRAPH ELEMENTS                         -->
+<!--                    Originally defined in JATS-common1.ent
+                        but extended to also allow the "break" 
+                        element in the content model. The use of 
+                        "break" should be discouraged and only used 
+                        in exceptional cases such as marking up 
+                        legacy documents or very specific layouts. -->
+<!ENTITY % p-elements   "| %address-link.class; |
+                         %article-link.class; |
+                         %block-display.class; | %block-math.class; |
+                         %citation.class; |  %emphasis.class; |
+                         %funding.class; |  %inline-math.class; |
+                         %inline-display-noalt.class; |
+                         %list.class; | %math.class; |
+                         %phrase.class; | %ref-list.class; |
+                         %rest-of-para.class; |
+                         %simple-link.class; | %break.class; |
+                         %subsup.class;"                             >
+
+<!-- ============================================================= -->
+<!--                    INSIDE A <term-display> ELEMENT            -->
+<!-- ============================================================= -->
+
+
+<!--                    INSIDE TERM SECTION CLASS                  -->
+<!--                    The elements that may be used inside a 
+                        <term-sec> element. (Essentially, para-level
+                        block elements plus the notes elements.)                           
+                        Note: In spite of its name, the just-para 
+                        class holds all types of notes as well as <p> 
+                        elements.                                  -->
+<!ENTITY % inside-term-sec.mix
+                       "%inside-term-sec-semantics.class; |
+                        %nothing-but-para.class; |
+                        %block-display.class; | %block-math.class; |
+                        %list.class; | %math.class; | 
+                        %related-article.class; |
+                        %rest-of-para.class;"                        >
+
+
+<!--                    INSIDE TERM DISPLAY CLASS                  -->
+<!--                    The elements that may be used inside a 
+                        <term-display> element.(Essentially, 
+                        para-level block elements plus the notes 
+                        elements and the semantic term elements.) 
+                        Note: In spite of its name, the just-para 
+                        class holds all types of notes as well as <p> 
+                        elements.                                  -->
+<!ENTITY % inside-term-display.mix
+                       "%term-semantics.class; |
+                        %term-display-string.class; | 
+                        %nothing-but-para.class; | 
+                        %block-display.class; | %block-math.class; |
+                        %list.class; | %math.class; | 
+                        %related-article.class; |
+                        %rest-of-para.class;"                        >
+
+<!-- ============================================================= -->
+<!--                    OVERRIDE BACK MATTER COMPONENTS MIX        -->
+<!-- ============================================================= -->
+
+
+<!--                    DOCUMENT BACK MATTER ELEMENTS              -->
+<!--                    Back Matter Elements used by a full document
+                        such as a journal article. This is an element
+                        grouping rather than a class. These
+                        elements may also appear in the content models
+                        of structural elements, such as back matter.
+                        (Note: Technically this should have used
+                        %sec.class;, but %sec-level; was used in an
+                        earlier release and backwards compatibility
+                        must be maintained.                        -->
+<!ENTITY % doc-back-matter-mix
+                        "%back.class; | %front-back.class; |
+                         %back-index.class; | %sec.class;"           >
+
+
+<!-- ================== End NISO STS DTD Mixes Customizations ==== -->

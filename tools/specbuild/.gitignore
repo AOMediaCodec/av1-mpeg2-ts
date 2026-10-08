@@ -1,0 +1,75 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+venv/
+venv_x86/
+.venv/
+
+# Node.js
+node_modules/
+
+# Build artifacts
+downloads/
+*.zip
+htmldiff.pl
+index.bs
+index.html
+index_diff_hack.*
+footer.include
+attachments/
+diff.html
+.specbuild_cache.json
+.specbuild_baseline.json
+.specbuild_ref_cache.json
+
+# Claude Code
+CLAUDE.md
+
+# Output directories
+*_Spec_Draft/
+*_Spec_Draft_Multipage/
+
+# Generated PDFs in root (committed copies live in docs/)
+/*.pdf
+
+# Development artifacts — ad-hoc scripts, exports, reports at root level
+/*.csv
+/*.html
+/*.pptx
+/issue_slides/
+/issue_tracking_reports_share/
+/archived_content/
+/font_test_*/
+/color/
+
+# Temporary files
+~$*
+
+# IDE artifacts
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# macOS
+.DS_Store
+
+# Test/coverage artifacts
+.coverage
+htmlcov/
+coverage.xml
+
+# Environment files
+.env
+.env.*
+
+# Local work files
+h265_converted/
+*.docx
+scripts/download_ci_logs.sh

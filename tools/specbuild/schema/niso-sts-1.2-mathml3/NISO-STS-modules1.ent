@@ -1,0 +1,366 @@
+<!-- ============================================================= -->
+<!--  MODULE:    NISO STS Module of Modules                        -->
+<!--  VERSION:   ANSI/NISO Z39.102-2022, STS:                      --> 
+<!--             Standards Standards Tag Suite (Version 1.2)       --> 
+<!--  DATE:      October 2022                                      -->
+<!--                                                               -->
+<!-- ============================================================= -->
+<!--                    PUBLIC DOCUMENT TYPE DEFINITION            -->
+<!--                        TYPICAL INVOCATION                     -->
+<!--
+"-//NISO//DTD NISO STS Module of Modules v1.2 20221031//EN"
+     Delivered as file "NISO-STS-modules1.ent"                     -->
+<!-- ============================================================= -->
+
+<!-- ============================================================= -->
+<!-- SYSTEM:     NISO Standards Tag Suite (NISO STS)               -->
+<!--                                                               -->
+<!-- PURPOSE:    For naming all the external customization modules -->
+<!--             (except this module itself) that are part of      -->
+<!--             the NISO Standards Tag Suite (NISO STS) modular   -->
+<!--             DTD library.                                      -->
+<!--             Modules which are not specific to NISO STS are    -->
+<!--             named in the normal JATS module of modules,       -->
+<!--             not here.                                         -->
+<!--                                                               -->
+<!-- CONTAINS:   1)  Entity declarations and public names for all  -->
+<!--                 the NISO-STS-specific modules. Note: The      -->
+<!--                 modules are NOT referenced (called/invoked)   -->
+<!--                 in this module, they are merely defined.      -->
+<!--                 The DTD or a setup module (such as for the    -->
+<!--                 XHTML tables) will invoke the external        -->
+<!--                 parameter entity to call the module.          -->
+<!--                                                               -->
+<!-- CREATED BY: Mulberry Technologies, Inc.                       -->
+<!--             Deborah Aleyne Lapeyre and B. Tommie Usdin        -->
+<!--             in support of NISO and the NISO STS Committee.    -->
+<!--             Mulberry Technologies work was supported by the   -->
+<!--             American Society of Mechanical Engineers (ASME)   -->
+<!--             and ASTM International.                           -->
+<!--                                                               -->
+<!-- COPYRIGHT AND LICENSE:                                        -->
+<!--             Copyright © 2017, 2022 by ISO, the American       -->
+<!--             Society of  Mechanical Engineers (ASME),          -->
+<!--             ASTM International, Mulberry Technologies, Inc.,  -->
+<!--             and the National Information Standards            -->
+<!--             Organization (NISO).                              -->
+<!--                                                               -->
+<!--             This work is licensed under a Creative Commons    -->
+<!--             Attribution-ShareAlike 4.0 International License. -->
+<!--             To view a copy of this license, visit             -->
+<!--                http://creativecommons.org/licenses/by-sa/4.0/ -->
+<!--             or send a letter to Creative Commons, PO Box 1866,-->
+<!--             Mountain View, CA 94042, USA                      -->
+<!--                                                               -->
+<!-- ORIGINAL CREATION DATE:                                       -->
+<!--             October 2016                                      -->
+<!--                                                               -->
+<!-- ============================================================= -->
+
+
+<!-- ============================================================= -->
+<!--                    DTD VERSION/CHANGE HISTORY                 -->
+<!-- ============================================================= -->
+<!--
+Version  Reason/Occasion                   (who) vx.x (yyyy-mm-dd)  
+     =============================================================
+     NISO STS Version 1.2 (ANSI/NISO Z39.102-2022)
+                                      (DAL/BTU) v1.2 (2022-10-31)
+      
+     ANSI NISO STS is a continuing maintenance NISO Standard, 
+     which requires voting by both the NISO and ANSI memberships 
+     to be changed. This version of the NISO STS was approved 
+     by ANSI vote on October 21, 2022, so it supersedes the 
+     2017 version and all committee drafts, becoming 
+     NISO STS v1.2 20221031 (ANSI/NISO Z39.102-2022).
+
+     The formal public identifiers have been changed in the  
+     modules and the OASIS XML catalogs.
+ 
+  3. NISO STS 'v1.1d1 20210831' becomes 'v1.2 20221031'
+     'ANSI/NISO Z39.102-2017' becomes 'ANSI/NISO Z39.102-2022'
+ 
+     =============================================================
+     NISO STS Version 1.1d1 (ANSI/NISO Z39.102-202x)
+                                  (DAL/BTU) v1.1d1 (2021-08-31)
+      
+     ANSI NISO STS is a continuing maintenance NISO Standard, 
+     which requires voting by the NISO and ANSI memberships 
+     to be changed. 
+      
+     This ***DRAFT*** DTD represents an interim version of the
+     non-normative STS DTD Suite, as an indication to STS users
+     of the decisions that have been made by the STS Standing
+     Committee. This DRAFT has not yet been given public review 
+     or voting; it is for Standing Committee review and
+     testing. 
+
+     The formal public identifiers have been changed in the  
+     modules and the OASIS XML catalogs.
+
+  2. PE NAMES - Changed the names of 2 parameter entities to mimic
+     the name of the module called. Less confusing, no DTD change:
+       xinclude.ent to BITS-xinclude.ent
+       NISO-STS-CALS-adoption.ent to 
+            NISO-STS-adoption-extended.ent
+
+  1. STS 'v1.0 20171031' becomes 'v1.1d1 20210831' 
+                                                                   -->   
+<!-- ============================================================= -->
+<!--                    SET UP XINCLUDE PROCESSING                 -->
+<!-- ============================================================= -->
+
+
+<!--                    XINCLUDE MODULE                            -->
+<!--                    Set up the namespace and elements for using
+                        <xi:include> to manage books and book parts.
+                                                                   -->
+<!ENTITY % BITS-xinclude.ent
+                        PUBLIC
+"-//NLM//DTD BITS XInclude Setup Module v2.0 20151225//EN"
+"BITS-xinclude2.ent"                                                 >
+
+
+<!-- ============================================================= -->
+<!--                    CUSTOMIZATION MODULES DECLARED             -->
+<!-- ============================================================= -->
+
+
+<!--                    NISO STS DTD CUSTOMIZE CLASSES             -->
+<!--                    Set up the Parameter Entities for element 
+                        class overrides. These PEs will over-ride 
+                        selected class definitions in the JATS
+                        Journal Publishing DTD and BITS DTD.       -->
+<!ENTITY % NISO-STS-classes.ent
+                        PUBLIC
+"-//NISO//DTD NISO STS DTD Customize Classes v1.2 20221031//EN"
+"NISO-STS-classes1.ent"                                              >
+
+
+<!--                    NISO STS EXTENDED DTD CUSTOMIZE CLASSES    -->
+<!--                    Set up the Parameter Entities for element 
+                        class overrides to override the NISO STS
+                        ordinary classes when OASIS tables are 
+                        used.                                      -->
+<!ENTITY % NISO-STS-classes-extended.ent
+                        PUBLIC
+"-//NISO//DTD NISO STS Extended DTD Customize Classes v1.2 20221031//EN"
+"NISO-STS-classes-extended1.ent"                                     >
+
+<!--                    NISO STS DTD CUSTOMIZE MIXES MODULE        -->
+<!--                    Set up the Parameter Entities for mixes.
+                        These PEs will over-ride selected 
+                        definitions in the JATS Journal Publishing
+                        DTD and BITS DTD.                          -->
+<!ENTITY % NISO-STS-mixes.ent
+                        PUBLIC
+"-//NISO//DTD NISO STS DTD Customize Mixes v1.2 20221031//EN"
+"NISO-STS-mixes1.ent"                                                >
+
+
+<!--                    NISO STS DTD CUSTOMIZE CONTENT AND ATTRIBUTES 
+                        MODULE                                     -->
+<!--                    Set up the Parameter Entities for element-
+                        specific element groups, complete content
+                        models, and attribute list and value over-
+                        rides. These PEs will over-ride selected
+                        content models and attribute lists in the
+                        JATS (Z39.96) DTD Suite, the JATS Publishing
+                        DTD (Blue), and the BITS DTD.              -->
+<!ENTITY % NISO-STS-models.ent
+                        PUBLIC
+"-//NISO//DTD NISO STS DTD Customize Content and Attributes v1.2 20221031//EN"
+"NISO-STS-models1.ent"                                               >
+
+
+<!-- ============================================================= -->
+<!--                    2ND TOP-LEVEL ADOPTING STANDARD <adoption> -->
+<!-- ============================================================= -->
+
+
+<!--                    NISO STS TOP-LEVEL ADOPTION-WRAPPER        -->
+<!--                    Element declarations for NISO STS top-level
+                        <adoption> element.                        -->
+<!ENTITY % NISO-STS-adoption.ent
+                        PUBLIC
+"-//NISO//DTD NISO STS Adopting Standard Wrapper v1.2 20221031//EN"
+"NISO-STS-adoption1.ent"                                             >
+
+
+<!--                    NISO STS TOP-LEVEL ADOPTION-WRAPPER        -->
+<!--                    Attribute declarations for NISO STS top-level
+                        <adoption> element.                        -->
+<!ENTITY % NISO-STS-adoption-extended.ent
+                        PUBLIC
+"-//NISO//DTD NISO STS Adopting Standard Wrapper Extended v1.2 20221031//EN"
+"NISO-STS-adoption-extended1.ent"                                    >
+
+
+<!-- ============================================================= -->
+<!--                    HI-LEVEL COMPONENTS (<body>, <back>, etc.) -->
+<!-- ============================================================= -->
+
+
+<!--                    NISO STS Common Standards Document Components
+                          Module                                   -->
+<!--                    Element declarations for high-level
+                        components of a standards document, such as
+                        <body>, and <back>.                         -->
+<!ENTITY % NISO-STS-standards-components.ent 
+                        PUBLIC
+"-//NISO//DTD NISO STS Common Standards Document Components Module v1.2 20221031//EN"
+"NISO-STS-standards-components1.ent"                                  >
+
+<!-- ============================================================= -->
+<!--                    NISO-STS-SPECIFIC MODULES                  -->
+<!-- ============================================================= -->
+
+
+<!--                    NISO STS NOTES AND EXAMPLES ELEMENTS       -->
+<!--                    Module that defines the elements for both
+                        normative and non-normative notes and
+                        examples.                                  -->
+<!ENTITY % NISO-STS-notes-exmp.ent
+                        PUBLIC
+"-//NISO//DTD NISO STS Notes and Examples v1.2 20221031//EN"
+"NISO-STS-notes-exmp1.ent"                                           >
+
+
+<!--                    NON-TBX TERMS AND DEFINITIONS SECTIONS     -->
+<!--                    Module that defines the elements for a
+                        less complex, purely structural model for
+                        terms and definitions, which may be used 
+                        instead of TBX.                            -->
+<!ENTITY % NISO-STS-terms-n-def.ent
+                        PUBLIC
+"-//NISO//DTD NISO STS Non-TBX Terms and Definitions Sections v1.2 20221031//EN"
+"NISO-STS-terms-n-def1.ent"                                          >
+
+
+<!-- ============================================================= -->
+<!--                    NISO-STS-SPECIFIC METADATA ELEMENTS        -->
+<!-- ============================================================= -->
+
+
+<!--                    NISO STS COMMON METADATA MODULE            -->
+<!--                    Define the metadata elements shared by all of
+                        the metadata components elements and their
+                        contents.                                  -->
+<!ENTITY % NISO-STS-common-metadata.ent
+                        PUBLIC
+"-//NISO//DTD NISO STS Common Metadata Module v1.2 20221031//EN"
+"NISO-STS-common-metadata1.ent"                                      >
+
+
+
+<!--                    NISO STS STANDARD METADATA MODULE          -->
+<!--                    Define the std-meta element and its 
+                        contents.                                  -->
+<!ENTITY % NISO-STS-std-metadata.ent
+                        PUBLIC
+"-//NISO//DTD NISO STS STD Metadata Module v1.2 20221031//EN"
+"NISO-STS-std-metadata1.ent"                                         >
+
+
+
+<!--                    NISO STS ISO METADATA MODULE               -->
+<!--                    Define the iso-meta element and its 
+                        contents.                                  -->
+<!ENTITY % NISO-STS-iso-metadata.ent
+                        PUBLIC
+"-//NISO//DTD NISO STS ISO-specific Metadata v1.2 20221031//EN"
+"NISO-STS-iso-metadata1.ent"                                         >
+
+
+<!--                    NISO STS REGIONAL METADATA MODULE          -->
+<!--                    Define the Regional Metadata (<reg-meta>)
+                        element and its contents.  (By default, the
+                        only content is the JATS custom-meta-group 
+                        element, but a distinct module is provided 
+                        to make it easy to change this.            -->
+
+<!ENTITY % NISO-STS-reg-metadata.ent
+                        PUBLIC
+"-//NISO//DTD NISO STS ISO Metadata for Regional Bodies v1.2 20221031//EN"
+"NISO-STS-reg-metadata1.ent"                                         >
+
+
+<!--                    NISO STS NATIONAL-BODY METADATA MODULE     -->
+<!--                    Define the National Metadata (<nat-meta>) 
+                        element and its contents.  (By default, the
+                        only content is the JATS custom-meta-group 
+                        element, but a distinct module is provided 
+                        to make it easy to change this.            -->
+
+<!ENTITY % NISO-STS-nat-metadata.ent
+                        PUBLIC
+"-//NISO//DTD NISO STS ISO Metadata for National Bodies v1.2 20221031//EN"
+"NISO-STS-nat-metadata1.ent"                                         >
+
+
+<!-- ============================================================= -->
+<!--                    NISO-STS-SPECIFIC TBX ELEMENTS             -->
+<!-- ============================================================= -->
+
+<!--                    NISO STS TBX SETUP MODULE                  -->
+<!--                    Sets up all parameter entities (etc.) 
+                        needed by the TBX module.                  -->
+<!ENTITY % NISO-STS-tbx-setup.ent
+                        PUBLIC
+"-//NISO//DTD NISO STS TBX Terminology Setup Module v1.2 20221031//EN"
+"NISO-STS-tbx-setup1.ent"                                            >
+
+
+<!--                    NISO STS TBX MODULE                        -->
+<!--                    Define the TBX (TermBase eXchange)  
+                        vocabulary, based on ISO 30042:2008(E)
+                        Annex A, but modified to make all elements
+                        be namespace-qualified.                    -->
+<!ENTITY % NISO-STS-tbx-namespace.ent
+                        PUBLIC
+"-//NISO//DTD NISO STS TBX Terminology Module v1.2 20221031//EN"
+"NISO-STS-tbx-namespace1.ent"                                        >
+
+
+<!-- ============================================================= -->
+<!--                    NISO-STS-UTILIZED BITS MODULES             -->
+<!-- ============================================================= -->
+
+
+<!--                    BITS STRUCTURAL INDEX ELEMENTS MODULE      -->
+<!--                    Element declarations for BITS structural
+                        index model (<index>).                     -->
+<!ENTITY % index.ent    PUBLIC
+"-//NLM//DTD BITS Structural Index Elements Module v2.0 20151225//EN"
+"BITS-index2.ent"                                                    >
+
+
+<!--                    BITS EMBEDDED INDEX ELEMENTS MODULE        -->
+<!--                    Element declarations the index elements
+                        which are embedded in the document
+                        narrative.                                 -->
+<!ENTITY % index-term.ent
+                        PUBLIC
+"-//NLM//DTD BITS Embedded Index Element Module v2.0 20151225//EN"
+"BITS-embedded-index2.ent"                                           >
+
+
+<!--                    BITS STRUCTURAL TABLE OF CONTENTS MODULE   -->
+<!--                    Element declarations for BITS structural
+                        Table of Contents model.                   -->
+<!ENTITY % toc.ent      PUBLIC
+"-//NLM//DTD BITS Structural Table of Contents Module v2.0 20151225//EN"
+"BITS-toc2.ent"                                                      >
+
+
+
+<!--                    BITS STRUCTURAL NAVIGATION MODULE          -->
+<!--                    Element declarations for BITS navigation
+                        and pointing mechanism for structural
+                        Indexes and Tables of Contents.            -->
+<!ENTITY % toc-nav.ent  PUBLIC
+"-//NLM//DTD BITS Table of Contents and Index Navigation Module v2.0 20151225//EN"
+"BITS-toc-index-nav2.ent"                                            >
+
+
+<!-- =================== End NISO STS Module of Modules ========== -->

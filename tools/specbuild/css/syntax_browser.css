@@ -1,0 +1,951 @@
+/**
+ * Syntax Browser - Simplified Side-by-Side Viewer
+ *
+ * CSS for standalone syntax browser with split-pane layout,
+ * resizable divider, and synchronized scrolling.
+ */
+
+/* Reset body styles for full-width layout */
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: sans-serif;
+}
+
+/* Header tab (shown when header is collapsed) */
+.header-tab {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+    border-bottom: 2px solid #3498db;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    z-index: 150;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-tab:hover {
+    background: linear-gradient(to bottom, #e9ecef, #dee2e6);
+}
+
+.header-tab.visible {
+    display: flex;
+}
+
+.header-tab-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+/* Spec header at the top */
+.spec-header {
+    background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+    border-bottom: 3px solid #3498db;
+    padding: 15px 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
+    max-height: 200px;
+    overflow: hidden;
+    position: relative;
+    z-index: 100;
+}
+
+.spec-header.collapsed {
+    max-height: 0;
+    padding: 0 30px;
+    opacity: 0;
+    pointer-events: none;
+    border-bottom: none;
+}
+
+/* Push content down when header is visible - removed, no longer needed */
+
+.spec-header-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+}
+
+.spec-logo {
+    height: 60px;
+    width: auto;
+}
+
+.spec-info {
+    text-align: left;
+}
+
+/* Search trigger button */
+.search-trigger {
+    background: transparent;
+    border: 2px solid #3498db;
+    border-radius: 6px;
+    padding: 8px 12px;
+    cursor: pointer;
+    color: #3498db;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-trigger:hover {
+    background: #3498db;
+    color: white;
+}
+
+.search-trigger:active {
+    transform: scale(0.95);
+}
+
+/* Header close button - Windows style */
+.header-close {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 10px 16px;
+    cursor: pointer;
+    color: #666;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 4px;
+}
+
+.header-close:hover {
+    background: #e81123;
+    color: white;
+}
+
+.header-close:active {
+    background: #c50f1f;
+    color: white;
+}
+
+.spec-header h1 {
+    margin: 0 0 5px 0;
+    font-size: 22px;
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+.spec-header .spec-meta {
+    margin: 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.spec-header .spec-version {
+    margin: 5px 0 0 0;
+    font-size: 13px;
+    color: #666;
+}
+
+.spec-header .spec-version strong {
+    color: #2c3e50;
+}
+
+/* Warning banner */
+.warning-banner {
+    margin-top: 15px;
+    padding: 12px 20px;
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 4px;
+    color: #856404;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.warning-banner strong {
+    color: #856404;
+}
+
+.warning-banner a {
+    color: #0066cc;
+    text-decoration: underline;
+    font-weight: 500;
+}
+
+.warning-banner a:hover {
+    color: #004499;
+}
+
+/* Main container - full viewport minus footer */
+.sidebyside-container {
+    display: flex;
+    width: 100vw;
+    height: calc(100vh - 35px); /* Just footer (35px) */
+    position: relative;
+    background: #fff;
+    box-sizing: border-box;
+    transition: height 0.3s ease;
+}
+
+/* No adjustment needed when collapsed - removed */
+
+/* Individual panes (left = syntax, right = semantics) */
+.sidebyside-pane {
+    flex: 1;
+    min-width: 200px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    background: #fafafa;
+}
+
+/* No padding adjustments needed - removed */
+
+.sidebyside-left {
+    flex: 3;  /* 60% width by default */
+    border-right: 1px solid #ddd;
+}
+
+.sidebyside-right {
+    flex: 2;  /* 40% width by default */
+    border-left: 1px solid #ddd;
+}
+
+/* Pane headers */
+.pane-header {
+    background: linear-gradient(to bottom, #2c3e50, #34495e);
+    color: white;
+    padding: 12px 20px;
+    font-weight: bold;
+    font-size: 16px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Breadcrumb navigation */
+.breadcrumb-container {
+    background: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+    padding: 8px 20px;
+    font-size: 13px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.breadcrumb-item {
+    color: #495057;
+    transition: color 0.2s ease;
+}
+
+.breadcrumb-item.clickable {
+    color: #0066cc;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.breadcrumb-item.clickable:hover {
+    color: #004499;
+    text-decoration: underline;
+}
+
+.breadcrumb-separator {
+    color: #adb5bd;
+    margin: 0 4px;
+    user-select: none;
+}
+
+.breadcrumb-item.active {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+/* Scrollable content area */
+.pane-content {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: auto;
+    padding: 20px 30px; /* Comfortable padding */
+    scroll-behavior: smooth;
+    background: white;
+}
+
+/* Darker background for semantics pane */
+#semantics-content {
+    background: #ebebeb;
+}
+
+/* Resizable divider between panes */
+.sidebyside-divider {
+    width: 8px;
+    background: linear-gradient(to right, #ddd, #ccc, #ddd);
+    cursor: col-resize;
+    position: relative;
+    flex-shrink: 0;
+    transition: background 0.2s ease;
+}
+
+.sidebyside-divider:hover {
+    background: linear-gradient(to right, #999, #777, #999);
+}
+
+.sidebyside-divider:active {
+    background: #0066cc;
+}
+
+/* Visual indicator on divider */
+.sidebyside-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 2px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 1px;
+}
+
+/* Section headings */
+h2, h3, h4 {
+    color: #2c3e50;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+h2 { font-size: 24px; border-bottom: 2px solid #3498db; padding-bottom: 8px; }
+h3 { font-size: 20px; }
+h4 { font-size: 16px; }
+
+/* Make headings clickable */
+h3[id$="_syntax"], h4[id$="_syntax"],
+h3[id$="_semantics"], h4[id$="_semantics"] {
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+h3[id$="_syntax"]:hover, h4[id$="_syntax"]:hover,
+h3[id$="_semantics"]:hover, h4[id$="_semantics"]:hover {
+    color: #0066cc;
+}
+
+/* Active/highlighted section */
+.section-highlighted {
+    background-color: #fff8dc;
+    padding: 10px;
+    margin: -10px;
+    border-radius: 4px;
+    box-shadow: 0 0 0 3px #ffd700;
+    transition: all 0.3s ease;
+}
+
+/* SDL syntax tables styling - MATCH ORIGINAL SPEC */
+.sdl-syntax-wrapper {
+    margin: 1em 0;
+    overflow-x: auto;
+}
+
+.sdl-syntax-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.9em;
+    background-color: #f8f9fa;
+    margin-bottom: 1rem;
+}
+
+/* Table header - MATCH ORIGINAL */
+.sdl-syntax-table thead {
+    background-color: #e9ecef;
+    font-weight: bold;
+}
+
+.sdl-syntax-table thead th {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 2px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+
+.sdl-syntax-table thead th:last-child {
+    border-right: none;
+}
+
+/* Syntax name column header (left) */
+.sdl-syntax-table .sdl-syntax-name {
+    width: 85%;
+}
+
+/* Descriptor column header (right) - narrow */
+.sdl-syntax-table .sdl-descriptor-header {
+    width: 15%;
+    min-width: 100px;
+    text-align: center;
+}
+
+/* Table body */
+.sdl-syntax-table tbody tr {
+    border-bottom: 1px solid #e9ecef;
+}
+
+.sdl-syntax-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.sdl-syntax-table tbody td {
+    padding: 0.4rem 0.75rem;
+    vertical-align: middle;
+}
+
+/* All cells in the first column (syntax/code) get the border */
+.sdl-syntax-table tbody td:first-child {
+    border-right: 1px solid #ccc;
+}
+
+/* Descriptor column (right side) - narrow */
+.sdl-syntax-table .sdl-descriptor {
+    width: 15%;
+    min-width: 100px;
+    font-weight: normal;
+    color: #0066cc;
+    text-align: center;
+}
+
+/* Variable/syntax element column with descriptor (left side) - BOLD */
+.sdl-syntax-table .sdl-var-with-descriptor {
+    width: 85%;
+    font-weight: bold;
+    color: #000;
+    text-align: left;
+}
+
+/* Code lines without descriptors (full width) - NOT BOLD */
+.sdl-syntax-table .sdl-code {
+    font-weight: normal;
+    color: #333;
+    text-align: left;
+}
+
+/* Alternating row colors for better readability */
+.sdl-syntax-table tbody tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+.sdl-syntax-table tbody tr:nth-child(odd) {
+    background-color: #f8f9fa;
+}
+
+/* Make syntax variables clickable and hoverable */
+.sdl-var-with-descriptor span {
+    cursor: pointer;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+.sdl-var-with-descriptor span:hover {
+    color: #0066cc !important;
+    background: #e3f2fd;
+}
+
+/* Highlighted element in semantics */
+.element-highlighted {
+    background-color: #ffeb3b !important;
+    padding: 4px 8px;
+    border-radius: 3px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 0 0 2px #ffd54f;
+}
+
+/* Semantics content styling */
+p {
+    line-height: 1.6;
+    margin: 10px 0;
+    color: #333;
+}
+
+strong, b {
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+/* Clickable variables in semantics (reverse navigation) */
+strong.clickable-var, b.clickable-var {
+    cursor: pointer;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+strong.clickable-var:hover, b.clickable-var:hover {
+    color: #0066cc !important;
+    background: #e3f2fd;
+}
+
+/* Tables in semantics */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+    background: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+table th {
+    background: #ecf0f1;
+    padding: 10px;
+    text-align: left;
+    font-weight: bold;
+    border-bottom: 2px solid #bdc3c7;
+    color: #333;
+}
+
+table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid #ecf0f1;
+    color: #333;
+}
+
+table tr:hover {
+    background: #f8f9fa;
+}
+
+/* Custom scrollbar styling */
+.pane-content::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.pane-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.pane-content::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+.pane-content::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Responsive behavior for smaller screens */
+@media (max-width: 1200px) {
+    .sidebyside-container {
+        flex-direction: column;
+    }
+
+    .sidebyside-divider {
+        width: 100%;
+        height: 8px;
+        cursor: row-resize;
+    }
+
+    .sidebyside-divider::before {
+        width: 40px;
+        height: 2px;
+    }
+
+    .sidebyside-left,
+    .sidebyside-right {
+        border: none;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .sidebyside-pane {
+        min-height: 300px;
+    }
+}
+
+/* Mobile header - make it compact */
+@media (max-width: 768px) {
+    .spec-header {
+        padding: 8px 15px;
+    }
+
+    .spec-header-content {
+        gap: 10px;
+    }
+
+    .spec-logo {
+        height: 30px;
+        width: auto;
+    }
+
+    .spec-header h1 {
+        font-size: 16px;
+        margin: 0 0 3px 0;
+    }
+
+    .spec-header .spec-meta {
+        font-size: 11px;
+        margin: 0;
+    }
+
+    .spec-header .spec-version {
+        font-size: 10px;
+        margin: 2px 0 0 0;
+    }
+
+    .warning-banner {
+        margin-top: 8px;
+        padding: 8px 12px;
+        font-size: 11px;
+    }
+
+    /* Make pane headers compact on mobile */
+    .pane-header {
+        padding: 8px 15px;
+        font-size: 13px;
+    }
+
+    /* Reduce font sizes across all content on mobile */
+    .pane-content {
+        font-size: 14px;
+        padding: 15px 20px; /* Slightly reduce padding too */
+    }
+
+    /* Headings in mobile */
+    .pane-content h2 {
+        font-size: 20px;
+    }
+
+    .pane-content h3 {
+        font-size: 17px;
+    }
+
+    .pane-content h4 {
+        font-size: 15px;
+    }
+
+    /* Paragraphs and text in semantics */
+    .pane-content p {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    /* Reduce syntax table font size on mobile */
+    .sdl-syntax-table {
+        font-size: 0.75em; /* Reduced from 0.9em */
+    }
+
+    .sdl-syntax-table thead th {
+        padding: 0.5rem;
+        font-size: 0.85em;
+    }
+
+    .sdl-syntax-table tbody td {
+        padding: 0.3rem 0.5rem;
+    }
+
+    /* Tables in semantics pane */
+    table {
+        font-size: 13px;
+    }
+
+    table th, table td {
+        padding: 6px 8px;
+        font-size: 13px;
+    }
+
+    /* Make footer compact on mobile */
+    .syntax-browser-footer {
+        padding: 6px 15px;
+        font-size: 10px;
+    }
+
+    .syntax-browser-footer p {
+        margin: 0;
+        line-height: 1.2;
+    }
+
+    .syntax-browser-footer a {
+        margin: 0 3px;
+    }
+
+    .sidebyside-container {
+        height: calc(100vh - 145px); /* Adjusted for smaller header and footer */
+    }
+}
+
+/* Loading state */
+.sidebyside-container.loading::after {
+    content: 'Loading...';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Footer */
+.syntax-browser-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
+    border-top: 2px solid #3498db;
+    padding: 8px 20px;
+    text-align: center;
+    font-size: 12px;
+    color: #555;
+    z-index: 100;
+}
+
+.syntax-browser-footer p {
+    margin: 0;
+    line-height: 1.4;
+}
+
+.syntax-browser-footer a {
+    color: #0066cc;
+    text-decoration: none;
+    font-weight: 500;
+    margin: 0 5px;
+}
+
+.syntax-browser-footer a:hover {
+    text-decoration: underline;
+    color: #004499;
+}
+
+/* Search Overlay */
+.search-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    backdrop-filter: blur(2px);
+}
+
+.search-overlay.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.search-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    padding: 8px;
+    color: #333;
+}
+
+.search-input::placeholder {
+    color: #999;
+}
+
+.search-close {
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    color: #666;
+    cursor: pointer;
+    padding: 4px 8px;
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+
+.search-close:hover {
+    color: #333;
+}
+
+.search-results {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.search-result-item {
+    padding: 12px 15px;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.search-result-item:hover {
+    background: #f8f9fa;
+}
+
+.search-result-item:last-child {
+    border-bottom: none;
+}
+
+.result-variable {
+    font-weight: bold;
+    color: #2c3e50;
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+
+.result-meta {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+.result-badge {
+    background: #3498db;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.result-badge.syntax {
+    background: #27ae60;
+}
+
+.result-badge.semantics {
+    background: #e67e22;
+}
+
+.result-badge.section {
+    background: #9b59b6;
+}
+
+.result-section {
+    color: #999;
+    font-size: 12px;
+}
+
+.result-context {
+    font-size: 13px;
+    color: #666;
+    margin-top: 4px;
+    line-height: 1.4;
+}
+
+.search-no-results {
+    padding: 40px 20px;
+    text-align: center;
+    color: #999;
+}
+
+.search-no-results-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #666;
+}
+
+.search-no-results-text {
+    font-size: 14px;
+}
+
+.search-info {
+    padding: 20px;
+    text-align: center;
+    color: #999;
+    font-size: 14px;
+}
+
+/* Mobile adjustments for search */
+@media (max-width: 768px) {
+    .search-overlay.active {
+        align-items: flex-end;
+    }
+
+    .search-container {
+        width: 100%;
+        max-width: 100%;
+        border-radius: 12px 12px 0 0;
+        max-height: 85vh;
+    }
+
+    .search-header {
+        padding: 15px;
+    }
+
+    .search-input {
+        font-size: 16px;
+    }
+
+    .search-trigger {
+        padding: 6px 10px;
+    }
+}
+
+/* Syntax Copy Button */
+.syntax-copy-btn {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    background: rgba(52, 152, 219, 0.1);
+    border: 1px solid rgba(52, 152, 219, 0.3);
+    border-radius: 4px;
+    padding: 6px 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    color: #3498db;
+}
+
+.syntax-copy-btn:hover {
+    background: rgba(52, 152, 219, 0.2);
+    border-color: rgba(52, 152, 219, 0.5);
+}
+
+.syntax-copy-btn.copied {
+    background: rgba(46, 204, 113, 0.2);
+    border-color: rgba(46, 204, 113, 0.5);
+    color: #2ecc71;
+}
+
+.syntax-copy-btn svg {
+    width: 16px;
+    height: 16px;
+}

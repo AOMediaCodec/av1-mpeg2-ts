@@ -1,0 +1,36 @@
+name: Reconcile PR previews
+
+# Self-healing sweep for gh-pages/pr/<n>/ folders. preview-pr.yml's `cleanup`
+# job removes a preview when it observes that specific PR's `closed` event,
+# which is a single point of failure: if that webhook delivery is ever
+# dropped, the folder orphans forever with nothing to notice or fix it.defaults:
+# This workflow re-derives the truth from the GitHub API
+
+on:
+  schedule:
+    - cron: '17 5 * * *'  # daily; arbitrary off-peak minute
+  workflow_dispatch: {}
+
+permissions:
+  contents: write        # push to gh-pages
+  pull-requests: read    # gh pr list
+
+# Same group as preview-pr.yml / deploy-pages.yml so writes to gh-pages never race.
+concurrency:
+  group: gh-pages-deploy
+  cancel-in-progress: false
+
+jobs:
+  reconcile:
+    name: Remove orphaned PR previews
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Reconcile stale previews
+        env:
+          REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          bash .github/scripts/reconcile_previews.sh

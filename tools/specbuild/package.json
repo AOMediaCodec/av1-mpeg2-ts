@@ -1,0 +1,8 @@
+{
+  "name": "specbuild",
+  "private": true,
+  "dependencies": {
+    "@mpeggroup/mpeg-sdl-parser": "^4.1.2",
+    "puppeteer-core": "^24.43.1"
+  }
+}

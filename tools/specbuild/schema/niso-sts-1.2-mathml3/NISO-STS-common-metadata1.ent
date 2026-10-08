@@ -1,0 +1,1531 @@
+<!-- ============================================================= -->
+<!--  MODULE:    NISO STS Common Metadata Module                   -->
+<!--  VERSION:   ANSI/NISO Z39.102-2022, STS:                      --> 
+<!--             Standards Standards Tag Suite (Version 1.2)       --> 
+<!--  DATE:      October 2022                                       -->
+<!--                                                               -->
+<!-- ============================================================= -->
+<!--                    PUBLIC DOCUMENT TYPE DEFINITION            -->
+<!--                        TYPICAL INVOCATION                     -->
+<!--
+"-//NISO//DTD NISO STS Common Metadata Module v1.2 20221031//EN"
+     Delivered as file "NISO-STS-common-metadata1.ent"
+                                                                   -->
+<!-- ============================================================= -->
+<!-- SYSTEM:     NISO Standards Tag Suite (NISO STS)               -->
+<!--                                                               -->
+<!--             This new module extends the capabilities of       -->
+<!--             ISO STS V1.1 DTD.                                 -->
+<!--                                                               -->
+<!-- PURPOSE:    This module defines ISO-specific metadata,        -->
+<!--             specifically (1) the iso-meta element and its     -->
+<!--             contents, and (2) parameter entities for          -->
+<!--             customization of content models and attribute     -->
+<!--             lists.                                            -->
+<!--                                                               -->
+<!-- CREATED BY: Mulberry Technologies, Inc.                       -->
+<!--             Deborah Aleyne Lapeyre and B. Tommie Usdin        -->
+<!--             in support of NISO and the NISO STS Committee.    -->
+<!--             Mulberry Technologies work was supported by the   -->
+<!--             American Society of Mechanical Engineers (ASME)   -->
+<!--             and ASTM International.                           -->
+<!--                                                               -->
+<!-- COPYRIGHT AND LICENSE:                                        -->
+<!--             Copyright © 2017, 2022 by ISO, the American       -->
+<!--             Society of  Mechanical Engineers (ASME),          -->
+<!--             ASTM International, Mulberry Technologies, Inc.,  -->
+<!--             and the National Information Standards            -->
+<!--             Organization (NISO).                              -->
+<!--                                                               -->
+<!--             This work is licensed under a Creative Commons    -->
+<!--             Attribution-ShareAlike 4.0 International License. -->
+<!--             To view a copy of this license, visit             -->
+<!--                http://creativecommons.org/licenses/by-sa/4.0/ -->
+<!--             or send a letter to Creative Commons, PO Box 1866,-->
+<!--             Mountain View, CA 94042, USA                      -->
+<!--                                                               -->
+<!-- ORIGINAL CREATION DATE:                                       -->
+<!--             October 2016                                      -->
+<!--                                                               -->
+<!-- ============================================================= -->
+
+<!-- ============================================================= -->
+<!--                    DTD VERSION/CHANGE HISTORY                 -->
+<!-- ============================================================= -->
+<!--
+Version  Reason/Occasion                   (who) vx.x (yyyy-mm-dd)  
+     =============================================================
+     NISO STS Version 1.2 (ANSI/NISO Z39.102-2022)
+                                      (DAL/BTU) v1.2 (2022-10-31)
+      
+     ANSI NISO STS is a continuing maintenance NISO Standard, 
+     which requires voting by both the NISO and ANSI memberships 
+     to be changed. This version of the NISO STS was approved 
+     by ANSI vote on October 21, 2022, so it supersedes the 
+     2017 version and all committee drafts, becoming 
+     NISO STS v1.2 20221031 (ANSI/NISO Z39.102-2022).
+
+     The formal public identifiers have been changed in the  
+     modules and the OASIS XML catalogs.
+ 
+  8. NISO STS 'v1.1d1 20210831' becomes 'v1.2 20221031'
+     'ANSI/NISO Z39.102-2017' becomes 'ANSI/NISO Z39.102-2022'
+ 
+     =============================================================
+     NISO STS Version 1.1d1 (ANSI/NISO Z39.102-202x)
+                                  (DAL/BTU) v1.1d1 (2021-08-31)
+      
+     ANSI NISO STS is a continuing maintenance NISO Standard, 
+     which requires voting by the NISO and ANSI memberships 
+     to be changed. 
+      
+     This ***DRAFT*** DTD represents an interim version of the
+     non-normative STS DTD Suite, as an indication to STS users
+     of the decisions that have been made by the STS Standing
+     Committee. This DRAFT has not yet been given public review 
+     or voting; it is for Standing Committee review and
+     testing. 
+
+     The formal public identifiers have been changed in the  
+     modules and the OASIS XML catalogs.
+
+  7. SUB-PART NUMBER - Added <sub-part-number>, optional and
+     repeatable to <std-ident>, to handle subdivisions below
+     the part number. Did NOT add sub-part to <std-ref>, since
+     <std-ref> should be tagged as an undiferentiated string.
+
+  6. KEYWORDS - Went to add <kwd-group> to <std-doc-meta> and 
+     it was already there. So it is after <abstract> and not 
+     with ICS codes and Subjects where it probably belongs. 
+
+  5. @STD-ID-TYPE - The attribute @std-id-type made optional 
+
+  4. STANDARD REF 'TYPE' VALUES - @type attribute values 
+     on the element <std-ref> are a closed set. The value 
+     "custom" was added to the list of values and the attribute 
+     @custom-type added to <std-ref>. 
+
+  3. RELEASE VERSION ATTS - Added to <release-version>
+       - @stage-code
+       - @specific-use
+       - the four vocabulary attributes
+ 
+  2. @originator. Added to
+       <meta-date>, <release-date>, <release-version-id>,
+       <secretariat>, <wi-number>
+     @originator also added to: <self-uri> and %self-uri-atts 
+     changed in the STS models module
+
+  1. STS 'v1.0 20171031' becomes 'v1.1d1 20210831' 
+                                                                   -->   
+<!-- ============================================================= -->
+<!--                    STANDARDS DOCUMENT METADATA MODEL          -->
+<!-- ============================================================= -->
+
+<!--                    STANDARDS DOCUMENT METADATA MODEL          -->
+<!--                    Content model for the element <std-doc-meta>
+                                                                   -->
+<!ENTITY % std-doc-meta-model 
+                       "(title-wrap*, release-version?,
+                         std-ident?, (std-org | std-org-group)*, 
+                         content-language*, std-ref*, doc-ref?, 
+                         pub-date?, release-date*, meta-date*,
+                         (comm-ref | comm-ref-group)*, 
+                         accrediting-organization?, authorization?, 
+                         secretariat*, 
+                         (ics | ics-wrap)*, (%subj-group.class;)*,
+                         page-count?, counts?,
+                         is-proof?, std-xref*, permissions*,
+                         self-uri*, (%abstract.class;)*, 
+                         (%kwd-group.class;)*,
+                         meta-note*,  
+                         custom-meta-group*)"                        >
+
+
+<!--                    STANDARDS DOCUMENT METADATA ATTRIBUTES     -->
+<!ENTITY % std-doc-meta-atts
+             "%jats-common-atts;
+              std-org-type
+                        CDATA                             #IMPLIED
+              std-meta-type
+                        CDATA                             #IMPLIED
+              xml:lang   NMTOKEN                          #IMPLIED"  >
+
+
+<!--                    STANDARDS DOCUMENT METADATA                -->
+<!--                    The <std-doc-meta> is a container element for
+                        metadata that pertains to the entire standards
+                        document. By design, the elements inside 
+                        <std-doc-meta> are the elements that all the
+                        standards organizations share. The elements 
+                        may be overridden by any of the four 
+                        organization-specific metadata elements:
+                        <std-meta>, <iso-meta>, <nat-meta>, and 
+                        <reg-meta>.                                -->
+<!ELEMENT  std-doc-meta %std-doc-meta-model;                         >
+<!ATTLIST  std-doc-meta   
+             %std-doc-meta-atts;                                     >
+
+<!-- ============================================================= -->
+<!--                    STANDARDS DOCUMENT TITLES                  -->
+<!-- ============================================================= -->
+
+
+<!--                    TITLE WRAPPER ATTRIBUTES                   -->
+<!ENTITY % title-wrap-atts
+            "%jats-common-atts;  
+             xml:lang   NMTOKEN                           #IMPLIED
+             %originator-attribute;"                                 >
+
+
+<!--                    INTRODUCTORY TITLE PART ATTRIBUTES         -->
+<!ENTITY % intro-atts
+            "%jats-common-atts;  
+             xml:lang   NMTOKEN                           #IMPLIED 
+             level      CDATA                             #IMPLIED"  >
+
+<!--                    INTRODUCTORY TITLE WRAPPER ATTRIBUTES      -->
+<!ENTITY % intro-title-wrap-atts
+            "%jats-common-atts;  
+             xml:lang   NMTOKEN                           #IMPLIED 
+             level      CDATA                             #IMPLIED"  >
+
+<!--                    MAIN TITLE PART ATTRIBUTES                 -->
+<!ENTITY % main-atts
+            "%jats-common-atts;  
+             xml:lang   NMTOKEN                           #IMPLIED"  >
+
+<!--                    MAIN TITLE WRAPPER ATTRIBUTES              -->
+<!ENTITY % main-title-wrap-atts
+            "%jats-common-atts;  
+             xml:lang   NMTOKEN                           #IMPLIED"  >
+
+<!--                    COMPLEMENTARY TITLE PART ATTRIBUTES        -->
+<!ENTITY % compl-atts
+            "%jats-common-atts;  
+             xml:lang   NMTOKEN                           #IMPLIED 
+             level      CDATA                             #IMPLIED"  >
+
+<!--                    COMPLEMENTARY TITLE WRAPPER ATTRIBUTES     -->
+<!ENTITY % compl-title-wrap-atts
+            "%jats-common-atts;  
+             xml:lang   NMTOKEN                           #IMPLIED 
+             level      CDATA                             #IMPLIED"  >
+
+<!--                    FULL TITLE ATTRIBUTES                      -->
+<!ENTITY % full-atts
+            "%jats-common-atts;  
+             xml:lang   NMTOKEN                           #IMPLIED"  >
+
+
+<!--                    TITLE WRAPPER MODEL                        -->
+<!ENTITY % title-wrap-model 
+                       "((intro | intro-title-wrap)*,
+                         (main  | main-title-wrap)?,
+                         (compl | compl-title-wrap)*, 
+                         full?)"                                     >
+
+
+<!--                    TITLE WRAPPER                              -->
+<!--                    Container element to hold all the titles of a 
+                        standards document, both titles which are
+                        divided into parts as well as a full title.-->
+<!ELEMENT  title-wrap   %title-wrap-model;                           >
+<!ATTLIST  title-wrap   
+             %title-wrap-atts;                                       >
+
+
+<!--                    INTRODUCTORY TITLE PART MODEL              -->
+<!ENTITY % intro-model "(#PCDATA %title-part-elements;)*"            >
+
+<!--                    INTRODUCTORY TITLE PART                    -->
+<!--                    <intro> is the optional first part of a
+                        title, typically indicating the broad context
+                        of the standard.                           -->
+<!ELEMENT  intro        %intro-model;                                >
+<!ATTLIST  intro   
+             %intro-atts;                                            >
+
+
+<!--                    INTRODUCTORY TITLE WRAPPER MODEL           -->
+<!ENTITY % intro-title-wrap-model 
+                       "(label?, intro, subtitle*)"                  >
+
+
+<!--                    INTRODUCTORY TITLE WRAPPER                 -->
+<!--                    Wrapper element to hold an <intro> title
+                        and its component parts, when the <intro>
+                        title has additional parts such as a label 
+                        or subtitle.                               -->
+<!ELEMENT  intro-title-wrap
+                        %intro-title-wrap-model;                     >
+<!ATTLIST  intro-title-wrap   
+             %intro-title-wrap-atts;                                 >
+
+
+<!--                    MAIN TITLE PART MODEL                      -->
+<!ENTITY % main-model  "(#PCDATA %title-part-elements;)*"            >
+
+<!--                    MAIN TITLE PART                            -->
+<!--                    Main element of the standard's title, 
+                        indicating the principal subject of the 
+                        document.                                  -->
+<!ELEMENT  main         %main-model;                                 >
+<!ATTLIST  main   
+             %main-atts;                                             >
+
+
+<!--                    MAIN TITLE WRAPPER MODEL                   -->
+<!ENTITY % main-title-wrap-model  
+                       "(label?, main, subtitle*)"                   >
+
+<!--                    MAIN TITLE WRAPPER                         -->
+<!--                    Wrapper element to hold the <main> title
+                        and its component parts, when the <main>
+                        title has additional parts such as a label 
+                        or subtitle.                               -->
+<!ELEMENT  main-title-wrap
+                        %main-title-wrap-model;                      >
+<!ATTLIST  main-title-wrap   
+             %main-title-wrap-atts;                                  >
+
+
+<!--                    COMPLEMENTARY TITLE PART MODEL             -->
+<!ENTITY % compl-model "(#PCDATA %title-part-elements;)*"            >
+
+<!--                    COMPLEMENTARY TITLE PART                   -->
+<!--                    The optional complementary title(s), which
+                        are the optional final part(s) of a 
+                        standard's title. Complementary titles 
+                        follow the <main> part of the title and 
+                        (typically) provide details concerning which
+                        particular aspect of the general topic is 
+                        treated by the standards document.
+                        ISO Note: For individual parts of multi-part 
+                        standards documents, the complementary title
+                        is the title of the Part (without the label 
+                        'Part n').                                 -->
+<!ELEMENT  compl        %compl-model;                                >
+<!ATTLIST  compl   
+             %compl-atts;                                            >
+
+
+<!--                    COMPLEMENTARY TITLE WRAPPER MODEL          -->
+<!ENTITY % compl-title-wrap-model  
+                       "(label?, compl, subtitle*)"                  >
+
+<!--                    COMPLEMENTARY TITLE WRAPPER                -->
+<!--                    Wrapper element to hold a <compl> title
+                        and its component parts, when the <compl>
+                        title has additional parts such as a label 
+                        or subtitle.                               -->
+<!ELEMENT  compl-title-wrap
+                        %compl-title-wrap-model;                     >
+<!ATTLIST  compl-title-wrap   
+             %compl-title-wrap-atts;                                 >
+
+
+<!--                    FULL TITLE MODEL                           -->
+<!ENTITY % full-model  "(#PCDATA %title-part-elements;)*"            >
+
+<!--                    FULL TITLE                                 -->
+<!--                    Contains the full title of the 
+                        standard.  Normally, its value should be 
+                        the values of intro, main, and compl, 
+                        titles, in order, with each title separated 
+                        from the others by a space, an em-dash, 
+                        and a space, a semicolon, or similar 
+                        separator.
+                          Remarks:
+                        When there is no additional text beyond what
+                        is contained in the component titles, 
+                        this element is slightly redundant. But 
+                        it is best practice always to provide a 
+                        full title for display convenience, searching,
+                        and to handle special cases.               -->
+<!ELEMENT  full         %full-model;                                 >
+<!ATTLIST  full   
+             %full-atts;                                             >
+
+<!-- ============================================================= -->
+<!--                    ISO-SPECIFIC STANDARDS DOCUMENT METADATA   -->
+<!-- ============================================================= -->
+
+<!--                    ISO-SPECIFIC DOCUMENT IDENTIFICATION SECTION
+                        MODEL                                      -->
+<!ENTITY % doc-ident-model 
+                       "(sdo?, proj-id?, language?, release-version?, 
+                         urn?)"                                      >
+
+<!--                    ISO-SPECIFIC DOCUMENT IDENTIFICATION SECTION
+                        ATTRIBUTES                                 -->
+<!ENTITY % doc-ident-atts
+            "%jats-common-atts;  
+             xml:lang   NMTOKEN                            #IMPLIED" >
+
+<!--                    ISO-SPECIFIC DOCUMENT IDENTIFICATION SECTION
+                                                                   -->
+<!--                    <doc-ident> contains information which 
+                        uniquely identifies this document for ISO 
+                        purposes. Non-ISO organizations are advised
+                        to avoid this element. 
+                        Remarks: This element (and thus the elements 
+                        within) it may be used only in <iso-meta>, 
+                        <reg-meta>, or <nat-meta> for 
+                        backwards-compatibility purposes.
+                        The sub-elements are closely related to
+                        the fields of ISO URNs as documented in 
+                        RFC 5141 (from which some of the text 
+                        describing them is borrowed).              -->
+<!ELEMENT  doc-ident    %doc-ident-model;                            >
+<!ATTLIST  doc-ident   
+             %doc-ident-atts;                                        >
+
+
+
+<!--                    SDO MODEL                                  -->
+<!ENTITY % sdo-model    "(#PCDATA)*"                                 >
+
+<!--                    SDO ATTRIBUTES                             -->
+<!ENTITY % sdo-atts
+            "%jats-common-atts;"                                     >
+
+<!--                    ISO-specific NAME for a STANDARDS DEVELOPMENT
+                        ORGANIZATION                               -->
+<!--                    Remarks: This element may be used only inside
+                        <doc-ident> within <iso-meta>, 
+                        <reg-meta>, or <nat-meta>. The element is
+                        retained for backwards-compatibility purposes.
+                        The sub-elements are closely related to
+                        the fields of ISO URNs as documented in 
+                        RFC 5141 (from which some of the text 
+                        describing them is borrowed).       
+                        FOR ISO, <sdo> identifies the 
+                        standards-development 
+                        organization from which this standard 
+                        emanates.  Expected values are:
+                          iso (International Organization for 
+                              Standardization)
+                          iec (International Electro-Technical
+                              Commission)
+                          iso-iec (ISO/IEC joint work)
+                          iso-cie (ISO/CIE joint work)
+                          iso-astm (ISO/ASTM joint work)
+                          iso-ieee (ISO/IEEE joint work)           -->
+<!ELEMENT  sdo          %sdo-model;                                  >
+<!ATTLIST  sdo   
+             %sdo-atts;                                              >
+
+
+<!--                    ISO-SPECIFIC PROJECT IDENTIFIER MODEL      -->
+<!--                    Content model for the <proj-id> element.   -->
+<!ENTITY % proj-id-model 
+                       "(#PCDATA)*"                                  >
+
+<!--                    ISO-SPECIFIC PROJECT IDENTIFIER            -->
+<!ENTITY % proj-id-atts
+            "%jats-common-atts;"                                     >
+
+<!--                    ISO-SPECIFIC PROJECT IDENTIFIER            -->
+<!--                    <proj-id> gives the ISO project number for
+                        for the (ISO) project within which this 
+                        document was developed.
+                        Remarks: This element may be used only inside
+                        <doc-ident> within <iso-meta>, 
+                        <reg-meta>, or <nat-meta>. The element is
+                        retained for backwards-compatibility purposes.
+                        Remarks: In ISO STS, a <proj-id> was 
+                        required, but it was not expected that authors
+                        will always provide it, so software consuming 
+                        software using the ISO STS vocabulary should
+                        be prepared for the empty string as a value.                                                                             -->
+<!ELEMENT  proj-id      %proj-id-model;                              >
+<!ATTLIST  proj-id   
+             %proj-id-atts;                                          >
+
+
+<!--                    ISO-SPECIFIC LANGUAGE ELEMENTS             -->
+<!--                    Elements that may be mixed, along with #PCDATA
+                        inside the model of <language>             -->
+<!ENTITY % language-elements 
+                        ""                                           >
+
+<!--                    ISO-SPECIFIC LANGUAGE ATTRIBUTES           -->
+<!ENTITY % language-atts
+            "%jats-common-atts;"                                     >
+
+<!--                    OFFICIAL ISO LANGUAGE DESIGNATION          -->
+<!--                    <language> gives the official ISO language(s)
+                        used in this document.
+                        Remarks: This element may be used only inside
+                        <doc-ident> within <iso-meta>, 
+                        <reg-meta>, or <nat-meta>. The element is
+                        retained for backwards-compatibility purposes.
+                        Note: Only one <language> element was allowed
+                        in an ISO document. A NISO STS document
+                        would record the language in the
+                        <content-language> element.           
+                        Remarks: Legal values for ISO monolingual 
+                        <language> element are: 
+                           en, fr, ru, es, ar
+                        
+                        For ISO bilingual documents, use
+                        comma separated values. 
+                          'en,fr', 'en,ru', 'fr,ru'
+                        
+                        For ISO trilingual documents, use
+                        comma separated values. 
+                          'en,fr,ru'.                              -->        
+<!ELEMENT  language     (#PCDATA %language-elements;)*               >
+<!ATTLIST  language   
+             %language-atts;                                         >
+
+
+<!--                    ISO-SPECIFIC RELEASE-VERSION ATTRIBUTES    -->
+<!ENTITY % release-version-atts
+            "%jats-common-atts;
+             stage-code CDATA                             #IMPLIED
+             vocab      CDATA                             #IMPLIED
+             vocab-identifier
+                        CDATA                             #IMPLIED
+             vocab-term CDATA                             #IMPLIED
+             vocab-term-identifier
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED"  >
+
+
+<!--                    ISO-SPECIFIC RELEASE-VERSION ELEMENTS      -->
+<!--                    Elements that may be mixed, along with #PCDATA
+                        inside the model of <release-version>      -->
+<!ENTITY % release-version-elements
+                       ""                                            >
+
+<!--                    ISO-SPECIFIC RELEASE-VERSION               -->
+<!--                    The ISO <release-version> identifies the  
+                        version of the document represented by the 
+                        current XML document, in terms of the ISO 
+                        standard maturity stages.
+                        Remarks: This element may be used only
+                        inside <doc-ident> within <iso-meta>, 
+                        <reg-meta>, or <nat-meta>. The element is
+                        retained for backwards-compatibility purposes.
+                        Remarks: Expected ISO values are:
+                         - CD committee draft
+                         - DIS draft International Standard
+                         - DIS final draft International Standard
+                         - IS International Standard               -->
+<!ELEMENT  release-version
+                        (#PCDATA %release-version-elements;)*        >
+<!ATTLIST  release-version   
+             %release-version-atts;                                  >
+
+
+<!--                    ISO-SPECIFIC UNIFORM RESOURCE ELEMENTS     -->
+<!--                    Elements that may be mixed, along with #PCDATA
+                        inside the model of <urn>                  -->
+<!ENTITY % urn-elements ""                                           >
+
+<!ENTITY % urn-atts   
+            "%jats-common-atts;"                                     >
+
+<!--                    ISO-SPECIFIC UNIFORM RESOURCE NAME         -->
+<!--                    <urn> gives a, ISO Uniform Resource Name (URN) 
+                        for this document, as specified by RFC 
+                        5141.
+                        Remarks: This element may be used only inside
+                        <doc-ident> within <iso-meta>, 
+                        <reg-meta>, or <nat-meta>. The element is
+                        retained for backwards-compatibility purposes.
+                                                                   -->
+<!ELEMENT  urn          (#PCDATA %urn-elements;)*                    >
+<!ATTLIST  urn   
+             %urn-atts;                                              >
+
+
+<!-- ============================================================= -->
+<!--                    STANDARDS ORGANIZATION METADATA            -->
+<!-- ============================================================= -->
+
+
+<!--                    STANDARDS ORGANIZATION GROUP MODEL         -->
+<!--                    Content model for <std-org-group> element. -->
+<!ENTITY % std-org-group-model 
+                       "(std-org+)"                                  >
+
+
+<!--                    STANDARDS DOCUMENT METADATA ATTRIBUTES     -->
+<!ENTITY % std-org-group-atts
+            "%jats-common-atts;  
+             xml:lang   NMTOKEN                            #IMPLIED
+             specific-use
+                        CDATA                              #IMPLIED" >
+
+
+<!--                    STANDARDS ORGANIZATION GROUP               -->
+<!--                    Container element to hold the one or more
+                        standards organizations associated with
+                        producing a standard.                      -->
+<!ELEMENT  std-org-group    
+                        %std-org-group-model;                        >
+<!ATTLIST  std-org-group    
+                        %std-org-group-atts;                         >
+
+
+<!--                    STANDARDS ORGANIZATION MODEL               -->
+<!--                    Content model for <std-org> element.       -->
+<!ENTITY % std-org-model 
+                       "(std-org-name?, std-org-abbrev*, 
+                         std-org-loc* )"                             >
+
+<!--                    STANDARDS DOCUMENT METADATA ATTRIBUTES     -->
+<!ENTITY % std-org-atts
+             "%jats-common-atts;  
+              xml:lang  NMTOKEN                           #IMPLIED
+              std-org-type
+                        CDATA                             #IMPLIED
+              std-org-role  
+                        CDATA                             #IMPLIED
+              std-org-level  
+                        CDATA                             #IMPLIED"  >
+
+<!--                    STANDARDS ORGANIZATION                     -->
+<!--                    Description of a standards organization
+                        associated with producing a standard. 
+                        (This is analogous to Publisher for a journal
+                        article.)
+                          Remarks: The @org-role can be used to
+                        record what part the standards organization
+                        played in the standard, such as "lead",
+                        "co-producer", etc.                        -->
+<!ELEMENT  std-org      %std-org-model;                              >
+<!ATTLIST  std-org      %std-org-atts;                               >
+
+
+
+<!--                    STANDARDS ORGANIZATION NAME ELEMENTS       -->
+<!--                    Elements that can be mixed with #PCDATA inside
+                        a <std-org-name> element.                  -->
+<!ENTITY % std-org-name-elements 
+                        "| %subsup.class;"                           >
+
+<!--                    STANDARDS ORGANIZATION NAME ATTRIBUTES     -->
+<!ENTITY % std-org-name-atts
+            "%jats-common-atts;  
+             xml:lang   NMTOKEN                           #IMPLIED"  >
+
+<!--                    STANDARDS ORGANIZATION NAME                -->
+<!--                    Name of the standards organization.        -->
+<!ELEMENT  std-org-name    
+                        (#PCDATA %std-org-name-elements;)*           >
+<!ATTLIST  std-org-name %std-org-name-atts;                          >
+
+
+<!--                    STANDARDS ORGANIZATION ABBREVIATION ELEMS  -->
+<!--                    Elements that can be mixed with #PCDATA inside
+                        a <std-org-abbrev> element.                -->
+<!ENTITY % std-org-abbrev-elements 
+                        "| %subsup.class;"                           >
+
+<!--                    STANDARDS ORGANIZATION ABBREVIATION 
+                        ATTRIBUTES                                 -->
+<!ENTITY % std-org-abbrev-atts
+            "%jats-common-atts;  
+             xml:lang   NMTOKEN                            #IMPLIED" >
+
+<!--                    STANDARDS ORGANIZATION NAME                -->
+<!--                    Name of the standards organization.        -->
+<!ELEMENT  std-org-abbrev    
+                        (#PCDATA %std-org-abbrev-elements;)*         >
+<!ATTLIST  std-org-abbrev 
+                        %std-org-abbrev-atts;                        >
+
+
+<!--                    STANDARDS ORGANIZATION LOCATION ELEMENTS   -->
+<!--                    Elements that can be mixed with #PCDATA inside
+                        a <std-org-loc> element.                   -->
+<!ENTITY % std-org-loc-elements 
+                        "| %address.class; | %address-link.class;"   >
+
+<!--                    STANDARDS ORGANIZATION LOCATION ATTRIBUTES -->
+<!ENTITY % std-org-loc-atts
+            "%jats-common-atts;  
+             xml:lang   NMTOKEN                            #IMPLIED" >
+
+<!--                    STANDARDS ORGANIZATION LOCATION            -->
+<!--                    Physical location(s) of a standards
+                        organization.                              -->
+<!ELEMENT  std-org-loc  (#PCDATA %std-org-loc-elements;)*            >
+
+
+<!-- ============================================================= -->
+<!--                    ISO-Specific DOCUMENT IDENTIFICATION ELEMS -->
+<!-- ============================================================= -->
+
+ 
+<!--                    CONTENT LANGUAGE ELEMENTS                  -->
+<!--                    Elements that can be mixed with #PCDATA inside
+                        a <content-language> element.              -->
+<!ENTITY % content-language-elements 
+                        ""                                           >
+
+<!--                    CONTENT LANGUAGE ATTRIBUTES                -->
+<!ENTITY % content-language-atts
+            "%jats-common-atts;  
+             xml:lang   NMTOKEN                            #IMPLIED" >
+
+<!--                    CONTENT LANGUAGE                           -->
+<!--                    <content-language> identifies one of the
+                        official language(s) used in this document.
+                        There is one occurrence of the
+                        <content-language> element for each
+                        language.  
+                        Remarks: For monolingual documents,
+                        <content-language> and <language> will
+                        have the same value, while for bilingual
+                        or trilingual documents, the single
+                        <language> element will have a value
+                        containing commas, while there will be two
+                        or three <content-language> elements.      -->
+<!ELEMENT  content-language  
+                        (#PCDATA %content-language-elements;)*       >
+<!ATTLIST  content-language
+                        %content-language-atts;                      >
+
+
+<!--                    STANDARD IDENTIFICATION MODEL              -->
+<!--                    Content model for the element <std-ident>. -->
+<!ENTITY % std-ident-model 
+                       "(originator?, doc-type?, doc-number?,
+                         part-number?, sub-part-number*, 
+                         edition?, version?, std-id-group*, 
+                         isbn*, issn*, issn-l*,
+                         suppl-type?, suppl-number?, suppl-version?, 
+                         year?)"                                     >
+
+
+<!--                    STANDARD IDENTIFICATION ATTRIBUTES         -->
+<!ENTITY % std-ident-atts
+            "%jats-common-atts;  
+             xml:lang   NMTOKEN                            #IMPLIED" >
+
+<!--                    STD-IDENT (STANDARD IDENTIFICATION BLOCK)  -->
+<!--                    The <std-ident> element gives the basic
+                        information from which the standard
+                        reference to this document is constructed:
+                        full standard reference for the document;
+                        the child elements identify the various
+                        pieces of the reference and may give other
+                        information. The full form of the
+                        reference is given by the std-ref and
+                        doc-ref elements, which are siblings (not
+                        children) of std-ident.
+
+                        When things are simple, the reference
+                        could be constructed by putting the pieces
+                        together in the prescribed way, but it's
+                        sometimes simpler to do it by hand than to
+                        try to make the software understand all
+                        the rules.                                 -->
+<!ELEMENT  std-ident    %std-ident-model;                            >
+<!ATTLIST  std-ident    %std-ident-atts;                             >
+
+ 
+<!--                    ICS CODE ELEMENTS                          -->
+<!--                    Elements that can be mixed with #PCDATA inside
+                        a <ics> element.                           -->
+<!ENTITY % ics-elements ""                                           >
+
+<!--                    ICS CODE ATTRIBUTES                        -->
+<!--                    Attribute list for the element <ics>.      -->
+<!ENTITY % ics-atts
+            "%jats-common-atts;                                       
+             vocab-term CDATA                             #IMPLIED
+             vocab-term-identifier
+                        CDATA                             #IMPLIED"  >
+
+<!--                    ICS CODE                                   -->
+<!--                    <ics> identifies the subject matter of the
+                        standard using the "International 
+                        Classification for Standards" numeric code.  
+                        When there is more than one
+                        ICS code, <ics> appears more than once.    -->                        
+<!ELEMENT  ics          (#PCDATA %ics-elements;)*                    >
+<!ATTLIST  ics          %ics-atts;                                   >
+
+ 
+<!--                    ICS WRAP MODEL                             -->
+<!--                    Content model for a <ics-wrap> element.    -->
+<!ENTITY % ics-wrap-model    
+                        "((ics, ics-desc*)+, ics-wrap*)"             >
+ 
+<!--                    ICS WRAP ATTRIBUTES                        -->
+<!--                    Attribute list for the element <ics-wrap>. -->
+<!ENTITY % ics-wrap-atts
+            "%jats-common-atts;                                       
+             vocab      CDATA                             #IMPLIED
+             vocab-identifier
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED"  >
+
+<!--                    ICS WRAP                                   -->
+<!--                    <ics-wrap> is a container element that holds
+                        an International Classification for
+                        Standards (ICS) Code <ics> and its ICS 
+                        name/title/descriptor.<ics-wrap> elements
+                        are recursive so that hierarchies of
+                        of ICS codes can be built.                 -->                        
+<!ELEMENT  ics-wrap     %ics-wrap-model;                             >
+<!ATTLIST  ics-wrap     %ics-wrap-atts;                              >
+
+ 
+<!--                    ICS DESCRIPTION ELEMENTS                   -->
+<!--                    Elements that can be mixed with #PCDATA inside
+                        a <ics-desc> element.                      -->
+<!ENTITY % ics-desc-elements 
+                        ""                                           >
+
+<!--                    ICS DESCRIPTION ATTRIBUTES                 -->
+<!--                    Attribute list for the element <ics-desc>. -->
+<!ENTITY % ics-desc-atts
+            "%jats-common-atts;                                       
+             vocab-term CDATA                             #IMPLIED
+             vocab-term-identifier
+                        CDATA                             #IMPLIED
+             xml:lang   NMTOKEN                           #IMPLIED"  >
+
+<!--                    ICS DESCRIPTION                            -->
+<!--                    <ics-desc> identifies the subject matter of  
+                        the standard using the text/name/title/
+                        description of a code from the International 
+                        Classification for Standards.              -->                        
+<!ELEMENT  ics-desc     (#PCDATA %ics-desc-elements;)*               >
+<!ATTLIST  ics-desc     %ics-desc-atts;                              >
+
+
+<!--                    IS-PROOF MODEL                             -->
+<!ENTITY % is-proof-model 
+                       "EMPTY"                                       >
+
+<!--                    IS-PROOF ATTRIBUTES                        -->
+<!ENTITY % is-proof-atts
+            "%jats-common-atts;"                                     >
+
+<!--                    IS-PROOF                                   -->
+<!--                    A flag element, whose presence signals that
+                        a draft document is being processed as proof.
+                        Remarks: The <is-proof> element is always 
+                        empty. If it appears in a document, it signals
+                        that the draft document is being processed as 
+                        proof.
+                        Note: For ISO processing, no ballot is 
+                        required for an is-proof document, and so 
+                        a special coverpage must be produced.      -->
+<!ELEMENT  is-proof     %is-proof-model;                             >
+<!ATTLIST  is-proof     %is-proof-atts;                              >
+
+ 
+<!--                    ORIGINATOR ELEMENTS                        -->
+<!--                    Elements that can be mixed with #PCDATA inside
+                        a <originator> element.                    -->
+<!ENTITY % originator-elements 
+                        ""                                           >
+
+<!--                    ORIGINATOR ATTRIBUTES                      -->
+<!ENTITY % originator-atts
+            "%jats-common-atts;"                                     >
+
+<!--                    ORIGINATOR                                 -->
+<!--                    The <originator> element indicates the
+                        standards development organization from
+                        which the document emanates.  E.g. iso, 
+                        iec, iso-iec, iso-cie, iso-astm, iso-ieee  -->
+<!ELEMENT  originator   (#PCDATA %originator-elements;)*             >
+<!ATTLIST  originator   %originator-atts;                            >
+
+ 
+<!--                    DOCUMENT TYPE ELEMENTS                     -->
+<!--                    Elements that can be mixed with #PCDATA inside
+                        a <doc-type> element.                      -->
+<!ENTITY % doc-type-elements 
+                        ""                                           >
+
+<!--                    DOCUMENT TYPE ATTRIBUTES                   -->
+<!ENTITY % doc-type-atts
+            "%jats-common-atts;"                                     >
+
+<!--                    DOCUMENT TYPE                              -->
+<!--                    The <doc-type> element indicates what kind 
+                        of document this document is.
+                        
+                        Current values are:
+                           guide 
+                           is (international standard)
+                           isp (international standardized profile)
+                           iwa (international workshop agreement)
+                           pas (publicly available specification)
+                           r (recommendation [obsolete]) 
+                           tr (technical report)  
+                           ts (technical specification)  
+                           tta (technology trends assessment)
+                          
+                        The following value is for a class of
+                        documents no longer being produced, so it
+                        will not normally appear (but is listed 
+                        here for completeness and in case this tag
+                        set is ever used for older documents):
+                        data                                       -->
+<!ELEMENT  doc-type     (#PCDATA %doc-type-elements;)*               >
+<!ATTLIST  doc-type     %doc-type-atts;                              >
+
+
+<!-- ============================================================= -->
+<!--                    NUMBERS, VERSIONS, AND IDENTIFIERS         -->
+<!-- ============================================================= -->
+
+
+<!--                    DOCUMENT NUMBER ELEMENTS                   -->
+<!--                    Elements that can be mixed with #PCDATA inside
+                        a <doc-number> element.                    -->
+<!ENTITY % doc-number-elements 
+                        ""                                           >
+
+<!--                    DOCUMENT NUMBER ATTRIBUTES                 -->
+<!ENTITY % doc-number-atts
+            "%jats-common-atts;"                                     >
+
+<!--                    DOCUMENT NUMBER                            -->
+<!--                    <doc-number> gives the document-number part 
+                        of the document's reference.  Its value is 
+                        a sequence of digits.                      -->
+<!ELEMENT  doc-number   (#PCDATA %doc-number-elements;)*             >
+<!ATTLIST  doc-number   %doc-number-atts;                            >
+
+
+<!--                    DOCUMENT PART NUMBER ELEMENTS              -->
+<!--                    Elements that can be mixed with #PCDATA inside
+                        a <part-number> element.                   -->
+<!ENTITY % part-number-elements 
+                        ""                                           >
+
+<!--                    DOCUMENT PART NUMBER ATTRIBUTES            -->
+<!ENTITY % part-number-atts
+            "%jats-common-atts;"                                     >
+
+<!--                    DOCUMENT PART NUMBER                       -->
+<!--                    <part-number> gives the part number of the 
+                        document, for individual parts of
+                        multipart documents.  Its value is one or 
+                        more alphanumeric characters or hyphens.
+                        
+                        In a document reference, the part number
+                        is normally preceded by a hyphen (as in 
+                        "ISO 8859-1", part 1 of ISO 8859).  But no
+                        leading hyphen is needed here, and none
+                        should be used.                            -->
+<!ELEMENT  part-number  (#PCDATA %part-number-elements;)*            >
+<!ATTLIST  part-number   %part-number-atts;                          >
+
+
+<!--                    DOCUMENT SUB-PART NUMBER ELEMENTS          -->
+<!--                    Elements that can be mixed with #PCDATA inside
+                        a <sub-part-number> element.               -->
+<!ENTITY % sub-part-number-elements 
+                        ""                                           >
+
+<!--                    DOCUMENT SUB-PART NUMBER ATTRIBUTES        -->
+<!ENTITY % sub-part-number-atts
+            "content-type  
+                        CDATA                             #IMPLIED             
+             %jats-common-atts;"                                     >
+
+<!--                    DOCUMENT SUB-PART NUMBER                   -->
+<!--                    <part-number> gives the part number of the 
+                        document, for individual parts of
+                        multipart documents.  Its value is one or 
+                        more alphanumeric characters or hyphens.
+                        
+                        For some standards organizations, the part-
+                        number granularity is insfufficient, and
+                        they wish toi identify sub-part numbers, for
+                        sections and similar components of parts.  -->
+<!ELEMENT  sub-part-number  
+                        (#PCDATA %sub-part-number-elements;)*        >
+<!ATTLIST  sub-part-number   
+                        %sub-part-number-atts;                       >
+
+
+<!--                    EDITION                                    -->
+<!--                    <edition> indicates which edition of the 
+                        standard is represented (or constituted)
+                        by the current document.  Its value is a
+                        sequence of decimal digits.
+                        
+                        The <edition> element may also occur in
+                        the main body of the document (in 
+                        bibliographic citations) and is defined in 
+                        the appropriate module (references).       -->
+<!--ELEM   edition      Defined in %references.ent;"               -->
+
+
+<!--                    STANDARD ID GROUP MODEL                    -->
+<!--                    Content model for <std-id-group> element.  -->
+<!ENTITY % std-id-group-model
+                        "(%std-id.class;)+"                          >
+
+<!--                    STANDARD ID GROUP ATTRIBUTES               -->
+<!ENTITY % std-id-group-atts
+            "%jats-common-atts;  
+             xml:lang   NMTOKEN                           #IMPLIED
+             std-relationship-type
+                        CDATA                             #IMPLIED
+             specific-use  
+                        CDATA                             #IMPLIED             
+             %originator-attribute;"                                 >
+
+
+<!--                    STANDARD ID GROUP                          -->
+<!--                    A container element that holds several
+                        standards identifiers (<std-id>s) to indicate 
+                        that they are alternative identifiers for 
+                        the same standard, for example, a DOI and 
+                        also a URN.                                -->
+<!ELEMENT  std-id-group %std-id-group-model;                         >
+<!ATTLIST  std-id-group %std-id-group-atts;                          >
+
+
+<!--                    STANDARD ID ELEMENTS                       -->
+<!--                    Elements that can be mixed with #PCDATA inside
+                        a <std-id> element.                        -->
+<!ENTITY % std-id-elements
+                        ""                                           >
+
+<!--                    STANDARD ID ATTRIBUTES                     -->
+<!ENTITY % std-id-atts
+            "%jats-common-atts;  
+             xml:lang   NMTOKEN                           #IMPLIED
+             std-id-type
+                        CDATA                             #IMPLIED
+             std-id-link-type 
+                        CDATA                             #IMPLIED
+             std-relationship-type
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED 
+             %originator-attribute;"                                >                                
+
+
+<!--                    STANDARD ID                                -->
+<!--                    One identifier (such as a DOI, URN, or
+                        document abbreviation) for a standard, using
+                        the @std-id-type attribute to name the type. 
+                        These identifiers are grouped into a 
+                        <std-id-group> which may also be typed.    -->
+<!ELEMENT  std-id       (#PCDATA %std-id-elements;)*                 >
+<!ATTLIST  std-id       %std-id-atts;                                >
+
+
+<!-- ============================================================= -->
+<!--                    SUPPLEMENTS                                -->
+<!-- ============================================================= -->
+
+
+<!--                    SUPPLEMENT TYPE ELEMENTS                   -->
+<!--                    Elements that can be mixed with #PCDATA inside
+                        a <suppl-type> element.                    -->
+<!ENTITY % suppl-type-elements 
+                        ""                                           >
+
+<!--                    SUPPLEMENT TYPE ATTRIBUTES                 -->
+<!ENTITY % suppl-type-atts
+            "%jats-common-atts;"                                     >
+
+<!--                    SUPPLEMENT TYPE                            -->
+<!--                    <suppl-type> identifies what kind of
+                        alteration or addition is represented by
+                        this document.  Applicable to in  
+                        supplements only; in other documents, it 
+                        should be empty.
+                        
+                        Values currently used:
+                          amd (Amendment)
+                          cor (Technical Corrigendum) 
+                          add (Addendum).
+                          
+                        Some published addenda are still valid,
+                        but they are no longer being published so
+                        'add' will probably never be encountered.  -->
+<!ELEMENT  suppl-type   (#PCDATA %suppl-type-elements;)*             >
+<!ATTLIST  suppl-type   %suppl-type-atts;                            >
+
+
+<!--                    SUPPLEMENT NUMBER ELEMENTS                 -->
+<!--                    Elements that can be mixed with #PCDATA inside
+                        a <suppl-number> element.                  -->
+<!ENTITY % suppl-number-elements 
+                        ""                                           >
+
+<!--                    SUPPLEMENT NUMBER ATTRIBUTES               -->
+<!ENTITY % suppl-number-atts
+            "%jats-common-atts;"                                     >
+
+<!--                    SUPPLEMENT NUMBER                          -->
+<!--                    <suppl-number> gives the number of the 
+                        supplement.  Its value is a sequence of 
+                        decimal digits.  For non-supplements, it 
+                        should be present (it's required by the 
+                        DTD) and empty.  If the element is empty 
+                        for a document which IS a supplement, the
+                        value defaults to 1.                       -->
+<!ELEMENT  suppl-number (#PCDATA %suppl-number-elements;)*           >
+<!ATTLIST  suppl-number %suppl-number-atts;                          >
+
+
+<!--                    SUPPLEMENT VERSION ELEMENTS                -->
+<!--                    Elements that can be mixed with #PCDATA inside
+                        a <suppl-version> element.                 -->
+<!ENTITY % suppl-version-elements 
+                        ""                                           >
+
+<!--                    SUPPLEMENT VERSION ATTRIBUTES              -->
+<!ENTITY % suppl-version-atts
+            "%jats-common-atts;"                                     >
+
+<!--                    SUPPLEMENT VERSION                         -->
+<!--                    <suppl-version> gives the version number of 
+                        the supplement.  Its value, when present, 
+                        is a sequence of decimal digits.  For  
+                        non-supplements it should be empty.  For a  
+                        supplement, the default value is 1.        -->
+<!ELEMENT  suppl-version
+                        (#PCDATA %suppl-version-elements;)*          >
+<!ATTLIST  suppl-version
+             %suppl-version-atts;                                    >
+
+
+<!-- ============================================================= -->
+<!--                    STANDARD REFERENCES                        -->
+<!-- ============================================================= -->
+ 
+<!--                    STANDARD-REFERENCE ATTRIBUTES              -->
+<!ENTITY % std-ref-atts
+            "%jats-common-atts;   
+             type       (dated | undated | short | custom) 
+                                                           #IMPLIED
+             custom-type
+                        CDATA                              #IMPLIED" >
+
+<!--                    STD-REF ELEMENTS                           -->
+<!--                    The elements that can be included along with
+                        data characters inside the content model of
+                        <std-ref>                                  -->
+<!ENTITY % std-ref-elements 
+                        "| %std-ref-content.class;"                  >
+
+
+<!--                    STANDARD NOMENCLATURE                      -->
+<!--                    <std-ref> holds a pre-combined convenience
+                        form of the full standard nomenclature 
+                        reference number for a standard, for example,
+                        "ISO 9000", which is typically provided twice:
+                        in dated form and in undated form. 
+                        Strictly speaking, this identifier could
+                        probably be constructed from information
+                        present in <std-ident>, but since the rules
+                        for constructing this identifier are both
+                        complex and organization-specific, it is 
+                        convenient to have it all place.
+                        Remarks: The several forms of identifying 
+                        number (dated, short, etc,) should be
+                        distinguished using the '@type' attribute.                                                                               -->
+<!ELEMENT  std-ref      (#PCDATA %std-ref-elements;)*                >
+<!ATTLIST  std-ref      %std-ref-atts;                               >
+
+
+<!--                    DOC-REF ELEMENTS                           -->
+<!--                    Elements that can be mixed with #PCDATA inside
+                        a <doc-ref> element.                       -->
+<!ENTITY % doc-ref-elements 
+                        ""                                           >
+
+<!--                    DOC-REF ATTRIBUTES                         -->
+<!ENTITY % doc-ref-atts
+            "%jats-common-atts;"                                     >
+
+<!--                    DOC-REF                                    -->
+<!--                    <doc-ref> gives the full reference form of 
+                        this particular document, as one form of
+                        the standard.                              -->
+<!ELEMENT  doc-ref      (#PCDATA %doc-ref-elements;)*                >
+<!ATTLIST  doc-ref      %doc-ref-atts;                               >
+
+
+<!-- ============================================================= -->
+<!--                    DATES FOR PUBLICATION AND OTHER HISTORY    -->
+<!-- ============================================================= -->
+
+<!--                    PUB DATE                                   -->
+<!--                    The <pub-date> was used in ISO STS to name
+                        the date this standard was (or was to be)
+                        published. This element has been superseded
+                        by <release-date> but may still appear in 
+                        documents for backward compatibility with 
+                        ISO STS.
+                          Remarks: While this element may still be
+                        used, for better JATS compatibility, the
+                        date of initial publication should be
+                        recorded using <release-date> with the
+                        appropriate attributes.
+                          Remarks: For ISO STS published standards,
+                        the <pub-date> recorded the date on which
+                        the project reached ISO stage 60, and the
+                        IS was first published. For the initial
+                        publication, the <pub-date> and the
+                        <release-date> were the same. For later ISO
+                         publications (corrections, new editions,
+                        versions in other languages), the <pub-date>
+                        would be earlier than the <release-date> (and
+                        was be the same across all versions of a
+                        given standard).                           -->
+
+<!--ELEM   pub-date     Defined in %articlemeta.ent;               -->
+
+
+<!--                    RELEASE DATE ELEMENTS                      -->
+<!--                    Elements that can be mixed with #PCDATA inside
+                        a <release-date> element.                  -->
+<!ENTITY % release-date-elements 
+                        ""                                           >
+
+<!--                    RELEASE DATE ATTRIBUTES                    -->
+<!ENTITY % release-date-atts
+            "%jats-common-atts;   
+             date-type  CDATA                             #IMPLIED
+             publication-format
+                        CDATA                             #IMPLIED
+             std-type   CDATA                             #IMPLIED
+             iso-8601-date
+                        CDATA                             #IMPLIED 
+             %originator-attribute;"                                 >
+
+
+<!--                    RELEASE DATE                               -->
+<!--                    Date on which q particular version of the 
+                        standards document is (or is to be) published.
+                            Remarks: There may be multiple release
+                        dates for a standard, which should be
+                        differentiated using the @date-type and 
+                        @std-type attributes. Dates in the life-cycle
+                        of a standards document (published date, 
+                        reaffirmed date, retracted date, etc.) should
+                        be described using the @date-type attribute.
+                        The life-cycle event for the standard
+                        (new-standard, addenda, corrigendum, etc.)
+                        should be described by the @std-type attribute.
+                        Historical Note: The element <pub-date> was
+                        use in ISO STS to name the date of 
+                        publication, but dues to conflicts with JATS,
+                        <release-date> is the preferred tag to name
+                        a date of publication.                     -->
+<!ELEMENT  release-date (#PCDATA %release-date-elements;)*           >
+<!ATTLIST  release-date %release-date-atts;                          >
+
+
+<!--                    OTHER METADATA DATE ELEMENTS               -->
+<!--                    Elements that can be mixed with #PCDATA inside
+                        a <meta-date> element.                     -->
+<!ENTITY % meta-date-elements 
+                        ""                                           >
+
+<!--                    OTHER METADATA DATE ATTRIBUTES             -->
+<!ENTITY % meta-date-atts
+            "%jats-common-atts;   
+             type       CDATA                             #IMPLIED
+             date-type  CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             publication-format
+                        CDATA                             #IMPLIED
+             iso-8601-date
+                        CDATA                             #IMPLIED
+             %originator-attribute;"                                 >
+
+
+<!--                    OTHER METADATA DATE                        -->
+<!--                    <meta-date> gives the date of some event
+                        relevant to this document or standard, for 
+                        all document production and/or lifecycle dates
+                        that are not covered by the <relesase-date> 
+                        element, for example internal dates that are
+                        unique to a particular standards producing
+                        organization.
+                           Remarks: There may be many <meta-date>
+                        dates recorded. The kind of event should be 
+                        named in the @type attribute. The values of
+                        @type are not formally constrained, since
+                        they are typically organization-specific,
+                        for example 'rescinded'. 
+                        Original publication date and other
+                        release dates should be tagged as 
+                        <release-date> dates, not as <meta-date> 
+                        dates.                                     -->
+<!ELEMENT  meta-date    (#PCDATA %meta-date-elements;)*              >
+<!ATTLIST  meta-date    %meta-date-atts;                             >
+
+
+<!-- ============================================================= -->
+<!--                    COMMITTEES AND SECRETARIAT                 -->
+<!-- ============================================================= -->
+
+
+<!--                    ACCREDITING ORGANIZATION ELEMENTS          -->
+<!--                    Elements that may be mixed with #PCDATA
+                        inside an <accrediting-organization> 
+                        element.                                   -->
+<!ENTITY % accrediting-organization-elements
+                        ""                                           >
+
+<!--                    ACCREDITING ORGANIZATION ATTRIBUTES        -->
+<!ENTITY % accrediting-organization-atts
+            "%jats-common-atts;                                   
+             accredit-acronym       
+                        CDATA                             #IMPLIED"  >
+
+                               
+<!--                    ACCREDITING ORGANIZATION                   -->
+<!--                    American SDOs can be formally "accredited"
+                        by ANSI to publish standards. Part of that
+                        accreditation is that an SDO must follow
+                        ANSI rules, and there are regular audits to
+                        ensure compliance. 
+                          Not all organizations that publish standards 
+                        in America are accredited. Not all documents 
+                        published by ANSI accredited organizations are 
+                        authorized as "An American National Standard". 
+                        Thus accredited American SDOs need a way to 
+                        record in the XML metadata that they are 
+                        accredited and that this standards document 
+                        has been authorized.
+                          The content of this element is expected to
+                        be a text phrase that may be, but need not be, 
+                        displayed as part of the standards document, 
+                        such as
+                            "Accredited by the American National 
+                             Standards Institute"                  -->
+<!ELEMENT  accrediting-organization
+                        (#PCDATA 
+                         %accrediting-organization-elements;)*       >
+<!ATTLIST  accrediting-organization
+                        %accrediting-organization-atts;              >
+
+
+<!--                    AUTHORIZATION ELEMENTS                     -->
+<!--                    Elements that may be mixed with #PCDATA
+                        inside an <authorization> element.         -->
+<!ENTITY % authorization-elements
+                        ""                                           >
+
+<!--                    AUTHORIZATION ORGANIZATION ATTRIBUTES      -->
+<!ENTITY % authorization-atts
+            "%jats-common-atts;                                   
+             authorize-acronym       
+                        CDATA                             #IMPLIED"  > 
+
+                              
+<!--                    ACCREDITING ORGANIZATION                   -->
+<!--                    Captures the standards authority/process under 
+                        which this standard has been developed.
+                          The content of this element is expected to
+                        be a text phrase that may be, but need not be, 
+                        displayed as part of the standards document, 
+                        such as
+                            "An American National Standard"       -->
+<!ELEMENT  authorization
+                        (#PCDATA 
+                         %authorization-elements;)*                 >
+<!ATTLIST  authorization
+                        %authorization-atts;                        >
+
+
+<!--                    COMM-REF-GROUP MODEL                       -->
+<!--                    Content model for the <comm-ref-group> 
+                        element.                                   -->
+<!ENTITY % comm-ref-group-model
+                        "(comm-ref+, comm-ref-group*)"               >
+
+<!--                    COMM-REF-GROUP ATTRIBUTES                  -->
+<!ENTITY % comm-ref-group-atts
+            "%jats-common-atts;                                   
+             comm-ref-group-type       
+                        CDATA                             #IMPLIED
+             level      CDATA                             #IMPLIED                  
+             %originator-attribute;"                                 > 
+
+                               
+<!--                    COMMITTEE REFERENCE (HIERARCHICAL)         -->
+<!--                    Identifies groups (such as Committees
+                        and subcommittees) that are responsible for 
+                        the  standards document. A hierarchy of
+                        groups is possible as this element may contain
+                        a <comm-ref> element to name itself, a series
+                        of <comm-ref>s, as well as lower-level
+                        <comm-ref-groups>.                         -->
+<!ELEMENT  comm-ref-group
+                        %comm-ref-group-model;                       >
+<!ATTLIST  comm-ref-group
+                        %comm-ref-group-atts;                        >
+
+
+<!--                    COMM-REF ELEMENTS                          -->
+<!--                    Elements that can be mixed with #PCDATA inside
+                        a <comm-ref> element.                      -->
+<!ENTITY % comm-ref-elements 
+                        ""                                           >
+
+<!--                    COMM-REF ATTRIBUTES                        -->
+<!ENTITY % comm-ref-atts
+            "%jats-common-atts;"                                     >
+
+<!--                    COMMITTEE REFERENCE                        -->
+<!--                    Identifies the group (such as a Committee
+                        or subcommittee) that is responsible for the 
+                        standards document.  E.g. 
+                         'ISO/TC 27/SC 4'.
+                        Remarks: To allow for a hierarchy of groups,
+                        a <comm-ref-group> element has been
+                        created to hold multiple <comm-ref>s or
+                        nested <comm-ref-groups>                   -->
+<!ELEMENT  comm-ref     (#PCDATA %comm-ref-elements;)*               >
+<!ATTLIST  comm-ref     %comm-ref-atts;                              >
+
+
+<!--                    SECRETARIAT ELEMENTS                       -->
+<!--                    Elements that can be mixed with #PCDATA inside
+                        a <secretariat> element.                   -->
+<!ENTITY % secretariat-elements 
+                        ""                                           >
+
+<!--                    SECRETARIAT ATTRIBUTES                     -->
+<!ENTITY % secretariat-atts
+            "%jats-common-atts; 
+             %originator-attribute;"                                 >
+
+<!--                    SECRETARIAT                                -->
+<!--                    <secretariat> identifies the organization 
+                        which serves as secretariat for the ISO 
+                        group responsible for the document.        
+                        Sometimes repeats.                         -->
+<!ELEMENT  secretariat  (#PCDATA %secretariat-elements;)*            >
+<!ATTLIST  secretariat  %secretariat-atts;                           >
+
+
+<!-- ============================================================= -->
+<!--                    STANDARD CROSS-REFERENCE                   -->
+<!-- ============================================================= -->
+
+
+<!--                    STD-XREF                                   -->
+<!--                    <std-xref> identifies links to other 
+                        standards.                                 -->
+<!ENTITY % std-xref-model 
+                       "((std-ident | std-ref | std-id-group)+,
+                          release-date*, meta-date*)"                >
+
+<!--                    STD-XREF ATTRIBUTES                        -->
+<!--         type       what is the relation between the two
+                        standards?  Sample values:  "amends",
+                        "replaces"                                 -->
+<!ENTITY % std-xref-atts
+            "%jats-common-atts;   
+             type       CDATA                             #REQUIRED" >
+
+<!--                    STANDARD CROSS-REFERENCE                   -->
+<!--                    <std-xref> identifies links to other 
+                        standards.                                 -->
+<!ELEMENT std-xref      %std-xref-model;                             >
+<!ATTLIST std-xref      %std-xref-atts;                              >
+
+<!-- ============================================================= -->
+<!--                    ANNEX-TYPE                                 -->
+<!-- ============================================================= -->
+
+<!--                    ANNEX-TYPE                                 -->
+<!--                    Is this <annex> normative or informative
+                        (non-normative). Content is expected to be
+                        "(normative)" or "(informative)".  Strictly 
+                        redundant with the app/@content-type 
+                        attribute, whose expected values are 
+                        'norm-annex' and 'inform-annex'.           -->
+<!ELEMENT  annex-type   (#PCDATA)                                    >
+
+<!-- ============================================================= -->
+<!--                    EDITING INSTRUCTION                        -->
+<!-- ============================================================= -->
+
+
+<!--                    EDITING INSTRUCTION MODEL                  -->
+<!--                    Content model for the 
+                        <editing-instruction> element.             -->
+<!ENTITY % editing-instruction-model 
+                       "(label?, title?, (%just-para.class;)*)"      >
+
+
+<!--                   EDITING INSTRUCTION ATTRIBUTES              -->
+<!--                   Attributes for the <editing-instruction> 
+                       element.                                    -->
+<!ENTITY % editing-instruction-atts
+            "%jats-common-atts;                                     
+             rid       IDREFS                             #IMPLIED
+             content-type
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED"  >
+
+
+<!--                    EDITING INSTRUCTION                        -->
+<!--                    <editing-instruction> describes the
+                        alteration or addition should be made to the
+                        document.                                  -->
+<!ELEMENT  editing-instruction
+                        %editing-instruction-model;                  >
+<!ATTLIST  editing-instruction
+                        %editing-instruction-atts;                   >
+
+<!-- ============================================================= -->
+<!--                    METADATA NOTES                             -->
+<!-- ============================================================= -->
+
+
+<!--                   METADATA NOTE ATTRIBUTES                    -->
+<!--                   Attributes for the <meta-note> element.     -->
+<!ENTITY % meta-note-atts
+            "%jats-common-atts;  
+             content-type
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             xml:lang   NMTOKEN                           #IMPLIED
+             %originator-attribute;"                                 >
+
+
+
+<!--                    METADATA NOTE MODEL                        -->
+<!ENTITY % meta-note-model  
+                       "(title?, p+)"                                >
+
+
+<!--                    METADATA NOTE                              -->
+<!--                    Notes within the metadata of a standards
+                        document (as opposed to within the <front> 
+                        matter) used to hold prose for phrases and 
+                        blurbs describing a standard. This material 
+                        is typically displayed on the cover, the
+                        copyright page, or amongst similar metadata.
+                                                                   -->
+<!ELEMENT  meta-note    %meta-note-model;                            >
+<!ATTLIST  meta-note
+                        %meta-note-atts;                             >
+
+
+<!-- ================== End NISO STS ISO Metadata Module ========= -->

@@ -1,0 +1,207 @@
+<!-- ============================================================= -->
+<!--  MODULE:    NISO STS STD Metadata Module                      -->
+<!--  VERSION:   ANSI/NISO Z39.102-2022, STS:                      --> 
+<!--             Standards Standards Tag Suite (Version 1.2)       --> 
+<!--  DATE:      October 2022                                      -->
+<!--                                                               -->
+<!-- ============================================================= -->
+<!--                    PUBLIC DOCUMENT TYPE DEFINITION            -->
+<!--                        TYPICAL INVOCATION                     -->
+<!--
+"-//NISO//DTD NISO STS Common Standards Document Components Module v1.2 20221031//EN"
+     Delivered as file "NISO-STS-standards-components1.ent" 
+                                                                   -->
+<!-- ============================================================= -->
+<!-- SYSTEM:     NISO Standards Tag Suite (NISO STS)               -->
+<!--                                                               -->
+<!--             This new module consolidates separate models from -->
+<!--             ISO STS V1.1 DTD.                                 -->
+<!--                                                               -->
+<!-- PURPOSE:    This module defines large structural component    -->
+<!--             elements, such as <front> and <back> for use in   -->
+<!--             any of the NISO STS Tag Sets.                     -->
+<!--                                                               -->
+<!-- CREATED BY: Mulberry Technologies, Inc.                       -->
+<!--             Deborah Aleyne Lapeyre and B. Tommie Usdin        -->
+<!--             in support of NISO and the NISO STS Committee.    -->
+<!--             Mulberry Technologies work was supported by the   -->
+<!--             American Society of Mechanical Engineers (ASME)   -->
+<!--             and ASTM International.                           -->
+<!--                                                               -->
+<!-- COPYRIGHT AND LICENSE:                                        -->
+<!--             Copyright © 2017, 2022 by ISO, the American       -->
+<!--             Society of  Mechanical Engineers (ASME),          -->
+<!--             ASTM International, Mulberry Technologies, Inc.,  -->
+<!--             and the National Information Standards            -->
+<!--             Organization (NISO).                              -->
+<!--                                                               -->
+<!--             This work is licensed under a Creative Commons    -->
+<!--             Attribution-ShareAlike 4.0 International License. -->
+<!--             To view a copy of this license, visit             -->
+<!--                http://creativecommons.org/licenses/by-sa/4.0/ -->
+<!--             or send a letter to Creative Commons, PO Box 1866,-->
+<!--             Mountain View, CA 94042, USA                      -->
+<!--                                                               -->
+<!-- ORIGINAL CREATION DATE:                                       -->
+<!--             October 2016                                      -->
+<!--                                                               -->
+<!-- ============================================================= -->
+
+<!-- ============================================================= -->
+<!--                    DTD VERSION/CHANGE HISTORY                 -->
+<!-- ============================================================= -->
+<!--
+Version  Reason/Occasion                   (who) vx.x (yyyy-mm-dd)  
+     =============================================================
+     NISO STS Version 1.2 (ANSI/NISO Z39.102-2022)
+                                      (DAL/BTU) v1.2 (2022-10-31)
+      
+     ANSI NISO STS is a continuing maintenance NISO Standard, 
+     which requires voting by both the NISO and ANSI memberships 
+     to be changed. This version of the NISO STS was approved 
+     by ANSI vote on October 21, 2022, so it supersedes the 
+     2017 version and all committee drafts, becoming 
+     NISO STS v1.2 20221031 (ANSI/NISO Z39.102-2022).
+
+     The formal public identifiers have been changed in the  
+     modules and the OASIS XML catalogs.
+ 
+  2. NISO STS 'v1.1d1 20210831' becomes 'v1.2 20221031'
+     'ANSI/NISO Z39.102-2017' becomes 'ANSI/NISO Z39.102-2022'
+ 
+     =============================================================
+     NISO STS Version 1.1d1 (ANSI/NISO Z39.102-202x)
+                                  (DAL/BTU) v1.1d1 (2021-08-31)
+      
+     ANSI NISO STS is a continuing maintenance NISO Standard, 
+     which requires voting by the NISO and ANSI memberships 
+     to be changed. 
+      
+     This ***DRAFT*** DTD represents an interim version of the
+     non-normative STS DTD Suite, as an indication to STS users
+     of the decisions that have been made by the STS Standing
+     Committee. This DRAFT has not yet been given public review 
+     or voting; it is for Standing Committee review and
+     testing. 
+
+     The formal public identifiers have been changed in the  
+     modules and the OASIS XML catalogs.
+
+  1. STS 'v1.0 20171031' becomes 'v1.1d1 20210831' 
+                                                                   -->   
+<!-- ============================================================= -->
+<!--                    STANDARDS BODY AND BACK MATTER ATTRIBUTES  -->
+<!-- ============================================================= -->
+
+<!--                    BODY ATTRIBUTES                            -->
+<!--                    Attributes for the <body> element          -->
+<!ENTITY % body-atts
+            "%jats-common-atts;  
+             specific-use
+                        CDATA                              #IMPLIED" >
+
+
+<!--                    BACK MATTER ATTRIBUTES                     -->
+<!--                    Attributes for the <back> element          -->
+<!--                    The IDREFS can be used to point to the
+                        standards organization responsible for
+                        the back matter.                           -->
+<!ENTITY % back-atts
+            "%jats-common-atts;  
+             rid        IDREFS                             #IMPLIED" >
+
+
+<!--                    SUB-PART ATTRIBUTES                        -->
+<!--                    Attribute list for sub-part element        -->
+<!--                    (similar to sec element)                   -->
+<!ENTITY % sub-part-atts
+            "%jats-common-atts;  
+             xml:lang   NMTOKEN                            #IMPLIED
+             part-type  CDATA                              #IMPLIED
+             specific-use
+                        CDATA                              #IMPLIED
+             %originator-attribute;"                                 >
+
+
+<!-- ============================================================= -->
+<!--                    FRONT MATTER ELEMENTS                      -->
+<!-- ============================================================= -->
+
+
+<!--                    FRONT MATTER MODEL                         -->
+<!--                    Model for the <front> matter (the header
+                        metadata and some narrative front sections   
+                        of a standard)                             -->
+<!ENTITY % front-model "(std-doc-meta?,
+                         (std-meta | iso-meta | reg-meta | nat-meta)*,
+                         (%front-back.class; | %sec-only.class; |
+                          %xinclude.class;)*  )"                     >
+
+
+<!--                    FRONT MATTER                               -->
+<!--                    The metadata and some begging narrative 
+                        material concerning a standard, such as
+                        the originating body, the document title,
+                        and release date, etc.  Everything needed to
+                        produce the front matter and back cover
+                        goes here.                                 -->
+<!ELEMENT  front        %front-model;                                >
+
+
+<!-- ============================================================= -->
+<!--                    BODY ELEMENTS                              -->
+<!-- ============================================================= -->
+
+
+<!--                    BODY MODEL                                 -->
+<!--                    Content model for the Body (main textual
+                        content) of a standard.                    -->
+<!ENTITY % body-model  "((%para-level; | %ref-list.class;)*, 
+                         (%sec-level; | %sub-part.class; |
+                          %xinclude.class;)*, sig-block?)"           >
+
+
+<!--                    BODY OF THE STANDARD                       -->
+<!--                    The main textual portion of the document,
+                        that conveys the content.                  -->
+<!ELEMENT  body         %body-model;                                 >
+<!ATTLIST  body
+             %body-atts;                                             >
+
+<!--                    SUB-PART MODEL                             -->
+<!--                    Content model for sub-parts with their own
+                        toc and page numbering.                    -->
+<!ENTITY % sub-part-model  
+                       "(((label?, title) | std-meta), body, back?)" >
+
+<!ELEMENT  sub-part     %sub-part-model;                             >
+<!ATTLIST  sub-part
+             %sub-part-atts;                                         >
+
+
+<!-- ============================================================= -->
+<!--                    BACK MATTER ELEMENTS                       -->
+<!-- ============================================================= -->
+
+
+<!--                    BACK MATTER MODEL                          -->
+<!--                    Content model for the Back Matter 
+                        (ancillary material such as annexes) of a
+                        standard                                          
+                        NISO STS change: add <editing-instruction> -->
+<!ENTITY % back-model   "( (%editing-instructions.class;)*, 
+                           label?, title*, 
+                           (%doc-back-matter-mix; | 
+                            %xinclude.class;)* )"                    >
+
+
+<!--                    BACK MATTER                                -->
+<!--                    Ancillary or supporting material not included
+                        as part of the main textual content of a
+                        standard, for example annexes.             -->
+<!ELEMENT  back         %back-model;                                 >
+<!ATTLIST  back         %back-atts;                                  >
+
+
+
+<!-- ================== End NISO STS Standards Components ======== -->

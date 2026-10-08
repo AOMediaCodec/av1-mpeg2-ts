@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Deploy main to Pages
 
 on:
   push:
@@ -7,17 +7,18 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write        # push to gh-pages
+  pull-requests: read    # dashboard lists open PRs
 
+# Serialize every write to the gh-pages branch across BOTH workflows so
+# concurrent runs never race on the push.
 concurrency:
-  group: "pages"
-  cancel-in-progress: true
+  group: gh-pages-deploy
+  cancel-in-progress: false
 
 jobs:
   build:
-    name: Build specification
+    name: Build & publish main
     runs-on: ubuntu-24.04
 
     steps:
@@ -27,39 +28,35 @@ jobs:
 
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
-          cache: 'pip'
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: tools/specbuild/requirements.txt
 
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-
-      - name: Build specification with SDL tables
-        run: python compile.py
-
-      - name: Generate PDF
-        run: python compile.py --pdf
-
-      - name: Prepare artifacts for deployment
-        run: |
-          mkdir -p dist
-          cp index.html dist/
-          cp index.pdf dist/
-          cp -r images/ dist/
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - uses: actions/setup-node@v6
         with:
-          path: './dist'
+          node-version: "20"
 
-  deploy:
-    name: Deploy to GitHub Pages
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-24.04
-    needs: build
+      - name: Install Python dependencies
+        run: pip install -r tools/specbuild/requirements.txt
 
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Install Node dependencies
+        run: cd tools/specbuild && npm install --registry https://registry.npmjs.org
+
+      - name: Install WeasyPrint system libraries
+        run: sudo apt-get install -y libpango-1.0-0 libpangoft2-1.0-0
+
+      - name: Build specification
+        run: |
+          python tools/specbuild/compile.py \
+            --profile publication \
+            --no-pwa \
+            --toc-leaders table \
+            --check-sdl-syntax \
+            --links
+
+      - name: Publish to gh-pages
+        env:
+          REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          bash .github/scripts/publish.sh main

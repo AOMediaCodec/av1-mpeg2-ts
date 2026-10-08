@@ -1,0 +1,143 @@
+<!-- ============================================================= -->
+<!--  MODULE:    NISO STS ISO Metadata Module                      -->
+<!--  VERSION:   ANSI/NISO Z39.102-2022, STS:                      --> 
+<!--             Standards Standards Tag Suite (Version 1.2)       --> 
+<!--  DATE:      October 2022                                      -->
+<!--                                                               -->
+<!-- ============================================================= -->
+<!--                    PUBLIC DOCUMENT TYPE DEFINITION            -->
+<!--                        TYPICAL INVOCATION                     -->
+<!--
+"-//NISO//DTD NISO STS ISO-specific Metadata v1.2 20221031//EN"
+     Delivered as file "NISO-STS-iso-metadata1.ent"
+                                                                   -->
+<!-- ============================================================= -->
+<!-- SYSTEM:     NISO Standards Tag Suite (NISO STS)               -->
+<!--                                                               -->
+<!-- PURPOSE:    This module defines ISO-specific metadata,        -->
+<!--             specifically (1) the iso-meta element and its     -->
+<!--             contents, and (2) parameter entities for          -->
+<!--             customization of content models and attribute     -->
+<!--             lists.                                            -->
+<!--                                                               --> 
+<!-- CONTAINS:   1) Definition of iso-meta                         -->
+<!--             2) Definitions of parameter entities to allow     -->
+<!--                   easy modification and customization of      -->
+<!--                   content models and attribute lists.         -->
+<!--                                                               -->
+<!-- CREATED BY: Mulberry Technologies, Inc.                       -->
+<!--             Deborah Aleyne Lapeyre and B. Tommie Usdin        -->
+<!--             in support of NISO and the NISO STS Committee.    -->
+<!--             Mulberry Technologies work was supported by the   -->
+<!--             American Society of Mechanical Engineers (ASME)   -->
+<!--             and ASTM International.                           -->
+<!--                                                               -->
+<!-- COPYRIGHT AND LICENSE:                                        -->
+<!--             Copyright © 2017, 2022 by ISO, the American       -->
+<!--             Society of  Mechanical Engineers (ASME),          -->
+<!--             ASTM International, Mulberry Technologies, Inc.,  -->
+<!--             and the National Information Standards            -->
+<!--             Organization (NISO).                              -->
+<!--                                                               -->
+<!--             This work is licensed under a Creative Commons    -->
+<!--             Attribution-ShareAlike 4.0 International License. -->
+<!--             To view a copy of this license, visit             -->
+<!--                http://creativecommons.org/licenses/by-sa/4.0/ -->
+<!--             or send a letter to Creative Commons, PO Box 1866,-->
+<!--             Mountain View, CA 94042, USA                      -->
+<!--                                                               -->
+<!-- ORIGINAL CREATION DATE:                                       -->
+<!--             October 2016                                      -->
+<!--                                                               -->
+<!-- ============================================================= -->
+
+
+<!-- ============================================================= -->
+<!--                    DTD VERSION/CHANGE HISTORY                 -->
+<!--
+Version  Reason/Occasion                   (who) vx.x (yyyy-mm-dd)  
+     =============================================================
+     NISO STS Version 1.2 (ANSI/NISO Z39.102-2022)
+                                      (DAL/BTU) v1.2 (2022-10-31)
+      
+     ANSI NISO STS is a continuing maintenance NISO Standard, 
+     which requires voting by both the NISO and ANSI memberships 
+     to be changed. This version of the NISO STS was approved 
+     by ANSI vote on October 21, 2022, so it supersedes the 
+     2017 version and all committee drafts, becoming 
+     NISO STS v1.2 20221031 (ANSI/NISO Z39.102-2022).
+
+     The formal public identifiers have been changed in the  
+     modules and the OASIS XML catalogs.
+ 
+  3. NISO STS 'v1.1d1 20210831' becomes 'v1.2 20221031'
+     'ANSI/NISO Z39.102-2017' becomes 'ANSI/NISO Z39.102-2022'
+ 
+     =============================================================
+     NISO STS Version 1.1d1 (ANSI/NISO Z39.102-202x)
+                                  (DAL/BTU) v1.1d1 (2021-08-31)
+      
+     ANSI NISO STS is a continuing maintenance NISO Standard, 
+     which requires voting by the NISO and ANSI memberships 
+     to be changed. 
+      
+     This ***DRAFT*** DTD represents an interim version of the
+     non-normative STS DTD Suite, as an indication to STS users
+     of the decisions that have been made by the STS Standing
+     Committee. This DRAFT has not yet been given public review 
+     or voting; it is for Standing Committee review and
+     testing. 
+
+     The formal public identifiers have been changed in the  
+     modules and the OASIS XML catalogs.
+
+  2. KEYWORDS - Went to add <kwd-group> to <iso-meta> and found it
+     already there. So it is after <abstract> and not logically
+     with ICS codes and Subjects where it probably belongs. 
+
+  1. STS 'v1.0 20171031' becomes 'v1.1d1 20210831' 
+                                                                   -->   
+<!-- ============================================================= -->
+<!--                    ISO METADATA ELEMENT                       -->
+<!-- ============================================================= -->
+
+
+<!--                    ISO METADATA CONTENT MODEL                 -->
+<!--                    Content model for the element <iso-meta>   -->
+<!ENTITY % iso-meta-model 
+                       "(title-wrap*, doc-ident?, std-ident?, 
+                         (std-org | std-org-group)*, 
+                         content-language*, std-ref*, doc-ref?, 
+                         pub-date?, release-date*, meta-date*,
+                         (comm-ref | comm-ref-group)*,
+                         secretariat*, 
+                         (ics | ics-wrap)*, (%subj-group.class;)*,
+                         page-count?, counts?,
+                         is-proof?, std-xref*, permissions*,
+                         self-uri*, (%abstract.class;)*,
+                         (%kwd-group.class;)*, meta-note*,  
+                         custom-meta-group*)"                        >
+
+
+<!--                    ISO METADATA ATTRIBUTES                    -->
+<!ENTITY % iso-meta-atts
+            "%jats-common-atts;"                                     >
+
+
+<!--                    ISO METADATA                               -->
+<!--                    The <iso-meta> is a container element for
+                        ISO-specific metadata for this standard.
+                           REMARKS: This element contains any
+                        ISO-specific overrides to the metadata 
+                        described for the whole standards 
+                        document (<std-doc-meta>) as well as any
+                        additional ISO-specific metadata. The element 
+                        <iso-meta> is the 4th of the organizational 
+                        metadata elements with <std-meta>, 
+                        <nat-meta>, and <reg-meta>.                -->
+<!ELEMENT  iso-meta     %iso-meta-model;                             >
+<!ATTLIST  iso-meta     
+             %iso-meta-atts;                                         >
+
+
+<!-- ================== End NISO STS ISO Metadata Module ========= -->

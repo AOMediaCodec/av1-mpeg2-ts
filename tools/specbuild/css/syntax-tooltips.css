@@ -1,0 +1,79 @@
+/* SDL Syntax Element Tooltip Styling */
+
+@media screen {
+  /* ── Tooltip container ───────────────────────────────────────── */
+
+  #sdl-tooltip {
+    position: absolute;
+    z-index: 10001;
+    padding: 0.5em 0.8em;
+    background: #fffef5;
+    border: 1px solid #d4c87a;
+    border-radius: 5px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+    pointer-events: auto;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.15s, transform 0.15s;
+    font-size: 0.85em;
+    line-height: 1.45;
+    max-width: 400px;
+    color: #333;
+  }
+
+  #sdl-tooltip.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Hoverable cells ─────────────────────────────────────────── */
+
+  td.has-syntax-tooltip {
+    cursor: help;
+    border-bottom: 1px dashed #b8a940;
+  }
+
+  td.has-syntax-tooltip:hover {
+    background-color: rgba(212, 200, 122, 0.12);
+  }
+
+  /* ── Dark mode ───────────────────────────────────────────────── */
+
+  [data-theme="dark"] #sdl-tooltip {
+    background: #2c2b22;
+    border-color: #6b6330;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.35);
+    color: #e0dcc8;
+  }
+
+  [data-theme="dark"] td.has-syntax-tooltip {
+    border-bottom-color: #6b6330;
+  }
+
+  [data-theme="dark"] td.has-syntax-tooltip:hover {
+    background-color: rgba(107, 99, 48, 0.2);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    [data-theme="auto"] #sdl-tooltip {
+      background: #2c2b22;
+      border-color: #6b6330;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.35);
+      color: #e0dcc8;
+    }
+
+    [data-theme="auto"] td.has-syntax-tooltip {
+      border-bottom-color: #6b6330;
+    }
+
+    [data-theme="auto"] td.has-syntax-tooltip:hover {
+      background-color: rgba(107, 99, 48, 0.2);
+    }
+  }
+}
+
+@media print {
+  #sdl-tooltip {
+    display: none !important;
+  }
+}

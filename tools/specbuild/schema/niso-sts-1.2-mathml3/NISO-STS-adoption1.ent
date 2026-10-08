@@ -1,0 +1,193 @@
+<!-- ============================================================= -->
+<!--  MODULE:    NISO STS Adopting Standard Wrapper                -->
+<!--  VERSION:   ANSI/NISO Z39.102-2022, STS:                      --> 
+<!--             Standards Tag Suite (Version 1.2)                 --> 
+<!--  DATE:      October 2022                                      -->
+<!--                                                               -->
+<!-- ============================================================= -->
+<!--                    PUBLIC DOCUMENT TYPE DEFINITION            -->
+<!--                        TYPICAL INVOCATION                     -->
+<!--
+"-//NISO//DTD NISO STS Adopting Standard Wrapper v1.2 20221031//EN"
+     Delivered as file "NISO-STS-adoption1.ent"
+                                                                   -->
+<!-- ============================================================= -->
+<!-- SYSTEM:     NISO Standards Tag Suite (NISO STS)               -->
+<!--                                                               -->
+<!--             This new module extends the capabilities of       -->
+<!--             ISO STS V1.1 DTD.                                 -->
+<!--                                                               -->
+<!-- PURPOSE:    Defines elements for the second document element  -->
+<!--             possible in this tag set: <adoption>.             -->
+<!--             An <adoption> holds an adopting standard that     -->
+<!--             contains its own material as well as a <standard>.-->
+<!--                                                               -->
+<!-- CREATED BY: Mulberry Technologies, Inc.                       -->
+<!--             Deborah Aleyne Lapeyre and B. Tommie Usdin        -->
+<!--             in support of NISO and the NISO STS Committee.    -->
+<!--             Mulberry Technologies work was supported by the   -->
+<!--             American Society of Mechanical Engineers (ASME)   -->
+<!--             and ASTM International.                           -->
+<!--                                                               -->
+<!-- COPYRIGHT AND LICENSE:                                        -->
+<!--             Copyright © 2017, 2022 by ISO, the American       -->
+<!--             Society of  Mechanical Engineers (ASME),          -->
+<!--             ASTM International, Mulberry Technologies, Inc.,  -->
+<!--             and the National Information Standards            -->
+<!--             Organization (NISO).                              -->
+<!--                                                               -->
+<!--             This work is licensed under a Creative Commons    -->
+<!--             Attribution-ShareAlike 4.0 International License. -->
+<!--             To view a copy of this license, visit             -->
+<!--                http://creativecommons.org/licenses/by-sa/4.0/ -->
+<!--             or send a letter to Creative Commons, PO Box 1866,-->
+<!--             Mountain View, CA 94042, USA                      -->
+<!--                                                               -->
+<!-- ORIGINAL CREATION DATE:                                       -->
+<!--             October 2016                                      -->
+<!--                                                               -->
+<!-- ============================================================= -->
+
+<!-- ============================================================= -->
+<!--                    DTD VERSION/CHANGE HISTORY                 -->
+<!-- ============================================================= -->
+<!--
+Version  Reason/Occasion                   (who) vx.x (yyyy-mm-dd)  
+     =============================================================
+     NISO STS Version 1.2 (ANSI/NISO Z39.102-2022)
+                                      (DAL/BTU) v1.2 (2022-10-31)
+      
+     ANSI NISO STS is a continuing maintenance NISO Standard, 
+     which requires voting by both the NISO and ANSI memberships 
+     to be changed. This version of the NISO STS was approved 
+     by ANSI vote on October 21, 2022, so it supersedes the 
+     2017 version and all committee drafts, becoming 
+     NISO STS v1.2 20221031 (ANSI/NISO Z39.102-2022).
+
+     The formal public identifiers have been changed in the  
+     modules and the OASIS XML catalogs.
+ 
+  4. NISO STS 'v1.1d1 20210831' becomes 'v1.2 20221031'
+     'ANSI/NISO Z39.102-2017' becomes 'ANSI/NISO Z39.102-2022'
+ 
+     =============================================================
+     NISO STS Version 1.1d1 (ANSI/NISO Z39.102-202x)
+                                  (DAL/BTU) v1.1d1 (2021-08-31)
+      
+     ANSI NISO STS is a continuing maintenance NISO Standard, 
+     which requires voting by the NISO and ANSI memberships 
+     to be changed. 
+      
+     This ***DRAFT*** DTD represents an interim version of the
+     non-normative STS DTD Suite, as an indication to STS users
+     of the decisions that have been made by the STS Standing
+     Committee. This DRAFT has not yet been given public review 
+     or voting; it is for Standing Committee review and
+     testing. 
+
+     The formal public identifiers have been changed in the  
+     modules and the OASIS XML catalogs.
+
+  3. PROCESSING METADATA - Added <processing-meta> to the
+     model of the top-level <adoption> element.       
+
+  2. DTD VERSION - The top-level attribute @dtd-version (used for
+     <standard> and <adoption>, has been a #FIXED attribute for all 
+     of JATS, ISO-STS, and STS history. This is very convenient
+     when creating new documents, but problematic for archives
+     who may receive many different versions over time. If a document
+     is valid to "v1.1d1"; it is also valid to the latest version
+     and to all older versions. @dtd-version will stay a CDATA
+     attribute, but will be optional, with a list of values, and
+     with no default.
+
+  1. STS 'v1.0 20171031' becomes 'v1.1d1 20210831' 
+                                                                   -->   
+<!-- ============================================================= -->
+<!--                    PARAMETER ENTITIES FOR ATTRIBUTE LISTS     -->
+<!-- ============================================================= -->
+
+
+<!--                    DTD VERSION                                -->
+<!--                    What version of this DTD was used to make
+                        the document instance under consideration. -->
+<!ENTITY % dtd-version
+            "dtd-version
+                        (iso-0.9 | iso-1.0 | iso-1.1 | 
+                         1.0 | 1.1d1 | 1.2)               #IMPLIED"  >
+
+
+<!--                    ADOPTION WRAPPER ATTRIBUTES                -->
+<!--                    Attributes used with the <adoption> element,
+                        which is a document-level element that
+                        contains its own material and one or more
+                        <standard> elements.                       -->
+<!ENTITY % adoption-atts
+            "%jats-common-atts;  
+             %dtd-version;
+             specific-use
+                        CDATA                             #IMPLIED
+             xml:lang   NMTOKEN                           'en'
+             %XLINK.xmlns.attrib;
+             %MATHML.xmlns.attrib;
+             %xinclude.xmlns.attrib;
+             %ali.xmlns.attrib;
+             %Schema.xmlns.attrib;
+             %TBX.xmlns.attrib;"                                     >
+
+
+<!-- ============================================================= -->
+<!--                    ADOPTION WRAPPER                           -->
+<!-- ============================================================= -->
+
+<!--                    ADOPTION WRAPPER MODEL                     -->
+<!--                    Content model for the <adoption-wrap> a
+                        document-level element.                    -->
+<!ENTITY % adoption-model
+                        "(processing-meta?, adoption-front, 
+                          ( (back, (%adoption-content.class;)+ ) |
+                            ( (%adoption-content.class;)+, back?) )
+                         )"                                          >
+             
+<!--                    ADOPTION WRAPPER                           -->
+<!--                    The <adoption> element is a wrapper for a
+                        document-level element that contain its
+                        own metadata, front matter, and back matter,
+                        as well as one or more <standard> elements.
+                                                                   -->
+<!ELEMENT  adoption     %adoption-model;                             >
+<!ATTLIST  adoption 
+             %adoption-atts;                                         >
+
+
+<!-- ============================================================= -->
+<!--                    ADOPTION WRAPPER FRONT MATTER ELEMENTS     -->
+<!-- ============================================================= -->
+
+
+<!--                    ADOPTION WRAPPER FRONT MATTER MODEL        -->
+<!--                    Model for the <front> matter (the header
+                        metadata and some narrative front sections   
+                        of an adopting standard (<adoption>)).     -->
+<!ENTITY % adoption-front-model 
+                        "(std-doc-meta?, std-meta?,
+                          (%front-back.class; | %sec-only.class; |
+                          %xinclude.class;)*  )"                     >
+
+
+<!--                    FRONT MATTER                               -->
+<!--                    The metadata and some beginning narrative 
+                        material concerning an adopting standard
+                        (<adoption>), such as the adopting body, 
+                        the document title for the adopted standard,
+                        and release date, etc.  Everything needed to
+                        produce the front matter and back cover
+                        goes here.
+                        Note: A <standard> will have its own <front>.
+                                                                   -->
+<!ELEMENT  adoption-front
+                        %adoption-front-model;                       >
+
+
+
+<!-- ================== End NISO STS Adopting Standard Wrappers == -->

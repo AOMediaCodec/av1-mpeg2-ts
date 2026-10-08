@@ -1,0 +1,604 @@
+/*
+ * Print/PDF CSS - Fixes for Chrome Headless PDF Generation
+ *
+ * This stylesheet fixes common issues when generating PDFs with Chrome headless:
+ * - Text clipping in table cells
+ * - Poor page breaks
+ * - Font size issues
+ * - Table layout problems
+ * - Custom footer with page numbers (no filename)
+ * - Disabled hyphenation
+ */
+
+/* ==================================================================
+   GLOBAL PRINT SETTINGS
+   ================================================================== */
+
+@media print {
+  /* Disable hyphenation throughout the document */
+  * {
+    hyphens: none !important;
+    -webkit-hyphens: none !important;
+    -moz-hyphens: none !important;
+    -ms-hyphens: none !important;
+  }
+
+  /* Use smaller base font size for better fit */
+  body {
+    font-size: 10pt;
+    line-height: 1.4;
+  }
+
+  /* Optimize for printing */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  /* Better page breaks */
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Start each main chapter (h2) on a new page */
+  h2 {
+    page-break-before: always;
+  }
+
+  /* Exception: Don't force page break for TOC heading and other special headings */
+  #toc h2,
+  h2.no-num,
+  h2.no-toc {
+    page-break-before: auto;
+  }
+
+  /* Back to TOC links — hidden in PDF.  These are useful in HTML for
+     web navigation but add visual clutter to printed/PDF output. */
+  .back-to-toc-wrapper,
+  .back-to-toc {
+    display: none !important;
+  }
+
+  /* Avoid breaking these elements */
+  figure, img {
+    page-break-inside: avoid;
+  }
+
+  /* Allow pre and blockquote to break if needed */
+  pre, blockquote {
+    page-break-inside: auto;
+  }
+
+  /* ==================================================================
+     CUSTOM PAGE MARGINS AND FOOTER
+     ================================================================== */
+
+  @page {
+    size: letter;  /* Default; overridden by --page-size via injected CSS */
+    margin: 0.75in 0.5in 0.75in 0.5in;  /* top right bottom left */
+  }
+
+  /* Custom footer with page numbers and date */
+  @page {
+    @bottom-left {
+      content: "SPEC_FULL_NAME";
+      font-size: 9pt;
+      font-family: FONT_SANS;
+      color: #666;
+    }
+
+    @bottom-center {
+      content: string(spec-date);
+      font-size: 9pt;
+      font-family: FONT_SANS;
+      color: #666;
+    }
+
+    @bottom-right {
+      content: "Page " counter(page) " of " counter(pages);
+      font-size: 9pt;
+      font-family: FONT_SANS;
+      color: #666;
+    }
+  }
+
+  /* Extract date from document for footer */
+  h2 time {
+    string-set: spec-date content();
+  }
+
+  /* ==================================================================
+     TABLE FIXES - PREVENT TEXT CLIPPING
+     ================================================================== */
+
+  /* All tables: Better sizing and wrapping */
+  table {
+    font-size: 9pt !important;  /* Smaller font for tables */
+    line-height: 1.3 !important;
+    table-layout: auto !important;  /* Let browser calculate optimal widths */
+    width: 100% !important;
+    page-break-inside: auto;
+  }
+
+  /* Table cells: Enable text wrapping and prevent clipping */
+  table td, table th {
+    padding: 4pt 6pt !important;  /* Smaller padding */
+    font-size: 9pt !important;
+    line-height: 1.3 !important;
+    word-wrap: break-word !important;
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+    white-space: normal !important;  /* Allow wrapping */
+    vertical-align: top !important;
+    page-break-inside: auto;  /* Allow cells to break if needed */
+    hyphens: none !important;  /* No hyphenation in tables */
+    color: #000000 !important;  /* Pure black for better contrast */
+  }
+
+  /* Table headers - keep bold */
+  table thead th {
+    font-size: 9pt !important;
+    font-weight: bold !important;  /* Bold for headers */
+    padding: 4pt 6pt !important;
+    white-space: normal !important;
+    hyphens: none !important;
+    color: #000000 !important;
+  }
+
+  /* Allow rows to break across pages if needed */
+  table tr {
+    page-break-inside: auto;
+    page-break-after: auto;
+  }
+
+  /* Show table headers only once (not repeated on every page) */
+  thead {
+    display: table-row-group;
+  }
+
+  tfoot {
+    display: table-row-group;
+  }
+
+  /* ==================================================================
+     SDL SYNTAX TABLES - SPECIAL HANDLING
+     ================================================================== */
+
+  .sdl-syntax-table {
+    font-size: 8pt !important;  /* Even smaller for code tables */
+    font-family: 'Courier New', 'Consolas', monospace !important;
+    width: 100%;
+    table-layout: auto !important;  /* Let columns size to content */
+  }
+
+  .sdl-syntax-table td,
+  .sdl-syntax-table th {
+    font-size: 8pt !important;
+    padding: 3pt 5pt !important;
+    line-height: 1.2 !important;
+    word-break: break-all !important;  /* Break long variable names if needed */
+    hyphens: none !important;
+    color: #000000 !important;
+  }
+
+  /* SDL table headers should be bold */
+  .sdl-syntax-table thead th {
+    font-weight: bold !important;
+  }
+
+  /* Descriptor column - shrink to fit content, matching header */
+  .sdl-syntax-table .sdl-descriptor {
+    font-size: 8pt !important;
+    white-space: nowrap !important;
+    width: 1% !important;
+  }
+
+  /* Variable/code column - no wrapping so table auto-sizes to fit */
+  .sdl-syntax-table .sdl-var-with-descriptor,
+  .sdl-syntax-table .sdl-code {
+    font-size: 8pt !important;
+    white-space: nowrap !important;
+    hyphens: none !important;
+  }
+
+  /* Header cells - no wrapping */
+  .sdl-syntax-table thead th {
+    font-weight: bold !important;
+    white-space: nowrap !important;
+  }
+
+  /* Syntax elements (variables with descriptors) should be bold */
+  .sdl-syntax-table .sdl-var-with-descriptor {
+    font-weight: bold !important;
+  }
+
+  /* ==================================================================
+     TABLE OF CONTENTS - COMPACT SPACING
+     ================================================================== */
+
+  /* CRITICAL: Override Bikeshed's CSS Grid layout for TOC in print mode
+     Bikeshed uses display:grid and display:contents which causes
+     all TOC entries to appear on the same line when printing.
+     We need very high specificity to override this. */
+
+  /* Disable grid layout - use normal block layout */
+  #toc,
+  nav#toc,
+  nav[data-fill-with="table-of-contents"]#toc {
+    display: block !important;
+    line-height: 1.3 !important;
+    margin-bottom: 12pt !important;
+    /* Reset any grid properties */
+    grid-template-columns: none !important;
+    align-content: normal !important;
+    /* Start TOC on a new page */
+    page-break-before: always !important;
+    /* End TOC on its own page (content after TOC starts on new page) */
+    page-break-after: always !important;
+  }
+
+  /* TOC heading */
+  #toc h2,
+  .toc h2,
+  nav#toc h2 {
+    margin-bottom: 8pt !important;
+    display: block !important;
+    grid-column: auto !important;
+  }
+
+  /* TOC lists - normal block display, NOT grid */
+  #toc ol,
+  #toc ul,
+  .toc ol,
+  .toc ul,
+  nav#toc ol,
+  nav#toc ul,
+  #toc > ol.toc,
+  nav#toc > ol.toc {
+    display: block !important;  /* Override display: contents */
+    margin: 0 !important;
+    padding-left: 20pt !important;
+    line-height: 1.3 !important;
+    list-style: none !important;
+  }
+
+  /* TOC list items - MUST be list-item, NOT contents */
+  #toc li,
+  .toc li,
+  nav#toc li,
+  #toc ol li,
+  #toc > ol.toc > li {
+    display: list-item !important;  /* Override display: contents from grid */
+    margin: 0 0 3pt 0 !important;
+    padding: 0 !important;
+    line-height: 1.3 !important;
+    clear: both !important;  /* Force new line */
+    width: 100% !important;
+    /* Allow page breaks within TOC sections */
+    page-break-inside: auto !important;
+  }
+
+  /* TOC links - MUST be block, NOT contents */
+  #toc a,
+  .toc a,
+  nav#toc a,
+  #toc ol a,
+  #toc li a {
+    display: block !important;  /* Override display: contents from grid */
+    line-height: 1.3 !important;
+    text-decoration: none !important;
+    clear: both !important;
+    width: 100% !important;
+  }
+
+  /* TOC spans - must be inline or inline-block, not contents */
+  #toc span,
+  #toc a span,
+  #toc .secno,
+  #toc .content {
+    display: inline !important;  /* Override display: contents */
+    grid-column: auto !important;  /* Reset grid column */
+    border-bottom: none !important;
+    margin: 0 !important;
+  }
+
+  /* Section numbers should be inline with content */
+  #toc .secno,
+  #toc a .secno {
+    margin-right: 0.5em !important;
+    float: none !important;
+    width: auto !important;
+  }
+
+  /* Nested TOC items */
+  #toc li li,
+  .toc li li,
+  nav#toc li li {
+    margin-left: 12pt !important;
+  }
+
+  /* ==================================================================
+     CODE BLOCKS AND PRE ELEMENTS
+     ================================================================== */
+
+  pre, code {
+    font-size: 8pt !important;
+    line-height: 1.2 !important;
+    white-space: pre-wrap !important;  /* Allow wrapping */
+    word-wrap: break-word !important;
+    page-break-inside: auto;  /* Allow code blocks to break across pages */
+    hyphens: none !important;
+    color: #000000 !important;
+  }
+
+  .code-table {
+    font-size: 8pt !important;
+  }
+
+  .code-table td {
+    font-size: 8pt !important;
+    padding: 2pt 4pt !important;
+    white-space: pre-wrap !important;
+    word-break: break-word !important;
+    hyphens: none !important;
+    color: #000000 !important;
+  }
+
+  /* ==================================================================
+     REGULAR DATA TABLES
+     ================================================================== */
+
+  /* Smaller tables */
+  .table-sm td,
+  .table-sm th {
+    padding: 2pt 4pt !important;
+    font-size: 8pt !important;
+  }
+
+  /* Striped tables - keep backgrounds but lighter */
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #fafafa !important;
+  }
+
+  /* ==================================================================
+     MATHEMATICAL FORMULAS (MathJax)
+     ================================================================== */
+
+  /* Ensure MathJax equations don't get clipped */
+  mjx-container {
+    overflow: visible !important;
+  }
+
+  mjx-container > svg {
+    max-width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  /* Math display blocks - center all display equations */
+  .MathJax_Display {
+    overflow: visible !important;
+    page-break-inside: avoid;
+    text-align: center !important;
+    display: block !important;
+    margin: 1em auto !important;
+  }
+
+  /* Center display math equations (MathJax CHTML output) */
+  mjx-container[display="true"],
+  mjx-container[display="block"],
+  mjx-container[jax="CHTML"][display="true"] {
+    display: block !important;
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-top: 1.5em !important;
+    margin-bottom: 1.5em !important;
+    overflow: visible !important;
+    max-width: 100% !important;
+    position: relative !important;
+  }
+
+  /* MathJax CHTML inner content */
+  mjx-container[display="true"] mjx-math {
+    display: inline-block !important;
+  }
+
+  /* Remove MathJax's default margins that push equations off-center */
+  mjx-container[display="true"] mjx-table {
+    margin-left: auto !important;  /* Override left margin from inline style */
+    margin-right: auto !important;  /* Override right margin from inline style */
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* Equation labels container (for equation numbers when side="right") */
+  mjx-container[display="true"] mjx-labels {
+    position: absolute !important;
+    right: 0 !important;
+    top: 0 !important;
+    width: auto !important;
+  }
+
+  /* Individual equation label (number) */
+  mjx-container[display="true"] mjx-labels mjx-mtd {
+    text-align: right !important;
+    padding-right: 1em !important;
+  }
+
+  /* SVG equations (if any remain) */
+  mjx-container[display="true"] > svg,
+  mjx-container[display="block"] > svg {
+    width: auto !important;
+    height: auto !important;
+    max-width: 100% !important;
+    display: block !important;
+  }
+
+  /* Legacy equation number classes */
+  .eqno,
+  .equation-number {
+    float: right !important;
+    margin-left: 1em !important;
+    font-weight: normal !important;
+  }
+
+  /* ==================================================================
+     LINKS AND NAVIGATION
+     ================================================================== */
+
+  /* Make links readable in print */
+  a {
+    color: #0033aa !important;
+    text-decoration: underline !important;
+  }
+
+  /* Bibliography references - allow wrapping in print */
+  [data-link-type=biblio] {
+    white-space: normal !important;
+  }
+
+  /* Don't show URLs for internal links */
+  a[href^="#"]::after {
+    content: "" !important;
+  }
+
+  /* ==================================================================
+     SPECIFIC PROBLEM AREAS
+     ================================================================== */
+
+  /* Table titles */
+  .table-title {
+    font-size: 10pt !important;
+    font-weight: bold !important;
+    margin-top: 12pt !important;
+    margin-bottom: 6pt !important;
+    page-break-after: avoid;
+  }
+
+  /* Figures and captions */
+  figure {
+    page-break-inside: avoid;
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  figure img,
+  figure svg,
+  figure object {
+    display: inline-block !important;
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  figcaption {
+    font-size: 9pt !important;
+    margin-top: 4pt !important;
+    text-align: center !important;
+  }
+
+  /* Center tables (auto-width, centered via margins) */
+  table:not(.full-width) {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    max-width: 100% !important;
+  }
+
+  table caption {
+    text-align: center !important;
+    caption-side: top !important;
+  }
+
+  /* Full-width tables (opt-in override) */
+  table.full-width {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /*
+   * Per-element alignment overrides.
+   * Add these classes in .bs source to override default centering:
+   *   .align-left     — left-align
+   *   .align-right    — right-align
+   *   .align-center   — explicit center (same as default)
+   *   .full-width     — table spans 100% width
+   */
+  .align-left,
+  .align-left caption,
+  .align-left figcaption {
+    text-align: left !important;
+    margin-left: 0 !important;
+    margin-right: auto !important;
+  }
+
+  .align-right,
+  .align-right caption,
+  .align-right figcaption {
+    text-align: right !important;
+    margin-left: auto !important;
+    margin-right: 0 !important;
+  }
+
+  .align-center,
+  .align-center caption,
+  .align-center figcaption {
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  /* Lists */
+  ul, ol {
+    font-size: 10pt !important;
+  }
+
+  li {
+    font-size: 10pt !important;
+    line-height: 1.4 !important;
+    hyphens: none !important;
+  }
+
+  /* Paragraphs */
+  p {
+    hyphens: none !important;
+  }
+
+  /* Headings */
+  h1, h2, h3, h4, h5, h6 {
+    hyphens: none !important;
+  }
+}
+
+/* ==================================================================
+   ALWAYS APPLY (SCREEN AND PRINT)
+   ================================================================== */
+
+/* Ensure tables never have fixed layouts that cause clipping */
+table {
+  table-layout: auto;
+}
+
+/* Make sure text can wrap in cells */
+td, th {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Disable hyphenation globally */
+* {
+  hyphens: none;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+}
+
+/* Back to TOC links - screen styling (hidden on screen, only visible in print) */
+@media screen {
+  .back-to-toc {
+    display: none !important;
+  }
+}

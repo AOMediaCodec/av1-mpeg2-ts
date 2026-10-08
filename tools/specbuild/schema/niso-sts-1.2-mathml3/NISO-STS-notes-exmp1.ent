@@ -1,0 +1,238 @@
+<!-- ============================================================= -->
+<!--  MODULE:    NISO STS Notes and Examples                       -->
+<!--  VERSION:   ANSI/NISO Z39.102-2022, STS:                      --> 
+<!--             Standards Standards Tag Suite (Version 1.2)       --> 
+<!--  DATE:      October 2022                                      -->
+<!--                                                               -->
+<!-- ============================================================= -->
+<!--                    PUBLIC DOCUMENT TYPE DEFINITION            -->
+<!--                        TYPICAL INVOCATION                     -->
+<!--
+"-//NISO//DTD NISO STS Notes and Examples v1.2 20221031//EN"
+     Delivered as file "NISO-STS-notes-exmp1.ent"
+                                                                   -->
+<!-- ============================================================= -->
+<!-- SYSTEM:     NISO Standards Tag Suite (NISO STS)               -->
+<!--                                                               -->
+<!--             This new module extends the capabilities of       -->
+<!--             ISO STS V1.1 DTD.                                 -->
+<!--                                                               -->
+<!-- PURPOSE:    Defines normative notes, non-normative notes,     -->
+<!--             normative examples, and non-normative examples,   -->
+<!--             headed notes-groups.                              -->
+<!--                                                               -->
+<!-- CREATED BY: Mulberry Technologies, Inc.                       -->
+<!--             Deborah Aleyne Lapeyre and B. Tommie Usdin        -->
+<!--             in support of NISO and the NISO STS Committee.    -->
+<!--             Mulberry Technologies work was supported by the   -->
+<!--             American Society of Mechanical Engineers (ASME)   -->
+<!--             and ASTM International.                           -->
+<!--                                                               -->
+<!-- COPYRIGHT AND LICENSE:                                        -->
+<!--             Copyright © 2017, 2022 by ISO, the American       -->
+<!--             Society of  Mechanical Engineers (ASME),          -->
+<!--             ASTM International, Mulberry Technologies, Inc.,  -->
+<!--             and the National Information Standards            -->
+<!--             Organization (NISO).                              -->
+<!--                                                               -->
+<!--             This work is licensed under a Creative Commons    -->
+<!--             Attribution-ShareAlike 4.0 International License. -->
+<!--             To view a copy of this license, visit             -->
+<!--                http://creativecommons.org/licenses/by-sa/4.0/ -->
+<!--             or send a letter to Creative Commons, PO Box 1866,-->
+<!--             Mountain View, CA 94042, USA                      -->
+<!--                                                               -->
+<!-- ORIGINAL CREATION DATE:                                       -->
+<!--             October 2016                                      -->
+<!--                                                               -->
+<!-- ============================================================= -->
+
+<!-- ============================================================= -->
+<!--                    DTD VERSION/CHANGE HISTORY                 -->
+<!-- ============================================================= -->
+<!--
+Version  Reason/Occasion                   (who) vx.x (yyyy-mm-dd)  
+     =============================================================
+     NISO STS Version 1.2 (ANSI/NISO Z39.102-2022)
+                                      (DAL/BTU) v1.2 (2022-10-31)
+      
+     ANSI NISO STS is a continuing maintenance NISO Standard, 
+     which requires voting by both the NISO and ANSI memberships 
+     to be changed. This version of the NISO STS was approved 
+     by ANSI vote on October 21, 2022, so it supersedes the 
+     2017 version and all committee drafts, becoming 
+     NISO STS v1.2 20221031 (ANSI/NISO Z39.102-2022).
+
+     The formal public identifiers have been changed in the  
+     modules and the OASIS XML catalogs.
+ 
+  2. NISO STS 'v1.1d1 20210831' becomes 'v1.2 20221031'
+     'ANSI/NISO Z39.102-2017' becomes 'ANSI/NISO Z39.102-2022'
+ 
+     =============================================================
+     NISO STS Version 1.1d1 (ANSI/NISO Z39.102-202x)
+                                  (DAL/BTU) v1.1d1 (2021-08-31)
+      
+     ANSI NISO STS is a continuing maintenance NISO Standard, 
+     which requires voting by the NISO and ANSI memberships 
+     to be changed. 
+      
+     This ***DRAFT*** DTD represents an interim version of the
+     non-normative STS DTD Suite, as an indication to STS users
+     of the decisions that have been made by the STS Standing
+     Committee. This DRAFT has not yet been given public review 
+     or voting; it is for Standing Committee review and
+     testing. 
+
+     The formal public identifiers have been changed in the  
+     modules and the OASIS XML catalogs.
+
+  1. STS 'v1.0 20171031' becomes 'v1.1d1 20210831' 
+                                                                   -->   
+
+<!-- ============================================================= -->
+<!--                    NON-NORMATIVE NOTES AND EXAMPLES           -->
+<!-- ============================================================= -->
+
+<!--                    NON-NORMATIVE-NOTE ATTRIBUTES              -->
+<!ENTITY % non-normative-note-atts
+            "%jats-common-atts;  
+             content-type
+                        CDATA                             #IMPLIED 
+             specific-use
+                        CDATA                             #IMPLIED 
+             %originator-attribute;"                                 >
+
+
+<!--                    NON-NORMATIVE-NOTE MODEL                   -->
+<!--                    Content model for non-normative-note       -->
+<!ENTITY % non-normative-note-model  
+                       "(label?, title?, (%para-level;)*)"           >
+
+
+<!--                    NON-NORMATIVE-NOTE                         -->
+<!--                    Non-normative text in a standard, labeled
+                        'NOTE'.  (There are no normative notes in
+                        ISO standards, so we could perhaps just 
+                        call this 'note', but that would conflict
+                        with the existing JATS element of that 
+                        name.  So we use the longer form.)         -->
+
+<!ELEMENT  non-normative-note
+                        %non-normative-note-model;                   >
+<!ATTLIST  non-normative-note
+             %non-normative-note-atts;                               >
+
+
+<!--                    NON-NORMATIVE-EXAMPLE ATTRIBUTES           -->
+<!ENTITY % non-normative-example-atts
+            "%jats-common-atts;
+             content-type
+                        CDATA                             #IMPLIED 
+             specific-use
+                        CDATA                             #IMPLIED 
+             %originator-attribute;"                                 >
+
+
+<!--                    NON-NORMATIVE-EXAMPLE MODEL                -->
+<!--                    Content model for non-normative-example    -->
+<!ENTITY % non-normative-example-model  
+                       "(label?, title?, (%para-level;)*)"           >
+
+
+<!--                    NON-NORMATIVE-EXAMPLE                      -->
+<!--                    Non-normative text in a standard, labeled
+                        'EXAMPLE.  (There are no normative 
+                        examples in ISO standards; we use the
+                        name 'non-normative-example' to stress the
+                        parallel with non-normative-note.          -->
+
+<!ELEMENT  non-normative-example
+                        %non-normative-example-model;                >
+<!ATTLIST  non-normative-example
+             %non-normative-example-atts;                            >
+                                                                  
+
+<!-- ============================================================= -->
+<!--                    NORMATIVE NOTES AND EXAMPLES               -->
+<!-- ============================================================= -->
+
+<!--                    NORMATIVE-NOTE ATTRIBUTES                  -->
+<!ENTITY % normative-note-atts
+            "%jats-common-atts;  
+             content-type
+                        CDATA                             #IMPLIED 
+             specific-use
+                        CDATA                             #IMPLIED 
+             %originator-attribute;"                                 >
+
+
+<!--                    NORMATIVE-NOTE MODEL                       -->
+<!--                    Content model for normative-note           -->
+<!ENTITY % normative-note-model  
+                       "(label?, title?, (%para-level;)*)"           >
+
+<!--                    NORMATIVE-NOTE                             -->
+<!--                    Normative text in a standard, labeled
+                        'NOTE'.                                    -->
+<!ELEMENT  normative-note
+                        %normative-note-model;                       >
+<!ATTLIST  normative-note
+             %normative-note-atts;                                   >
+
+
+<!--                    NORMATIVE-EXAMPLE ATTRIBUTES               -->
+<!ENTITY % normative-example-atts
+            "%jats-common-atts;  
+             content-type
+                        CDATA                             #IMPLIED 
+             specific-use
+                        CDATA                             #IMPLIED 
+             %originator-attribute;"                                 >
+
+
+<!--                    NORMATIVE-EXAMPLE MODEL                    -->
+<!--                    Content model for normative-example        -->
+<!ENTITY % normative-example-model  
+                       "(label?, title?, (%para-level;)*)"           >
+
+<!--                    NORMATIVE-EXAMPLE                          -->
+<!--                    Normative text in a standard, labeled
+                        'EXAMPLE.                                  -->
+
+<!ELEMENT  normative-example
+                        %normative-example-model;                    >
+<!ATTLIST  normative-example
+             %normative-example-atts;                                >
+                                                                  
+<!-- ============================================================= -->
+<!--                    NOTES GROUP                                -->
+<!-- ============================================================= -->
+
+<!--                    NOTES GROUP ATTRIBUTES                     -->
+<!ENTITY % notes-group-atts
+            "%jats-common-atts;  
+             content-type
+                        CDATA                             #IMPLIED 
+             specific-use
+                        CDATA                             #IMPLIED 
+             %originator-attribute;"                                 >
+
+<!--                    NOTES GROUP MODEL                          -->
+<!--                    Content model for notes-group              -->
+<!ENTITY % notes-group-model  
+                       "( (%editing-instructions.class;)*, 
+                          label?, title, 
+                          (%editing-instructions.class;)*,  
+                          (%notes-group-inside.class;)*)"            >
+
+
+<!--                    NOTES GROUP                                -->
+<!--                    Container for a headed group of normative
+                        or non-normative notes.                    -->
+<!ELEMENT  notes-group  %notes-group-model;                          >
+<!ATTLIST  notes-group
+             %notes-group-atts;                                      >
+
+
+<!-- ================== End NISO STS Notes and Examples ========== -->

@@ -1,0 +1,1969 @@
+<!-- ============================================================= -->
+<!--  MODULE:    NISO STS DTD Customize Content and Attributes     -->
+<!--  VERSION:   ANSI/NISO Z39.102-2022, STS:                      --> 
+<!--             Standards Standards Tag Suite (Version 1.2)       --> 
+<!--  DATE:      October 2022                                      -->
+<!--                                                               -->
+<!-- ============================================================= -->
+<!--                    PUBLIC DOCUMENT TYPE DEFINITION            -->
+<!--                        TYPICAL INVOCATION                     -->
+<!--
+"-//NISO//DTD NISO STS DTD Customize Content and Attributes v1.2 20221031//EN"
+     Delivered as file "NISO-STS-models1.ent"
+                                                                   -->
+<!-- ============================================================= -->
+
+<!-- ============================================================= -->
+<!-- SYSTEM:     NISO Standards Tag Suite (NISO STS)               -->
+<!--                                                               -->
+<!--             This new module extends the capabilities of       -->
+<!--             ISO STS V1.1 DTD.                                 -->
+<!--                                                               -->
+<!-- PURPOSE:    To declare the Parameter Entities (PEs) used to   -->
+<!--             over-ride content models or parts of content      -->
+<!--             models when making a new DTD from the modules of  -->
+<!--             the JATS (Z39.96) Journal Publishing DTD,         -->
+<!--             The JATS Suite, or BITS Suite.                    -->
+<!--                                                               -->
+<!--             Or-groups within models should use mixes or       -->
+<!--             classes rather than name elements directly.       -->
+<!--                                                               -->
+<!--             Note: Since PEs must be declared before they      -->
+<!--             are used, this module must be called before the   -->
+<!--             content modules that declare elements.            -->
+<!--                                                               -->
+<!-- CREATED BY: Mulberry Technologies, Inc.                       -->
+<!--             Deborah Aleyne Lapeyre and B. Tommie Usdin        -->
+<!--             in support of NISO and the NISO STS Committee.    -->
+<!--             Mulberry Technologies work was supported by the   -->
+<!--             American Society of Mechanical Engineers (ASME)   -->
+<!--             and ASTM International.                           -->
+<!--                                                               -->
+<!-- COPYRIGHT AND LICENSE:                                        -->
+<!--             Copyright © 2017, 2022 by ISO, the American       -->
+<!--             Society of  Mechanical Engineers (ASME),          -->
+<!--             ASTM International, Mulberry Technologies, Inc.,  -->
+<!--             and the National Information Standards            -->
+<!--             Organization (NISO).                              -->
+<!--                                                               -->
+<!--             This work is licensed under a Creative Commons    -->
+<!--             Attribution-ShareAlike 4.0 International License. -->
+<!--             To view a copy of this license, visit             -->
+<!--                http://creativecommons.org/licenses/by-sa/4.0/ -->
+<!--             or send a letter to Creative Commons, PO Box 1866,-->
+<!--             Mountain View, CA 94042, USA                      -->
+<!--                                                               -->
+<!-- ORIGINAL CREATION DATE:                                       -->
+<!--             October 2016                                      -->
+<!--                                                               -->
+<!-- ============================================================= -->
+
+
+<!-- ============================================================= -->
+<!--                    DTD VERSION/CHANGE HISTORY                 -->
+<!-- ============================================================= -->
+<!--
+Version  Reason/Occasion                   (who) vx.x (yyyy-mm-dd)  
+     =============================================================
+     NISO STS Version 1.2 (ANSI/NISO Z39.102-2022)
+                                      (DAL/BTU) v1.2 (2022-10-31)
+      
+     ANSI NISO STS is a continuing maintenance NISO Standard, 
+     which requires voting by both the NISO and ANSI memberships 
+     to be changed. This version of the NISO STS was approved 
+     by ANSI vote on October 21, 2022, so it supersedes the 
+     2017 version and all committee drafts, becoming 
+     NISO STS v1.2 20221031 (ANSI/NISO Z39.102-2022).
+
+     The formal public identifiers have been changed in the  
+     modules and the OASIS XML catalogs.
+ 
+ 19. NISO STS 'v1.1d1 20210831' becomes 'v1.2 20221031'
+     'ANSI/NISO Z39.102-2017' becomes 'ANSI/NISO Z39.102-2022'
+ 
+     =============================================================
+     NISO STS Version 1.1d1 (ANSI/NISO Z39.102-202x)
+                                  (DAL/BTU) v1.1d1 (2021-08-31)
+            
+     ANSI NISO STS is a continuing maintenance NISO Standard, 
+     which requires voting by the NISO and ANSI memberships 
+     to be changed. 
+      
+     This ***DRAFT*** DTD represents an interim version of the
+     non-normative STS DTD Suite, as an indication to STS users
+     of the decisions that have been made by the STS Standing
+     Committee. This DRAFT has not yet been given public review 
+     or voting; it is for Standing Committee review and
+     testing. 
+
+     The formal public identifiers have been changed in the  
+     modules and the OASIS XML catalogs.
+
+ 18. TERM TYPE VALUES - @term-type values are a closed set. The
+     value "translation" was added to the list of values.
+
+ 17. CUSTOM META GROUP ATTRIBUTES - Updated to agree with JATS 
+     and add @content-type, @specific-use, and @xml-lang 
+
+ 16. PROCESSING METADATA - STS adopted the JATS <processing-meta> 
+     model, but changed the values of the @base-tagset to
+     "interchange" and "extended" using processing-meta-atts.
+     The @terminology-model was also added.
+
+ 15. INLINE CODE - Added new element <inline-code> to 
+     contain the same type of information as the <code> 
+     element, but be inline instead of block.
+     Since JATS does not yet have this element, but has voted 
+     to add it, <inline-code> was defined in this module, 
+     for easy removal when JATS adds this element.
+
+ 14. LEGEND ELEMENT
+     a) Added new element <legend>. Both the
+        element and its overrides are defined in this module,
+        since JATS does not have <legend>. When JATS adds
+         <legend>, the element can be removed from this module
+         and only the overrides left.
+     b) Legend is an optional, repeatable element that is
+        allowed everywhere <caption> is allowed:
+          <boxed-text>, <chem-struct-wrap>, <disp-formula>,
+          <disp-formula-group>, <fig>, <fig-group>, <graphic>,
+          <media>, <supplementary-material> (thru fig-model),
+          <table-wrap>, <table-wrap-group>
+
+ 13. NEW REFERENCE TYPE - Added new @ref-type values
+     "abbreviation" and "custom"
+
+ 12. STYLE DETAIL FOR BULLETED LISTS - Added the attribute
+     @style-detail to <list>. The intent is
+     for this to be used ONLY to name the specific style
+     of bullet desired for @list-type="bullet", for
+     example @style-detail="dash"
+
+ 11. SECTION METADATA
+     a) Reduced the model of <sec-meta> to
+        nothing but optional and repeatable keywords and 
+        subjects.
+     a) Added <sec-meta> to the section model,
+        which added subjects, keywords) to
+           <app>, <boxed-text>, <sec> 
+     b) Added subjects and keywords to:
+           <app-group>, <chem-struct-wrap>, <disp-formula>,
+           <disp-formula-group>, <fig>, 
+           <table-wrap>, <table-wrap-group>
+     c) Cleaned the sec-like models to be more readable, got 
+        rid of mixes in favor of classes, got rid of loose
+        elements. Modified app, bio, ack, boxed-text, sec
+     d) Redefined the following models (from JATS) to remove 
+        <sec-meta>:
+           <abstract>, <bio>, <notes>
+     e) Removed %sec-opt-title-model, because, with the expanded
+        placement of <editing-instruction>s, the model was
+        ambiguous (non-deterministic). All element that used to 
+        use this PE were redefined, so that they could remain 
+        deterministic.
+ 
+ 10. SUBJECT GROUP - (and <kwd-group> when it was not there)
+     a) Added to the models of:
+          <app-group>, <chem-struct-wrap>, <disp-formula-group>,
+          <fig>, <table-wrap>, <table-wrap-group>  
+    c) Redefined the following models to remove subjects and 
+       keywords
+           <ack>
+
+  9. CAPTION element added to <disp-formula>
+
+  8. CITED STANDARD 'TYPE' VALUES - @type attribute values 
+     on the element <std> are a closed set. The value "custom" 
+     was added to the list of values and the attribute 
+     @custom-type added to <std>. 
+
+  7. FORM TYPE VALUES - @form-type values are a closed set. The
+     value "custom" was added to the list of values and the
+     attribute @custom-type added to:  
+      - <boxed-text>, <fig>, <graphic>, <media>, <preformat>,
+        and <table-wrap> 
+
+  6. LINKING ATTRIBUTES - Added @hreflang to both %link-atts and 
+     %might-link-atts, thus to all potentially linking elements.
+     Added %might-link-atts to <related-object>.
+
+  5. STYLING in VERSE- <verse-line> attributes added to this 
+     module to remove @style, @style-type, @style-detail,
+     and @indent-level. Modeled the attributes modeled on 
+     <verse-group>, which was already in this module.
+
+  4. ATTRIBUTES TO MATCH JATS 
+      - @assigning-authority added to <compound-kwd>, <kwd>,
+          <kwd-group>, <nested-kwd>, <compound-subject>, 
+          <subject>, <subj-group>  
+      - Vocabulary identification attributes added to 
+          <compound-kwd>, <kwd>, <nested-kwd>, 
+          <compound-subject>, and <subject> (all of which
+          already had vocabulary term identification 
+          attributes),  <inline-media> and <institution-id>
+          (both through JATS)
+      - Removed role-atts from this module, since matched JATS
+      - to <std>: added @use-type and might-link-atts (which
+           includes @hreflang)
+      - to <mixed-citation>, <element-citation>, added 
+           @use-type and @hreflang (through JATS) 
+ 
+  3. NO XREF. 
+      - Redefined %graphic-model; to omit <xref>
+      - Redefined %media-model; to omit <xref>
+      - Redefined %fig-group-model; to omit <xref>
+
+  2. DENIED SUPPORT SOURCE. Redefined %award-group-model; to
+     omit the JATS <support-source>. This was voted by STS SC,
+     but then ,award-group> was NOT added to STS 1.1d1, so this
+     PE was removed.
+
+  1. STS 'v1.0 20171031' becomes 'v1.1d1 20210831' 
+                                                                   -->    
+
+<!-- ============================================================= -->
+<!--                    OVER-RIDES OF ATTRIBUTE VALUE LISTS        -->
+<!-- ============================================================= -->
+
+<!--                    CITED STANDARD TYPES                       -->
+<!--                    Possible values for the @type attribute
+                        on the <std> element.                      -->
+<!ENTITY % cited-std-type-values
+                        "dated | multipart | undated | custom"       >
+
+
+<!--                    DEFAULT TYPE OF CROSS(X)-REFERENCE         -->
+<!--                    Used to say to what the reference is pointing.
+                        May be used for type-specific processing or
+                        validation. Values are, for example:
+                        Affiliation "aff" and Figure "fig", and
+                        Bibliographic ref (to a citation.          -->
+<!ENTITY % ref-types    "abbreviation | aff | app | author-notes | 
+                         award | bibr | bio | boxed-text | 
+                         chem | collab | contrib | corresp |
+                         disp-formula | fig | fn | kwd | list |
+                         plate | scheme | sec | statement |
+                         supplementary-material |
+                         table | table-fn |
+                         other | custom"                             >
+ 
+
+<!--                    FORM TYPE VALUES                           -->
+<!--                    Possible values for the @form-type attribute
+                        on many of the block display elements.     -->
+<!ENTITY % form-type-values
+                        "blank | exemplar | instructions | 
+                          unspecified | custom"                      >
+ 
+
+<!--                    IS THIS ELEMENT A FORM VALUES              -->
+<!--                    Possible values for the @is-form attribute
+                        on many of the block display elements.     -->
+<!ENTITY % is-form-values
+                        "form | noform"                              >
+
+
+<!--                    TERM STATUS TYPES                          -->
+<!--                    Possible values for the @term-status attribute
+                        on the <term> element.                     -->
+<!ENTITY % term-status-values
+                       "preferred | non-preferred | admitted"        >
+
+
+<!--                    TERM TYPE TYPES                            -->
+<!--                    Possible values for the @term-type attribute
+                        on the <term> element (taken from TBX)     -->
+<!ENTITY % term-type-values
+                        "acronym | abbreviation | fullForm | symbol | 
+                         variant | formula | equation | translation" >
+
+<!-- ============================================================= -->
+<!--                    OVER-RIDES OF JATS METADATA MODELS         -->
+<!-- ============================================================= -->               
+
+
+<!--                    ABSTRACT MODEL                             -->
+<!--                    Abstracts may contain one or more paragraphs
+                        (as a typical abstract does) or titled
+                        sections, as is done in many physics
+                        articles.
+                        Unlike the default model in the base DTD
+                        Suite, this <abstract> requires that all
+                        sections in the abstract start with titles.
+                        NISO STS change: add <editing-instruction> -->
+<!ENTITY % abstract-model
+                        "( (%editing-instructions.class;)*,
+                           label?, title?,
+                           (%just-para.class;)*, (%sec.class;)*)"    >
+
+
+<!--                    AFFILIATION ELEMENTS                       -->
+<!--                    Elements for use in the <aff> element      -->
+<!ENTITY % aff-elements "| %address.class; | %address-link.class; |
+                         %article-link.class; | %break.class; |
+                         %emphasis.class; | %label.class; |
+                         %inline-text.class; |
+                         %simple-link.class; | %subsup.class;"       >
+
+
+<!--                    COPYRIGHT STATEMENT ELEMENTS               -->
+<!--                    Content model for <copyright-statement>    -->
+<!ENTITY % copyright-statement-elements
+                        "| %address-link.class; | %emphasis.class; |
+                         %inline-text.class; |
+                         %phrase-content.class; | %subsup.class;"    >
+
+<!--                    FUNDING STATEMENT ELEMENTS                 -->
+<!--                    Model for the <funding-statement> element  -->
+<!ENTITY % funding-statement-elements
+                        "| %address-link.class; | %emphasis.class; |
+                         %inline-text.class; |
+                         %phrase-content.class; |
+                         %subsup.class;"                             >
+
+<!--                    INSTITUTION NAME ELEMENTS                  -->
+<!--                    Elements for use in the <institution>
+                        element                                    -->
+<!ENTITY % institution-elements
+                        "| %break.class; | %emphasis.class; |
+                         %inline-text.class; |
+                         %subsup.class;"                             >
+
+
+<!--                    KEYWORD CONTENT ELEMENTS                   -->
+<!--                    The elements that can be included along with
+                        data characters inside the content model of
+                        a keyword <kwd>.                           -->
+<!ENTITY % kwd-elements
+                        "| %emphasis.class; | %inline-text.class; |
+                         %phrase-content.class; | %subsup.class;"    >
+     
+
+<!--                    KEYWORD GROUP MODEL                        -->
+<!--                    Content model for a <kwd-group> element
+                        NISO STS change: add <editing-instruction> -->
+<!ENTITY % kwd-group-model
+                        "( (%editing-instructions.class;)*,
+                           label?, title?,
+                           (%kwd.class;)+ )"                         >
+
+
+<!--                    LINK ELEMENTS                              -->
+<!--                    Elements for use in the linking elements
+                        such as <xref>, <target>, and <ext-link>   -->
+<!ENTITY % link-elements
+                        "| %emphasis.class; | %inline-text.class; |
+                         %phrase-content.class; | %subsup.class;"    >
+
+
+<!--                    PUB DATE MODEL                             -->
+<!--                    Content model for the <pub-date> element   -->
+<!--                    In NISO STS, dates within the <pub-date>  
+                        element are given in ISO 8601 form, so no 
+                        sub-part tagging is required (or allowed)
+                        and no @iso-8601 attribute is required.    -->
+<!ENTITY % pub-date-model 
+                        "(#PCDATA)"                                  >
+
+
+
+<!--                    PUBLISHER'S LOCATION ELEMENTS              -->
+<!--                    Elements for use in the Publisher Location
+                        <publisher-loc> element                    -->
+<!ENTITY % publisher-loc-elements
+                        "| %address.class; | %address-link.class; |
+                         %emphasis.class; | 
+                         %inline-text.class; | %subsup.class;"       >
+
+
+<!--                    RELATED ARTICLE ELEMENTS                   -->
+<!--                    Elements allowed inside <related-article>  -->
+<!ENTITY % related-article-elements
+                        "| %emphasis.class; | %journal-id.class; | 
+                         %inline-text.class; |
+                         %phrase-content.class; |
+                         %references.class; |  %subsup.class;"       >
+
+
+<!--                    RELATED OBJECT ELEMENTS                    -->
+<!--                    Elements allowed inside <related-object>   -->
+<!ENTITY % related-object-elements
+                        "| %emphasis.class; | 
+                         %inline-text.class; |
+                         %phrase-content.class; |
+                         %references.class; |  %subsup.class;"       >
+
+
+<!--                    CONTENT MODEL FOR A SECTION METADATA       -->
+<!--                    This wrapper element holds section-level 
+                        metadata, such as specific keywords,  that is 
+                        different from the metadata for the rest of 
+                        the stadnard.                              -->
+<!ENTITY % sec-meta-model
+                        "( (%kwd-group.class;)*, 
+                           (%subj-group.class;)* )"                  >
+
+
+<!--                    TITLE-PART ELEMENTS                        -->
+<!--                    The %title-part-elements; parameter entity 
+                        lists the elements legal in any part of 
+                        a title.
+                        Developer's Note: used in <subtitle>         
+                        model below.                               -->
+<!ENTITY % title-part-elements 
+                       "| %address-link.class; |
+                         %article-link.class; | %emphasis.class; |
+                         %inline-display.class; |
+                         %inline-math.class; | %math.class; |
+                         %phrase.class; | %simple-link.class; |
+                         %subsup.class; |
+                         %break.class; |
+                         %citation.class;"                           >
+
+
+<!--                    TRANSLATED ABSTRACT MODEL                  -->
+<!--                    Content model for an <trans-abstract>
+                        element                                    
+                        NISO STS change: add <editing-instruction> -->
+<!ENTITY % trans-abstract-model
+                        "( (%editing-instructions.class;)*,
+                           label?, title?,
+                           (%just-para.class;)*, (%sec.class;)*)"    >
+
+
+<!--                    SIGNATURE ELEMENTS                         -->
+<!--                    Elements to be mixed with data characters
+                        inside the content model for the
+                        <sig> element.                             -->
+<!ENTITY % sig-elements "| %break.class; | %emphasis.class; |
+                         %subsup.class; | %phrase-content.class; |
+                         %inline-display-noalt.class; |
+                         %just-base-display-noalt.class;"            >
+
+
+<!--                    STANDARDS ORGANIZATION ELEMENTS            -->
+<!--                    The elements that can be included along with
+                        data characters inside the content model of
+                        <std-organization>.                        -->
+<!ENTITY % std-organization-elements 
+                        "| %emphasis.class; | %inline-text.class; |
+                         %institution-wrap.class; | %subsup.class;"  >
+
+
+<!--                    SUBTITLE ELEMENTS                          -->
+<!--                    The elements that can be included along with
+                        data characters inside the content model of
+                        a paragraph <subtitle>.
+                        An earlier version of this tag set used the
+                        parameter entity %title-elements; for many
+                        title elements including <subtitle>.       -->
+<!ENTITY % subtitle-elements
+                        "%title-part-elements;"                      >
+
+<!-- ============================================================= -->
+<!--                    OVER-RIDES OF JATS SECTION MODELS          -->
+<!-- ============================================================= -->
+
+
+<!--                    CONTENT MODEL FOR A STRUCTURAL SECTION     -->
+<!--                    The model for a section that requires that 
+                        a <title> or a <label> must be present. 
+                        ISO STS Change: Remove <sec-meta>
+                        NISO STS Change: Add <editing-instruction>,
+                        Put <sec-meta> back in.                    -->
+<!ENTITY % sec-model    "( (%editing-instructions.class;)*, sec-meta?, 
+                           ( (label, title?) | title ),
+                             (%para-level; | %sec-back.class;)*, 
+                             ( (%sec.class;)+, 
+                               (%sec-back.class; | %all-notes.class;)* 
+                            )? 
+                         )"                                          >
+
+<!--  ( (x, y*) | y+)  -->
+
+<!--<!ENTITY % sec-model    "( editing-instruction*, sec-meta?, 
+                           ( (label, title?) | title ),
+                           ( ((%para-level; | %sec-back.class;)*, 
+                               ( (%sec.class;)+, 
+                                (fn-group | glossary |  ref-list |  
+                                non-normative-note | normative-note | 
+                                non-normative-example | 
+                                normative-example | notes-group)* 
+                               )*
+                             ) |
+                              ( (%sec.class;)+, 
+                                (%sec-back.class; |  
+                                 %all-notes.class;)* 
+                              )+
+                           )
+                            
+                         )"                                        > --> 
+
+<!-- ============================================================= -->
+<!--                    OVER-RIDES OF JATS JOURNAL PUBLISHING      -->
+<!--                    STRUCTURAL MODELS                          -->
+<!-- ============================================================= -->
+
+<!--                    ACKNOWLEDGMENTS MODEL                      -->
+<!--                    Content model for the <ack> element        -->
+<!ENTITY % ack-model    "( label?, title?,
+                           (%para-level; | %sec-back.class;)*, 
+                           ( (%sec.class;)+,  
+                             (%sec-back.class; | %all-notes.class;)*
+                           )? 
+                         )"                                          >
+
+
+<!--                    BIOGRAPHY MODEL                            -->
+<!--                    Content model for the <bio> element        -->
+<!ENTITY % bio-model    "( label?, title?,
+                           (%para-level; | %sec-back.class;)*, 
+                           ( (%sec.class;)+,  
+                             (%sec-back.class; | %all-notes.class;)*
+                           )? 
+                         )"                                          >
+
+
+<!--                    CAPTION MODEL                              -->
+<!--                    Content model for the <caption> element 
+                        NISO STS Change: add <editing-instruction> -->
+<!ENTITY % caption-model
+                        "( (%editing-instructions.class;)*,
+                           title?,
+                           (%just-para.class;)* )"                   >
+
+
+<!--                    APPENDIX MODEL                             -->
+<!--                    Content model for the <app> element.       -->
+<!--                    ISO STS Change" Added annex-type. 
+                        NISO STS Change: add <editing-instruction> -->
+<!ENTITY % app-model    " ( (%editing-instructions.class;)*, 
+                            sec-meta?, 
+                            ( (label, annex-type?, title?) |
+                              (annex-type?, title) ),
+                            (%para-level; | %sec-back.class;)*,  
+                            ( (%sec.class;)+, 
+                              (%sec-back.class; | %all-notes.class;)* 
+                            )?, 
+                            permissions?)"                             > 
+
+<!--old app model
+                           "( (%editing-instructions.class;)*,
+                            ( (label, annex-type?, title?) |
+                              (annex-type?, title) ),
+                          ( ( (%para-level; | %ref-list.class;)+, 
+                              (%sec-level; | %xinclude.class;)*) |
+                            (%sec-level; | %xinclude.class;)+ ),
+                          ( (%sec-back-matter-mix;),    
+                            (%all-notes.class;)* )*, 
+                          permissions?)"                             >
+
+
+--><!--                    APPENDIX GROUP MODEL                       -->
+<!--                    Content model for the <app-group> element  -->
+<!ENTITY % app-group-model
+                        "(label?, title?, 
+                          (%abstract.class;)*, 
+                          (%kwd-group.class;)*, (%subj-group.class;)*,
+                          (%para-level;)*,
+                          (%app.class; | %ref-list.class; |
+                           %xinclude.class;)*)"                      >
+
+
+<!--                    LABEL ELEMENTS                             -->
+<!--                    The elements that can be included along with
+                        data characters inside the content model of
+                        the <label> element.
+                        Added %phrase.content to allow named-content
+                        within a label.                            -->
+<!ENTITY % label-elements
+                        "| %emphasis.class; | %inline-display.class; |
+                         %inline-math.class; | 
+                         %phrase-content.class; | 
+                         %simple-link.class; | %subsup.class;"       >
+
+
+<!--                    NOTES MODEL                                -->
+<!--                    Content model for the <notes> element      -->
+<!ENTITY % notes-model  "(label?, title?,
+                          (%para-level; | %sec-back.class;)*, 
+                          ( (%sec.class;)+, 
+                            (%sec-back.class; | %all-notes.class;)* 
+                          )? 
+                         )"                                          >
+
+
+<!--                    REFERENCE ITEM MODEL                       -->
+<!--                    Content model for the <ref> element
+                        ISO STS Change: Removed %note.class; (<note>)
+                        NISO STS Change: add <editing-instruction>
+                        and all normative and non-normative notes 
+                        and examples.                              -->
+<!ENTITY % ref-model    "( (%editing-instructions.class;)*,
+                           label?,  
+                           (%citation.class; | %all-notes.class;)+ )">
+
+
+<!-- ============================================================= -->
+<!--                    OVER-RIDES OF JATS JOURNAL PUBLISHING      -->
+<!--                    ELEMENTS FOR CITATIONS                     -->
+<!-- ============================================================= -->
+
+
+<!--                    CITATION ELEMENTS                          -->
+<!--                    Content for both types of citation. These
+                        elements may be mixed with #PCDATA in the
+                        <mixed-citation> element (in which all
+                        punctuation and spacing are left intact), and
+                        they also constitute the choices that can be
+                        used to form the all-element-content of the
+                        <element-citation> element (in which
+                        punctuation and spacing are removed).      -->
+<!--                    Added break.class and simple-link.class    -->
+<!ENTITY % citation-elements
+                        "%break.class; | 
+                         %emphasis.class; | %inline-display.class; |
+                         %inline-math.class; | %label.class; |
+                         %phrase.class; | %references.class; |
+			             %simple-link.class; | %subsup.class;"       >
+
+
+<!--                    STANDARD ELEMENTS                          -->
+<!--                    The elements that can be included along with
+                        data characters inside the content model of
+                        <std>
+                        Added <std-ref>, <title>, and <data-title>.
+                        Design Note: this inline mix begins with
+                        an OR bar inside rendition-plus.           -->
+<!ENTITY % std-elements "| %std-content.class; | 
+                         %emphasis.class; | %inline-text.class; |
+                         %phrase-content.class; | %subsup.class;"    >
+
+
+<!-- ============================================================= -->
+<!--                    OVER-RIDE BLOCK DISPLAY ELEMENTS           -->
+<!-- ============================================================= -->
+
+
+<!--                    ARRAY CONTENT MODEL                        -->
+<!--                    Content model for the <array> element      -->
+<!--                    ISO STS Change: Made this use table.class,
+                        not tbody.class  
+                        NISO STS change: add <editing-instruction>
+                        Remarks: <table> is non-preferred, use 
+                        <tbody>                                    -->
+<!ENTITY % array-model  "( (%editing-instructions.class;)*,
+                           label?,
+                           (%access.class; | %address-link.class;)*,
+                           (%just-base-display.class; |
+                             %table.class; | %tbody.class;)*,
+                           (%display-back-matter.class;)* )"         >
+
+
+<!--                    BOXED TEXT MODEL                           -->
+<!--                    Complete content model for the boxed text
+                        element <boxed-text>.
+                        ISO STS Change: Remove <sec-meta> 
+                        Note: Adding <editing-instruction>
+                        would blow determinism rules, since
+                        <editing-instruction> is part of
+                        para-level stuff.                          -->
+<!ENTITY % boxed-text-model
+                        "( (%id.class;)*, sec-meta?, label?,
+                           (%caption.class;)?, (%legend.class;)*,
+                           (%para-level; | %sec-back.class;)*, 
+                           ( (%sec.class;)+, 
+                             (%sec-back.class; | %all-notes.class;)*
+                           )?,
+                           (%display-back-matter.class;)* )"         >
+
+
+<!--                    CHEMICAL STRUCTURE ELEMENTS                -->
+<!--                    Those elements that may mix with the data
+                        characters inside a Chemical Structure
+                        <chem-struct>                              -->
+<!ENTITY % chem-struct-elements
+                        "| %access.class; | %address-link.class; |
+                         %break.class; |
+                         %emphasis.class; | %label.class; |
+                         %inline-text.class; |
+                         %list.class; | %math.class; |
+                         %phrase-content.class; |
+                         %simple-display.class; |
+                         %simple-link.class; | %subsup.class; "      >
+
+
+<!--                    DEFINITION LIST MODEL                      -->
+<!--                    Content model for the <def-list> element 
+                        NISO STS change: add <editing-instruction> -->
+<!ENTITY % def-list-model
+                        "( (%editing-instructions.class;)*,
+                           label?, title?, term-head?, def-head?,
+                           (%def-item.class;)*, 
+                           (%def-list.class;)* )"                    >
+
+
+<!--                    CHEMICAL STRUCTURE WRAPPER MODEL           -->
+<!--                    Content model for the Chemical Structure
+                        Wrapper <chem-struct-wrap> element
+                        NISO STS Change: Added normative-notes, 
+                        normative-notes and notes-group and 
+                        add ed<editing-instruction> and 
+                        removed abstracts and keywords.            -->
+<!ENTITY % chem-struct-wrap-model
+                        "( (%editing-instructions.class;)*,
+                           (%id.class;)*, label?, 
+                           (%caption.class;)?, (%legend.class;)*,  
+                           (%kwd-group.class;)*,(%subj-group.class;)*,
+                           (%access.class; | %address-link.class;)*,
+                           (%inside-chem-struct-wrap.class; |
+                            %all-notes.class;)+,
+                           (%display-back-matter.class;)* )"         >
+
+
+<!--                    CODE ELEMENTS                              -->
+<!--                    Elements that may be used, along with data
+                        characters, inside the content model for the
+                        <code> element                             -->
+<!ENTITY % code-elements
+                        "| %access.class; | %address-link.class; |
+                         %citation.class; | 
+                         %display-back-matter.class; |
+                         %emphasis.class; | %inline-text.class; |
+                         %phrase.class; |
+                         %simple-link.class; | %subsup.class;"       >
+
+
+<!--                    DISPLAY FORMULA ELEMENTS                   -->
+<!--                    Elements for use in the <disp-formula>
+                        element.
+                        NISO STS Change: Added normative-notes, 
+                        normative-notes and notes-group and
+                        removed abstracts and keywords.            -->
+<!ENTITY % disp-formula-elements
+                        "| %access.class; | %address-link.class; |
+                         %break.class; | %caption.class; | 
+                         %legend.class; | %emphasis.class; |
+                         %inline-display-noalt.class; |
+                         %inline-math.class; | 
+                         %kwd-group.class; | %subj-group.class; |
+                         %all-notes.class; | %label.class; |
+                         %phrase-content.class; |
+                         %math.class; |  %simple-display.class; |
+                         %subsup.class;"                             >
+
+
+<!--                    FORMULA, DISPLAY GROUP MODEL               -->
+<!--                    Content model for an <disp-formula-group>  -->
+<!--                    NISO STS added normative-notes, 
+                        normative-notes and notes-group and
+                        removed abstracts and keywords.            -->
+<!ENTITY % disp-formula-group-model
+                        "( (%editing-instructions.class;)*,
+                           label?, (%caption.class;)?, 
+                           (%legend.class;)*, (%kwd-group.class;)*, 
+                           (%subj-group.class;)*, 
+                           (%all-notes.class;)*,
+                           (%access.class; | %address-link.class;)*,
+                           (%block-math.class;)* )"                  >
+
+
+<!--                    FIGURE-LIKE CONTENT MODEL                  -->
+<!--                    Content model for the Figure element and any
+                        similarly structured elements
+                        Made <label> and <caption> non-repeatable. -->
+<!ENTITY % fig-model    "( (%editing-instructions.class;)*,
+                           (%id.class;)*, label?, 
+                           (%caption.class;)?, (%legend.class;)*,
+                           (%kwd-group.class;)*,(%subj-group.class;)*, 
+                           (%access.class; | %address-link.class;)*,
+                           (%block-math.class; |
+                            %chem-struct-wrap.class; |
+                            %fn-group.class; | %fn-link.class; | 
+                            %intable-para.class; |
+                            %just-table.class; | %just-para.class; |
+                            %list.class; | %simple-display.class;)*,
+                           (%display-back-matter.class;)* )"         >
+
+
+<!--                    FIGURE GROUP MODEL                         -->
+<!--                    Content model for a Figure Group element   -->
+<!ENTITY % fig-group-model
+                        "((%label.class;)?, (%caption.class;)?, 
+                          (%legend.class;)*, (%abstract.class;)*, 
+                          (%kwd-group.class;)*, (%subj-group.class;)*, 
+                          (%access.class; | %address-link.class;)*,
+                          (%fig-display.class; |  
+                           %just-base-display.class;)* )"            >
+
+
+<!--                    FOOTNOTE GROUP MODEL                       -->
+<!--                    Content model for the <fn-group> element
+                        NISO STS change: add <editing-instruction> -->
+<!ENTITY % fn-group-model
+                        "( (%editing-instructions.class;)*,
+                           label?, title?,
+                           (%fn-link.class;)+ )"                     >
+
+<!--                    GRAPHIC MODEL                              -->
+<!--                    Content model for the <graphic> element    -->
+<!ENTITY % graphic-model
+                        "(%access.class; | %abstract.class; | 
+                          %address-link.class; | 
+                          %caption.class; | %legend.class; |
+                          %display-back-matter.class; | 
+                          %id.class; | %label.class; |
+                          %kwd-group.class; | %subj-group.class;)* " >
+
+
+<!--                   INLINE CODE ATTRIBUTES                      -->
+<!--                   Attributes for the <inline-code> element    -->
+<!ENTITY % inline-code-atts
+            "%jats-common-atts;                                       
+             code-type          CDATA                     #IMPLIED
+             code-version       CDATA                     #IMPLIED
+             executable         (yes | no)                #IMPLIED
+             language           CDATA                     #IMPLIED
+             language-version   CDATA                     #IMPLIED
+             platforms          CDATA                     #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             xml:space (default | preserve)               'preserve'
+             xml:lang   NMTOKEN                           #IMPLIED"  >
+
+
+<!--                    INLINE CODE ELEMENTS                       -->
+<!--                    Elements that may be used, along with data
+                        characters, inside the content model for the
+                        <inline-code> element                      -->
+<!ENTITY % inline-code-elements
+                        "| %address-link.class; |  %emphasis.class; | 
+                         %inline-display-noalt.class; | 
+                         %phrase.class; |  %simple-link.class; |
+                         %subsup.class;"                             >
+
+
+<!--                    CODE TEXT                                  -->
+<!--                    A container element for inline technical 
+                        content such as short programming language 
+                        code, pseudo-code, a schema line, or a markup 
+                        fragment.
+                          This material may be preformatted text, with
+                        or without emphasis, or it may be an external
+                        link to a binary executable file.          -->
+<!ELEMENT  inline-code  (#PCDATA %inline-code-elements;)*            >
+<!ATTLIST  inline-code
+             %inline-code-atts;                                      >
+
+
+<!--                    LEGEND ATTRIBUTES                          -->
+<!--                    Attributes for the <legend> element        -->
+<!ENTITY % legend-atts
+            "%jats-common-atts;  
+             content-type
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             xml:lang   NMTOKEN                           #IMPLIED"  >
+
+
+<!--                    LEGEND MODEL                               -->
+<!--                    Content model for <legend> element         -->
+<!ENTITY % legend-model "( (%editing-instructions.class;)*,
+                           label?, title?,
+                           (%list.class; | 
+                            %block-display-legend.class; |
+                            %nothing-but-para.class;)* )"            >
+
+<!--                    LEGEND ELEMENT                             -->
+<!--                    Legend, key, where-list or other explanation
+                        (typically a 2-part list or a table) of the 
+                        keys and their meanings that are used with
+                        a figure, table, graphic, formula, or similar.
+                                                                   -->
+<!ELEMENT  legend       %legend-model;                               >
+<!ATTLIST  legend       %legend-atts;                                >
+
+
+<!--                    LIST MODEL                                 -->
+<!--                    Content model for the <list> element       
+                        NISO STS change: add <editing-instruction> -->
+<!ENTITY % list-model   "( (%editing-instructions.class;)*,
+                           label?, title?,
+                           (%list-item.class;)+)"                    >
+
+
+<!--                    MEDIA MODEL                                -->
+<!--                    Content model for the <media> element      -->
+<!ENTITY % media-model  "(%access.class; | %abstract.class; | 
+                          %address-link.class; | 
+                          %caption.class; | %legend.class; | 
+                          %display-back-matter.class; | 
+                          %id.class; |  %label.class; | 
+                          %kwd-group.class; | %subj-group.class;)* " >
+
+
+<!--                    PREFORMATTED TEXT ELEMENTS                 -->
+<!--                    Elements that may be used, along with data
+                        characters, inside the content model for the
+                        <preformat> element, in which white space,
+                        such as tabs, line feeds, and spaces will
+                        be preserved.
+                        Remarks: Since this model is a large OR 
+                        group, any editing instructions should be
+                        placed outside the <preformat-element>.   -->
+<!ENTITY % preformat-elements
+                        "| %access.class; | %address-link.class; |
+                         %citation.class; | 
+                         %display-back-matter.class; |
+                         %emphasis.class; | %inline-text.class; |
+                         %phrase.class; |
+                         %simple-link.class; | %subsup.class;"       >
+
+<!--                    STATEMENT, FORMAL MODEL                    -->
+<!--                    Content model for the <statement> element       
+                        NISO STS change: add <editing-instruction> 
+                        and removed abstracts and keywords.        --> 
+<!ENTITY % statement-model
+                        "( (%editing-instructions.class;)*,
+                           label?, title?,
+                           (%kwd-group.class;)*,(%subj-group.class;)*,
+                           (%just-para.class; | %statement.class;)+,
+                           (%display-back-matter.class;)* )"         >
+
+
+<!--                    TABLE WRAPPER CONTENT MODEL                -->
+<!--                    Content model for the container element that
+                        surrounds the standard table models for row
+                        and columns.                               -->
+<!--                    NISO STS added normative-notes, 
+                        normative-notes and notes-group and
+                        editing-instruction and 
+                        removed abstracts and keywords.            -->
+<!ENTITY % table-wrap-model
+                        "( (%editing-instructions.class;)*,
+                           (%id.class;)*, label?, (%caption.class;)?,
+                           (%legend.class;)*, 
+                           (%kwd-group.class;)*, 
+                           (%subj-group.class;)*, 
+                           (%access.class; | %address-link.class;)*,
+                           (%inside-table-wrap;)*,
+                           (%table-foot.class; |
+                            %display-back-matter.class;)* )"         >
+ 
+
+<!--                    TABLE WRAPPER GROUP MODEL                  -->
+<!--                    Content model for the <table-wrap-group>
+                        element                                    -->
+<!--                    NISO STS added normative-notes, 
+                        normative-notes and notes-group and
+                        editing-instruction and 
+                        removed abstracts and keywords.            -->
+<!ENTITY % table-wrap-group-model
+                        "( (%editing-instructions.class;)*,
+                           label?, (%caption.class;)?, 
+                           (%legend.class;)*, 
+                           (%kwd-group.class;)*,(%subj-group.class;)*, 
+                           (%access.class; | %address-link.class;)*,
+                           (%all-notes.class; | 
+                            %just-table.class;)+ )"                  > 
+
+
+<!-- ============================================================= -->
+<!--                    ADDING 'ORIGINATOR' ATTRIBUTE              -->
+<!-- ============================================================= -->
+
+<!--                    'ORIGINATOR' ATTRIBUTE                     -->
+<!--                    The 'originator' attribute allows sections -->
+<!--                    and other material added by a second SDO   -->
+<!--                    (e.g. when adopting the standard) to be    -->
+<!--                    marked so as to allow the new and the      -->
+<!--                    original text to be distinguished. Its     -->
+<!--                    values are not constrained.                -->
+<!ENTITY % originator-attribute
+            "originator CDATA                             #IMPLIED"  >
+
+<!-- ============================================================= -->
+<!--                    REPEATED HERE FOR USE BELOW                -->
+<!-- ============================================================= -->
+
+
+<!--                    XLINK LINK ATTRIBUTES                      -->
+<!--                    Attributes for any element that must be a
+                        link                                       -->
+<!--                    This declaration is not modified but
+                        copied verbatim from 
+                        JATS-journalpubcustom-models1.ent; it
+                        needs to be here because some of the 
+                        attribute-lists below refer to it.         -->
+<!ENTITY % link-atts
+            "xmlns:xlink CDATA                            #FIXED
+                                     'http://www.w3.org/1999/xlink'
+             xlink:type  (simple)                   #FIXED 'simple'
+             xlink:href  CDATA                            #REQUIRED
+             xlink:role  CDATA                            #IMPLIED
+             xlink:title CDATA                            #IMPLIED
+             xlink:show  (embed | new | none | other | replace)
+                                                          #IMPLIED
+             xlink:actuate
+                         (none | onLoad | onRequest | other)
+                                                          #IMPLIED
+             hreflang    NMTOKEN                          #IMPLIED"  >
+
+
+<!--                    MIGHT LINK XLINK ATTRIBUTES                -->
+<!--                    Used for elements which may need to link to
+                        external sources or other objects within
+                        the document, but may not necessarily act
+                        as a link at all.  The attribute
+                        "xlink:href" identifies the object to which
+                        the link points.                           -->
+<!--                    This declaration is not modified but
+                        copied verbatim from 
+                        JATS-journalpubcustom-models1.ent; it
+                        needs to be here because some of the 
+                        attribute-lists below refer to it.         -->
+<!ENTITY % might-link-atts
+            "xmlns:xlink CDATA                            #FIXED
+                                     'http://www.w3.org/1999/xlink'
+             xlink:type  (simple)                   #FIXED 'simple'
+             xlink:href  CDATA                            #IMPLIED
+             xlink:role  CDATA                            #IMPLIED
+             xlink:title CDATA                            #IMPLIED
+             xlink:show  (embed | new | none | other | replace)
+                                                          #IMPLIED
+             xlink:actuate
+                         (none | onLoad | onRequest | other)
+                                                          #IMPLIED
+             hreflang    NMTOKEN                          #IMPLIED"  >
+
+
+<!-- ============================================================= -->
+<!--                    FROM JATS-common1.ent                      -->
+<!-- ============================================================= -->
+
+<!--                    ADDRESS ATTRIBUTES                         -->
+<!--                    Attributes for the <address> element       -->
+<!ENTITY % address-atts
+            "%jats-common-atts;  
+             content-type
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             xml:lang   NMTOKEN                           #IMPLIED
+             %originator-attribute;"                                 >
+
+<!--                    ALTERNATIVES ATTRIBUTES                    -->
+<!--                    Attributes for the <alternatives> element  -->
+<!ENTITY % alternatives-atts
+            "%jats-common-atts;  
+             %originator-attribute;"                                 >
+<!--                    RELATED ARTICLE ATTRIBUTES                 -->
+<!--                    Attributes for <related-article>           -->
+<!ENTITY % related-article-atts
+            "%jats-common-atts;  
+             related-article-type
+                        CDATA                             #REQUIRED
+             ext-link-type
+                       CDATA                              #IMPLIED
+             vol       CDATA                              #IMPLIED
+             page      CDATA                              #IMPLIED
+             issue     CDATA                              #IMPLIED
+             elocation-id
+                       CDATA                              #IMPLIED
+             journal-id
+                       CDATA                              #IMPLIED
+             journal-id-type
+                        CDATA                             #IMPLIED
+             specific-use
+                       CDATA                              #IMPLIED
+             xml:lang   NMTOKEN                           #IMPLIED
+             %might-link-atts;
+             %originator-attribute;"                                 >
+
+<!--                    STANDARDS ATTRIBUTES                       -->
+<!--                    Attributes for the <std> element           -->
+<!ENTITY % std-atts
+            "%jats-common-atts;  
+             type       (%cited-std-type-values;)         #IMPLIED
+             custom-type
+                        CDATA                             #IMPLIED
+             std-id     CDATA                             #IMPLIED
+             content-type
+                        CDATA                             #IMPLIED
+             use-type   CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             xml:lang   NMTOKEN                           #IMPLIED
+             %might-link-atts;"                                      >
+
+
+<!-- ============================================================= -->
+<!--                    FROM JATS-display1.ent                     -->
+<!-- ============================================================= -->
+
+<!--                    DISPLAY ATTRIBUTES                         -->
+<!--                    Attributes used for several of the block
+                        display elements                           -->
+<!--                    This declaration is not modified but
+                        copied verbatim from JATS-display1.ent; it
+                        needs to be here because some of the 
+                        attribute-lists below refer to it.         -->
+<!--                    Note:  fig-atts uses this parameter entity
+                        but overrides the definition of 'position'.
+                        So changes in 'position' won't affect fig.
+                        Other changes to display-atts should
+                        affect fig normally.                       -->
+<!ENTITY % display-atts
+            "position   (anchor | background | float | margin)
+                                                          'float'
+             orientation
+                        (portrait | landscape)            'portrait'
+             specific-use
+                        CDATA                             #IMPLIED
+             xml:lang   NMTOKEN                           #IMPLIED"  >
+
+
+<!--                    TABLE WRAPPER ATTRIBUTES                   -->
+<!--                    Attributes to be added to the regular NLM
+                        table attributes, for example, when the
+                        Elsevier or OASIS Exchange table models are
+                        used.                                      -->
+<!--                    This declaration is not modified but
+                        copied verbatim from JATS-display1.ent; it
+                        needs to be here because some of the 
+                        attribute-lists below refer to it.         -->
+<!ENTITY % other-table-wrap-atts
+             ""                                                      >
+
+
+<!--                    ARRAY ATTRIBUTES                           -->
+<!--                    Attributes for the <array> element         -->
+<!ENTITY % array-atts
+            "%jats-common-atts;  
+             content-type
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             orientation
+                        (portrait | landscape)            'portrait'
+             xml:lang   NMTOKEN                           #IMPLIED
+             %originator-attribute;"                                 >
+
+
+<!--                    BOXED TEXT ATTRIBUTES                      -->
+<!--                    Attributes for the <boxed-text> element    -->
+<!ENTITY % boxed-text-atts
+            "%jats-common-atts;  
+             %display-atts;
+             content-type
+                        CDATA                             #IMPLIED
+             is-form    (%is-form-values;)                #IMPLIED
+             form-type  (%form-type-values;)              #IMPLIED
+             custom-type
+                        CDATA                             #IMPLIED
+             %originator-attribute;"                                 >
+
+
+<!--                    CHEMICAL STRUCTURE WRAPPER ATTRIBUTES      -->
+<!--                    Attributes for the <chem-struct-wrap>
+                        element, the outer wrapper around one or more
+                        block-level chemical structures            -->
+<!ENTITY % chem-struct-wrap-atts
+            "%jats-common-atts;  
+             %display-atts;
+             content-type
+                        CDATA                             #IMPLIED
+             %originator-attribute;"                                 >
+
+
+<!--                    FIGURE ATTRIBUTES                          -->
+<!--                    Attributes for Figures <fig>               -->
+<!--                    N.B. orientation, specific-use, and xml:lang
+                        are the same as in display-atts.  But
+                        position is overridden locally. The
+                        specification here using CDATA is the 
+                        effective one.                             -->
+<!ENTITY % fig-atts
+            "%jats-common-atts;  
+             xml:lang   NMTOKEN                           #IMPLIED
+             position   CDATA                             'float'
+             orientation
+                        (portrait | landscape)            'portrait'
+             specific-use
+                        CDATA                             #IMPLIED
+             fig-type   CDATA                             #IMPLIED
+             is-form    (%is-form-values;)                #IMPLIED
+             form-type  (%form-type-values;)              #IMPLIED
+             custom-type
+                        CDATA                             #IMPLIED
+             %originator-attribute;"                                 >
+
+
+<!--                    FIGURE GROUP ATTRIBUTES                    -->
+<!--                    Attributes for Figure Groups <fig-group>   -->
+<!ENTITY % fig-group-atts
+            "%jats-common-atts;  
+             %display-atts;
+             content-type
+                        CDATA                             #IMPLIED 
+             %originator-attribute;"                                 >
+
+
+<!--                    GRAPHIC ATTRIBUTES                         -->
+<!--                    Attributes for the <graphic> element       -->
+<!ENTITY % graphic-atts
+            "%jats-common-atts;  
+             %display-atts;
+             content-type
+                        CDATA                             #IMPLIED
+             mime-subtype
+                        CDATA                             #IMPLIED
+             mimetype   CDATA                             #IMPLIED
+             is-form    (%is-form-values;)                #IMPLIED
+             form-type  (%form-type-values;)              #IMPLIED
+             custom-type
+                        CDATA                             #IMPLIED
+             %link-atts;
+             %originator-attribute;"                                 >
+
+<!--                    MEDIA ATTRIBUTES                           -->
+<!--                    Attributes for the <media> element         -->
+<!ENTITY % media-atts
+            "%jats-common-atts;  
+             %display-atts;
+             content-type
+                        CDATA                             #IMPLIED
+             mimetype  CDATA                             #IMPLIED
+             mime-subtype
+                        CDATA                             #IMPLIED
+             is-form    (%is-form-values;)                #IMPLIED
+             form-type  (%form-type-values;)              #IMPLIED
+             custom-type
+                        CDATA                             #IMPLIED
+             %link-atts;
+             %originator-attribute;"                                >
+
+
+<!--                   PREFORMATTED TEXT ATTRIBUTES                -->
+<!--                   Attributes for the <preformat> element      -->
+<!ENTITY % preformat-atts
+            "%jats-common-atts;  
+             %display-atts;
+             preformat-type
+                        CDATA                             #IMPLIED
+             is-form    (%is-form-values;)                #IMPLIED
+             form-type  (%form-type-values;)              #IMPLIED
+             custom-type
+                        CDATA                             #IMPLIED
+             xml:space  (default | preserve)     #FIXED 'preserve'
+             %originator-attribute;"                                >
+
+
+<!--                    INLINE SUPPLEMENTARY MATERIAL              -->
+<!--                    Attribute list for inline supplementary
+                        material                                   -->
+
+<!ENTITY % inline-supplementary-material-atts
+            "%jats-common-atts;                                       
+             xml:lang   NMTOKEN                           #IMPLIED
+             content-type
+                        CDATA                             #IMPLIED
+             mimetype   CDATA                             #IMPLIED
+             mime-subtype
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             %might-link-atts;
+             %originator-attribute;"                                 >
+
+
+<!--                    SUPPLEMENTARY INFORMATION ATTRIBUTES       -->
+<!--                    Attributes for Supplementary Material
+                        <supplementary-material>                   -->
+<!ENTITY % supplementary-material-atts
+            "%jats-common-atts;  
+             %display-atts;
+             content-type
+                        CDATA                             #IMPLIED
+             mimetype   CDATA                             #IMPLIED
+             mime-subtype
+                        CDATA                             #IMPLIED
+             %might-link-atts;
+             %originator-attribute;"                                 >
+
+
+<!--                    TABLE GROUP ATTRIBUTES                     -->
+<!--                    Attributes for groups of <table-wrap>
+                        elements <table-wrap-group>                -->
+<!ENTITY % table-wrap-group-atts
+             "%jats-common-atts;  
+              %display-atts;
+              content-type
+                        CDATA                             #IMPLIED
+              %other-table-wrap-atts;
+              %originator-attribute;"                                >
+
+
+<!--                    TABLE WRAPPER ATTRIBUTES                   -->
+<!--                    Attributes for the <table-wrap> element,
+                        the container for <table>s                 -->
+<!ENTITY % table-wrap-atts
+            "%jats-common-atts;  
+             %display-atts;
+             content-type
+                        CDATA                             #IMPLIED
+             is-form    (%is-form-values;)                #IMPLIED
+             form-type  (%form-type-values;)              #IMPLIED
+             custom-type
+                        CDATA                             #IMPLIED
+             %other-table-wrap-atts;
+             %originator-attribute;"                                >
+
+
+<!-- ============================================================= -->
+<!--                    FROM JATS-math1.ent                        -->
+<!-- ============================================================= -->
+
+<!--                    DISPLAY FORMULA ATTRIBUTES                 -->
+<!--                    Attributes for the <disp-formula> element  -->
+<!ENTITY % disp-formula-atts
+            "%jats-common-atts;  
+             content-type
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             xml:lang   NMTOKEN                           #IMPLIED
+             %originator-attribute;"                                 >
+
+
+<!--                    DISPLAY FORMULA GROUP ATTRIBUTES           -->
+<!--                    Attributes for the <disp-formula-group>
+                        element                                    -->
+<!ENTITY % disp-formula-group-atts
+            "%jats-common-atts;  
+             content-type
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             xml:lang   NMTOKEN                           #IMPLIED
+             %originator-attribute;"                                 >
+
+<!--                    tex:math would also belong in this list
+                        and would also need to have the originator
+                        attribute, if it were not being suppressed -->
+
+<!-- ============================================================= -->
+<!--                    FROM JATS-para1.ent                        -->
+<!-- ============================================================= -->
+
+<!--                    DISPLAY QUOTE ATTRIBUTES                   -->
+<!--                    Attribute list for the <disp-quote> element-->
+<!ENTITY % disp-quote-atts
+            "%jats-common-atts;  
+             content-type
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             xml:lang   NMTOKEN                           #IMPLIED
+             %originator-attribute;"                                 >
+
+
+<!--                    PARAGRAPH ATTRIBUTES                       -->
+<!--                    Attribute list for the <p> element         -->
+<!--                    In addition to adding 'originator', also
+                        add style-type.                            -->
+<!ENTITY % p-atts
+            "%jats-common-atts;  
+             content-type
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             xml:lang   NMTOKEN                           #IMPLIED
+             %originator-attribute;
+             style-type
+                        CDATA                             #IMPLIED"  >
+
+<!--                    SPEECH ATTRIBUTES                          -->
+<!--                    Attribute list for the <speech> element    -->
+<!ENTITY % speech-atts
+            "%jats-common-atts;  
+             content-type
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             xml:lang   NMTOKEN                           #IMPLIED
+             %originator-attribute;"                                 >
+
+
+<!--                    STATEMENT ATTRIBUTES                       -->
+<!--                    Attribute list for the <statement> element -->
+<!ENTITY % statement-atts
+            "%jats-common-atts;  
+             content-type
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             xml:lang   NMTOKEN                           #IMPLIED
+             %originator-attribute;"                                 >
+
+
+<!--                    VERSE GROUP ATTRIBUTES                     -->
+<!--                    Attribute list for the <verse-group> element
+                                                                   -->
+<!ENTITY % verse-group-atts
+            "%jats-common-atts;  
+             content-type
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             xml:lang   NMTOKEN                           #IMPLIED
+             %originator-attribute;"                                 >
+
+
+<!--                    VERSE LINE ATTRIBUTES                      -->
+<!--                    Attribute list for the <verse-line> element-->
+<!ENTITY % verse-line-atts
+            "%jats-common-atts;                                       
+             content-type
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             xml:lang   NMTOKEN                           #IMPLIED"  >
+
+<!-- ============================================================= -->
+<!--                    FROM JATS-link1.ent                        -->
+<!-- ============================================================= -->
+
+<!--                    FOOTNOTE ATTRIBUTES                        -->
+<!--                    Attribute list for Footnote element
+                        NISO STS: revert to CDATA for fn-types.    -->
+<!ENTITY % fn-atts
+            "%jats-common-atts;                                       
+             symbol     CDATA                             #IMPLIED
+             fn-type    CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             xml:lang   NMTOKEN                           #IMPLIED"  >
+
+<!-- ============================================================= -->
+<!--                    FROM JATS-list1.ent                        -->
+<!-- ============================================================= -->
+
+<!--                    DEFAULT DEFINITION LIST ATTRIBUTES         -->
+<!--                    Default attribute lists to be used for
+                        Definition (2-part) lists                  -->
+<!ENTITY % def-list-atts
+            "%jats-common-atts;  
+             list-type  CDATA                             #IMPLIED
+             prefix-word
+                        CDATA                             #IMPLIED
+             list-content
+                        CDATA                             #IMPLIED
+             continued-from
+                        IDREF                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             xml:lang   NMTOKEN                           #IMPLIED
+             %originator-attribute;"                                 >
+
+
+<!--                    DEFAULT LIST CLASS ATTRIBUTES              -->
+<!--                    Default attribute lists to be used for most
+                        of the types of lists.                     -->
+<!ENTITY % list-atts
+            "%jats-common-atts;  
+             list-type  CDATA                             #IMPLIED
+             style-detail
+                        CDATA                             #IMPLIED
+             prefix-word
+                        CDATA                             #IMPLIED
+             list-content
+                        CDATA                             #IMPLIED
+             continued-from
+                        IDREF                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             xml:lang   NMTOKEN                           #IMPLIED
+             %originator-attribute;"                                 >
+
+<!-- ============================================================= -->
+<!--                    FROM JATS-related-objects1.ent             -->
+<!-- ============================================================= -->
+
+<!--                    RELATED OBJECT ATTRIBUTES                  -->
+<!--                    Attributes for <related-object>            -->
+<!ENTITY % related-object-atts
+            "%jats-common-atts;  
+             link-type  CDATA                             #IMPLIED
+             source-id  CDATA                             #IMPLIED
+             source-id-type
+                        CDATA                             #IMPLIED
+             source-type
+                        CDATA                             #IMPLIED
+             document-id
+                        CDATA                             #IMPLIED
+             document-id-type
+                        CDATA                             #IMPLIED
+             document-type
+                        CDATA                             #IMPLIED
+             object-id  CDATA                             #IMPLIED
+             object-id-type
+                        CDATA                             #IMPLIED
+             object-type
+                        CDATA                             #IMPLIED
+             content-type
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             xml:lang   NMTOKEN                           #IMPLIED
+             %might-link-atts;
+             %originator-attribute;"                                 >
+
+
+<!-- ============================================================= -->
+<!--                    FROM JATS-backmatter.ent                   -->
+<!-- ============================================================= -->
+
+<!-- NOTE: Each of the DTDs also has <app> and <app-group> atts,
+     to add the namespace attributes. They are not placed here
+     because 1) MathML namespace is not defined when models module
+     is called 2) Extended DTD needs OASIS namespace.              -->
+
+<!ENTITY % app-atts
+            "%jats-common-atts;                                       
+             content-type
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             xml:lang   NMTOKEN                           #IMPLIED
+             %originator-attribute;
+             %might-link-atts;"                                      >
+
+<!ENTITY % app-group-atts
+            "%jats-common-atts;                                       
+             content-type
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             xml:lang   NMTOKEN                           #IMPLIED"  >
+
+
+<!--                    FOOTNOTE GROUP ATTRIBUTES                  -->
+<!--                    Attributes for the Footnote Group <fn-group>
+                        element                                    -->
+<!ENTITY % fn-group-atts
+            "%jats-common-atts;  
+             content-type
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             xml:lang   NMTOKEN                           #IMPLIED
+             %originator-attribute;"                                 >
+
+
+<!--                    GLOSSARY ATTRIBUTES                        -->
+<!--                    Attributes for the Glossary <glossary>
+                        element                                    -->
+<!ENTITY % glossary-atts
+            "%jats-common-atts;  
+             content-type
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             xml:lang   NMTOKEN                           #IMPLIED
+             %originator-attribute;"                                 >
+
+
+<!-- ============================================================= -->
+<!--                    FROM JATS-references.ent                   -->
+<!-- ============================================================= -->
+
+<!--                    REFERENCE LIST ATTRIBUTES                  -->
+<!--                    Attributes for the <ref-list> element      -->
+<!ENTITY % ref-list-atts
+            "%jats-common-atts;  
+             content-type
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             xml:lang   NMTOKEN                           #IMPLIED
+             %originator-attribute;"                                 >
+
+
+<!-- ============================================================= -->
+<!--                    FROM JATS-journalpubcustom-models1.ent     -->
+<!-- ============================================================= -->
+
+<!--                    SECTION ATTRIBUTES                         -->
+<!--                    Attribute list for Section element         -->
+<!ENTITY % sec-atts
+            "%jats-common-atts;  
+             xml:lang   NMTOKEN                            #IMPLIED
+             sec-type   CDATA                              #IMPLIED
+             specific-use
+                        CDATA                              #IMPLIED
+             %originator-attribute;"                                 >
+
+
+<!-- ============================================================= -->
+<!--                    OTHER METADATA ATTRIBUTE OVERRIDES         -->
+<!--                    Complete lists are given here rather than
+                        just adding an attribute because 1) 
+                        DTD maintenance is easier, particularly if 
+                        JATS adds a similar (or the same named)
+                        attribute and 2) Some older XML tools still 
+                        do not (2016) handle duplicate attribute 
+                        lists properly. Sigh.                      -->
+<!-- ============================================================= -->
+
+
+<!--                    ABSTRACT ATTRIBUTES                        -->
+<!--                    Attributes for the <abstract> element      -->
+<!ENTITY % abstract-atts
+            "%jats-common-atts;                                       
+             abstract-type
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             xml:lang   NMTOKEN                           #IMPLIED
+             %originator-attribute;"                                 >
+
+
+<!--                    CUSTOM METADATA GROUP ATTRIBUTES           -->
+<!--                    Attributes for the <custom-meta-group>
+                        element                                    -->                               
+<!ENTITY % custom-meta-group-atts
+            "%jats-common-atts;                                                                                              content-type
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             xml:lang   NMTOKEN                           #IMPLIED 
+             %originator-attribute;"                                 >
+
+
+
+<!--                    ISBN ATTRIBUTES                            -->
+<!--                    Attributes for the <isbn> element          -->
+<!ENTITY % isbn-atts
+            "%jats-common-atts;                                        
+             publication-format
+                        CDATA                             #IMPLIED
+             content-type
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             %originator-attribute;"                                 >
+
+
+<!--                    ISSN ATTRIBUTES                            -->
+<!--                    Attribute list for the <issn> element      -->
+<!ENTITY % issn-atts
+            "%jats-common-atts;                                        
+             pub-type   CDATA                             #IMPLIED
+             publication-format
+                        CDATA                             #IMPLIED
+             content-type
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             %originator-attribute;"                                 >
+
+
+<!--                    ISSN-L (INKING ISSN) ATTRIBUTES            -->
+<!--                    Attribute list for the <issn-l> element    -->
+<!ENTITY % issn-l-atts
+            "%jats-common-atts;                                        
+             specific-use
+                        CDATA                             #IMPLIED
+             %originator-attribute;"                                 >
+
+
+<!--                    PROCESSING METADATA CONTAINER ATTRIBUTES   -->
+<!--                    Attributes for the <processing-meta>
+                        element                                    -->
+<!ENTITY % processing-meta-atts
+            "%jats-common-atts;
+             tagset-family
+                        (jats | bits | sts)               #IMPLIED
+             base-tagset 
+                        (interchange | extended)          #IMPLIED
+             table-model
+                        (xhtml | oasis | both | none)     #IMPLIED
+             math-representation
+                        NMTOKENS                          #IMPLIED
+             mathml-version
+                        (2.0 | 3.0)                       #IMPLIED
+             terminology-model
+                        (tbx | term-display | both | none) 
+                                                          #IMPLIED"  >
+
+
+<!-- ============================================================= -->
+<!--                    OVERRIDES FOR KEYWORDS, SUBJECTS, ROLE,    -->
+<!--                    and NAMED-CONTENT to ADD VOCAB ATTRIBUTES  -->
+<!--                    (from JATS 1.1d1 since NISO STS is based   -->
+<!--                     on JATS 1.1)                              -->
+<!-- ============================================================= -->
+
+<!--                    COMPOUND KEYWORD ATTRIBUTES                -->
+<!--                    Attributes for the <compound-kwd> element
+                                                                   -->
+<!ENTITY % compound-kwd-atts
+            "%jats-common-atts;
+             assigning-authority
+                        CDATA                             #IMPLIED
+             vocab      CDATA                             #IMPLIED
+             vocab-identifier
+                        CDATA                             #IMPLIED
+             vocab-term CDATA                             #IMPLIED
+             vocab-term-identifier
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             content-type
+                        CDATA                             #IMPLIED"  >
+
+
+<!--                    COMPOUND SUBJECT ATTRIBUTES                -->
+<!--                    Attributes for the <compound-subject> element
+                                                                   -->
+<!ENTITY % compound-subject-atts
+            "%jats-common-atts;                                       
+             assigning-authority
+                        CDATA                             #IMPLIED                                        
+             vocab      CDATA                             #IMPLIED
+             vocab-identifier
+                        CDATA                             #IMPLIED
+             vocab-term CDATA                             #IMPLIED
+             vocab-term-identifier
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             content-type
+                        CDATA                             #IMPLIED"  >
+
+<!--                    KEYWORD ATTRIBUTES                         -->
+<!--                    Attributes for the <kwd> element           -->
+<!ENTITY % kwd-atts
+            "%jats-common-atts;
+             assigning-authority
+                        CDATA                             #IMPLIED
+             vocab      CDATA                             #IMPLIED
+             vocab-identifier
+                        CDATA                             #IMPLIED
+             vocab-term CDATA                             #IMPLIED
+             vocab-term-identifier
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             content-type
+                        CDATA                             #IMPLIED"  >
+
+
+<!--                    KEYWORD GROUP ATTRIBUTES                   -->
+<!--                    Attributes for the <kwd-group> element  
+                        NISO STS: Adds @originator and copies the
+                        NISO JATS 1.1d1 vocab attributes.          -->
+<!ENTITY % kwd-group-atts
+            "%jats-common-atts;                                       
+             kwd-group-type
+                        CDATA                             #IMPLIED
+             assigning-authority
+                        CDATA                             #IMPLIED  
+             vocab      CDATA                             #IMPLIED
+             vocab-identifier
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             xml:lang   NMTOKEN                           #IMPLIED
+             %originator-attribute;"                                 >
+
+
+<!ENTITY % named-content-atts
+            "%jats-common-atts;                                       
+             rid        IDREFS                            #IMPLIED
+             alt        CDATA                             #IMPLIED
+             content-type
+                        CDATA                             #REQUIRED
+             vocab      CDATA                             #IMPLIED
+             vocab-identifier
+                        CDATA                             #IMPLIED
+             vocab-term CDATA                             #IMPLIED
+             vocab-term-identifier
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             xml:lang   NMTOKEN                           #IMPLIED
+             %might-link-atts;"                                      >
+
+
+<!--                    NESTED KEYWORD ATTRIBUTES                  -->
+<!--                    Attributes for the <nested-kwd> element    -->
+<!ENTITY % nested-kwd-atts
+            "%jats-common-atts;
+             assigning-authority
+                        CDATA                             #IMPLIED  
+             vocab      CDATA                             #IMPLIED
+             vocab-identifier
+                        CDATA                             #IMPLIED
+             vocab-term CDATA                             #IMPLIED
+             vocab-term-identifier
+                        CDATA                             #IMPLIED 
+             specific-use
+                        CDATA                             #IMPLIED
+             content-type
+                        CDATA                             #IMPLIED"  >
+
+
+<!--                    SELF URI ATTRIBUTES                        -->
+<!--                    Attributes for the <self-uri> element      -->
+<!ENTITY % self-uri-atts
+            "%jats-common-atts;                                       
+             content-type
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             xml:lang   NMTOKEN                           #IMPLIED
+             %might-link-atts;
+             %originator-attribute;"                                 > 
+
+
+<!--                    SUBJECT ATTRIBUTES                         -->
+<!--                    Attributes for the <subject> element       -->
+<!ENTITY % subject-atts
+            "%jats-common-atts;
+             assigning-authority
+                        CDATA                             #IMPLIED                                        
+             vocab      CDATA                             #IMPLIED
+             vocab-identifier
+                        CDATA                             #IMPLIED
+             vocab-term CDATA                             #IMPLIED
+             vocab-term-identifier
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             content-type
+                        CDATA                             #IMPLIED"  >
+
+<!--                    SUBJECT GROUP ATTRIBUTES                   -->
+<!--                    Attributes for the <subj-group> element
+                        NISO STS: Adds @originator and copies the
+                        NISO JATS 1.1d1 vocab attributes.          -->
+<!ENTITY % subj-group-atts
+            "%jats-common-atts;                                       
+             subj-group-type
+                        CDATA                             #IMPLIED
+             assigning-authority
+                        CDATA                             #IMPLIED 
+             vocab      CDATA                             #IMPLIED
+             vocab-identifier
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             xml:lang   NMTOKEN                           #IMPLIED 
+             %originator-attribute;"                                 >
+
+
+<!--                    DEFINITION LIST: TERM ATTRIBUTES           -->
+<!--                    Attributes for the <term> element.
+                        In this Tag Set, used as part of
+                        <term-display> as well as ordinary
+                        definition lists.                
+                        NISO STS: Adds @term-status, @term-type,
+                        and copies the NISO JATS 1.1d1 vocab 
+                        attributes.                               -->
+<!ENTITY % term-atts
+            "%jats-common-atts;
+             term-status
+                        (%term-status-values;)            #IMPLIED
+             term-type  (%term-type-values;)              #IMPLIED
+             vocab      CDATA                             #IMPLIED
+             vocab-identifier
+                        CDATA                             #IMPLIED
+             vocab-term CDATA                             #IMPLIED
+             vocab-term-identifier
+                        CDATA                             #IMPLIED
+             rid        IDREFS                            #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED
+             xml:lang   NMTOKEN                           #IMPLIED"  >
+
+<!-- ============================================================= -->
+<!--                    TABLES AND INDEX REASSIGNS TO REMOVE 'X'   -->
+<!-- ============================================================= -->
+
+<!--                    INDEX MODEL                                -->
+<!--                    Content model for the Structural Index
+                        <index> element.
+                        NISO STS removed the <x> element.          -->
+<!ENTITY % index-model  "(index-title-group?, (%para-level;)*,
+                          (%index-entry.class; | 
+                           %index-div.class;)+  )"                  >
+
+
+<!--                    INDEX DIVISION MODEL                       -->
+<!--                    Content model for the Structural Index
+                        <index-entry> element. 
+                        NISO STS removed the <x> element.          -->
+<!ENTITY % index-div-model
+                        "(index-title-group?, (%para-level;)*,
+			              (%index-entry.class; | 
+                          %index-div.class;)+  )"                    >
+
+
+<!--                    INDEX ENTRY MODEL                          -->
+<!--                    Content model for the Structural Index
+                        <index-entry> element.  
+                        NISO STS removed the <x> element.          -->
+<!ENTITY % index-entry-model
+                        "(term, (%index-entry.class; |
+                           %struct-link.class; | 
+                           %see-also-see-entry.class;)*  )"          >
+ 
+<!-- ============================================================= -->
+<!--                    OVERRIDES FOR BITS TOC MODELS              -->
+<!--                    SIMPLIFY!                                  -->
+<!-- ============================================================= -->
+
+
+<!--                    TABLE OF CONTENTS Model                    -->
+<!--                    Content model for the <toc-group> element  -->
+<!ENTITY % toc-group-model
+                        "(toc-title-group?, 
+                          (%nothing-but-para.class;)*,
+                          (%toc.class;)+)"                           >
+
+
+<!--                    TABLE OF CONTENTS Model                    -->
+<!--                    Content model for the <toc> element     
+                        NISO STS removed the <x> element.          -->
+<!ENTITY % toc-model    "(toc-title-group?, 
+                          (%nothing-but-para.class;)*,
+                          (%toc-entry.class; | %toc-div.class;)+,
+                          (%fn-group.class;)* )"                     >
+
+
+<!--                    TABLE OF CONTENTS DIVISION MODEL           -->
+<!--                    Content model for the <toc-div> element.   -->
+<!ENTITY % toc-div-model
+                        "(toc-title-group?,
+                          (%nothing-but-para.class;)*,
+                          (%struct-link.class;)?,
+                          (%toc-entry.class; | %toc-div.class;)+ )"  >
+
+
+<!--                    TABLE OF CONTENTS ENTRY MODEL              -->
+<!--                    Content model for the <toc-entry> element. -->
+<!ENTITY % toc-entry-model
+                        "(label?, title*, subtitle*,
+                          (%struct-link.class;)?,
+                          (%toc-entry.class;)* )"                    >
+
+
+<!--                    TOC TITLE GROUP MODEL                      -->
+<!--                    Content model for <toc-title-group>.       -->
+<!ENTITY % toc-title-group-model
+                        "(label?, title?, subtitle*)"                >
+
+<!-- ================== End NISO STS Content/Attr Overrides ====== -->

@@ -1,0 +1,95 @@
+/* Equation Tooltip Preview Styling */
+
+@media screen {
+  #eq-tooltip {
+    position: absolute;
+    z-index: 10001;
+    max-width: 80vw;
+    padding: 0.75em 1em;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    pointer-events: auto;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.15s, transform 0.15s;
+    font-size: 0.95em;
+    line-height: 1.4;
+    overflow: hidden;
+  }
+
+  #eq-tooltip.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #eq-tooltip .eq-tooltip-label {
+    display: block;
+    text-align: right;
+    font-size: 0.8em;
+    color: #888;
+    margin-top: 0.3em;
+    border-top: 1px solid #eee;
+    padding-top: 0.3em;
+  }
+
+  /* Equation content inside tooltip */
+  #eq-tooltip mjx-container {
+    margin: 0 !important;
+  }
+
+  /* Highlight equation reference links on hover */
+  a[href^="#eq-"] {
+    text-decoration: none;
+    border-bottom: 1px dashed currentColor;
+    cursor: pointer;
+  }
+
+  a[href^="#eq-"]:hover {
+    background-color: rgba(3, 69, 117, 0.08);
+    border-bottom-style: solid;
+  }
+
+  /* Dark mode */
+  [data-theme="dark"] #eq-tooltip {
+    background: #2a2a2a;
+    border-color: #555;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    color: #e0e0e0;
+  }
+
+  [data-theme="dark"] #eq-tooltip .eq-tooltip-label {
+    color: #999;
+    border-top-color: #444;
+  }
+
+  [data-theme="dark"] a[href^="#eq-"]:hover {
+    background-color: rgba(91, 163, 217, 0.12);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    [data-theme="auto"] #eq-tooltip {
+      background: #2a2a2a;
+      border-color: #555;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+      color: #e0e0e0;
+    }
+
+    [data-theme="auto"] #eq-tooltip .eq-tooltip-label {
+      color: #999;
+      border-top-color: #444;
+    }
+
+    [data-theme="auto"] a[href^="#eq-"]:hover {
+      background-color: rgba(91, 163, 217, 0.12);
+    }
+  }
+}
+
+/* Hidden in print */
+@media print {
+  #eq-tooltip {
+    display: none !important;
+  }
+}

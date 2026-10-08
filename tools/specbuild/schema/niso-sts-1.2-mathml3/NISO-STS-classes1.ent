@@ -1,0 +1,674 @@
+<!-- ============================================================= -->
+<!--  MODULE:    NISO STS DTD Customize Classes Module             -->
+<!--  VERSION:   ANSI/NISO Z39.102-2022, STS:                      --> 
+<!--             Standards Standards Tag Suite (Version 1.2)       --> 
+<!--  DATE:      October 2022                                       -->
+<!--                                                               -->
+<!-- ============================================================= -->
+<!--                    PUBLIC DOCUMENT TYPE DEFINITION            -->
+<!--                        TYPICAL INVOCATION                     -->
+<!--
+"-//NISO//DTD NISO STS DTD Customize Classes v1.2 20221031//EN"
+     Delivered as file "NISO-STS-classes1.ent"
+                                                                   -->
+<!-- ============================================================= -->
+<!-- SYSTEM:     NISO Standards Tag Suite (NISO STS)               -->
+<!--                                                               -->
+<!--             This new module extends the capabilities of       -->
+<!--             ISO STS V1.1 DTD.                                 -->
+<!--                                                               -->
+<!-- PURPOSE:    To declare the Parameter Entities (PEs) used to   -->
+<!--             over-ride named element classes in the underlying -->
+<!--             JATS (Z39.96) Journal Publishing DTD and BITS DTD -->
+<!--             modules.                                          -->
+<!--                                                               -->
+<!--             Note: Since PEs must be declared before they      -->
+<!--             are used, this module must be called before the   -->
+<!--             content modules that declare elements.            -->
+<!--                                                               -->
+<!-- CONTAINS:   PEs for changing the contents of the default      -->
+<!--             element classes (names ending in '.class').       -->
+<!--                                                               -->
+<!-- CREATED BY: Mulberry Technologies, Inc.                       -->
+<!--             Deborah Aleyne Lapeyre and B. Tommie Usdin        -->
+<!--             in support of NISO and the NISO STS Committee.    -->
+<!--             Mulberry Technologies work was supported by the   -->
+<!--             American Society of Mechanical Engineers (ASME)   -->
+<!--             and ASTM International.                           -->
+<!--                                                               -->
+<!-- COPYRIGHT AND LICENSE:                                        -->
+<!--             Copyright © 2017, 2022 by ISO, the American       -->
+<!--             Society of  Mechanical Engineers (ASME),          -->
+<!--             ASTM International, Mulberry Technologies, Inc.,  -->
+<!--             and the National Information Standards            -->
+<!--             Organization (NISO).                              -->
+<!--                                                               -->
+<!--             This work is licensed under a Creative Commons    -->
+<!--             Attribution-ShareAlike 4.0 International License. -->
+<!--             To view a copy of this license, visit             -->
+<!--                http://creativecommons.org/licenses/by-sa/4.0/ -->
+<!--             or send a letter to Creative Commons, PO Box 1866,-->
+<!--             Mountain View, CA 94042, USA                      -->
+<!--                                                               -->
+<!-- ORIGINAL CREATION DATE:                                       -->
+<!--             October 2016                                      -->
+<!--                                                               -->
+<!-- ============================================================= -->
+
+<!-- ============================================================= -->
+<!--                    DTD VERSION/CHANGE HISTORY                 -->
+<!-- ============================================================= -->
+<!--
+Version  Reason/Occasion                   (who) vx.x (yyyy-mm-dd)  
+     =============================================================
+     NISO STS Version 1.2 (ANSI/NISO Z39.102-2022)
+                                      (DAL/BTU) v1.2 (2022-10-31)
+      
+     ANSI NISO STS is a continuing maintenance NISO Standard, 
+     which requires voting by both the NISO and ANSI memberships 
+     to be changed. This version of the NISO STS was approved 
+     by ANSI vote on October 21, 2022, so it supersedes the 
+     2017 version and all committee drafts, becoming 
+     NISO STS v1.2 20221031 (ANSI/NISO Z39.102-2022).
+
+     The formal public identifiers have been changed in the  
+     modules and the OASIS XML catalogs.
+ 
+  9. Inline Code - Redefined %inline-display-class, 
+     %inline-display-noalt.class and  
+     %alternatives-display.class to add <inline-code>,
+     which is not yet part of JATS.
+ 
+  8. NISO STS 'v1.1d1 20210831' becomes 'v1.2 20221031'
+     'ANSI/NISO Z39.102-2017' becomes 'ANSI/NISO Z39.102-2022'
+ 
+     =============================================================
+     NISO STS Version 1.1d1 (ANSI/NISO Z39.102-202x)
+                                  (DAL/BTU) v1.1d1 (2021-08-31)
+      
+     ANSI NISO STS is a continuing maintenance NISO Standard, 
+     which requires voting by the NISO and ANSI memberships 
+     to be changed. 
+      
+     This ***DRAFT*** DTD represents an interim version of the
+     non-normative STS DTD Suite, as an indication to STS users
+     of the decisions that have been made by the STS Standing
+     Committee. This DRAFT has not yet been given public review 
+     or voting; it is for Standing Committee review and
+     testing. 
+
+     The formal public identifiers have been changed in the  
+     modules and the OASIS XML catalogs.
+
+  7. DATA-TITLE - Added to std-content.class so canbe used
+     inside <std>, which is an alternative to the JATS
+     citation elements
+
+  6. INLINE TEXT - Added new element <inline-code> to 
+     and <inline-media> to inline text elements class
+
+  5. LEGEND CONTENT - Created block-display-legend.class
+     to hold the block display items inside <legend>,
+     therefore added legend.class
+
+  4. TERM DISPLAY STRING - Added <term-display-string> to hold
+     displayed text of various sorts inside <term-display>.
+     Added <target> to %term-sec-link.class to be used inside
+     <term-display-string>.
+
+  3. TABLE CELLS - Overrode %intable-para.class to add
+     <disp-quote>, <speech>, <statement> to tables, but not
+     allow <verse-group>. Uses %inside-cell to force change in
+     both XHTML and OASIS/CALS tables.
+
+  2. NO BLOCK ALTERNATIVES. Overrode %fig-display.class to remove
+     <block-alternatives>. 
+
+  1. STS 'v1.0 20171031' becomes 'v1.1d1 20210831' 
+                                                                   -->   
+ 
+<!-- ============================================================= -->
+<!--                    PHRASE CLASS ELEMENTS                      -->
+<!-- ============================================================= -->
+
+
+<!--                    INLINE TEXT ELEMENTS                       -->
+<!--                    Non-block display elements that set or
+                        display inline with the text               -->
+<!ENTITY % inline-text.class
+                        "inline-graphic | private-char | 
+                         inline-code | inline-media"                 >
+
+
+<!--                    INLINE DISPLAY CLASS ELEMENTS              -->
+<!--                    Non-block display elements that set or
+                        display inline with the text               -->
+<!ENTITY % inline-display.class
+                        "alternatives | inline-code | 
+                         inline-graphic | inline-media | 
+                         private-char"                               >
+
+
+<!ENTITY % inline-display-noalt.class
+                        "inline-code | inline-graphic | 
+                         inline-media | private-char"                >
+
+
+<!--                    ALTERNATIVES DISPLAY CLASS ELEMENTS        -->
+<!--                    Display elements that can be alternatives to
+                        each  other inside an alternatives element.
+                                                                   -->
+<!ENTITY % alternatives-display.class
+                        "array | chem-struct | code | graphic |
+                         inline-code | inline-graphic | inline-media | 
+                         inline-supplementary-material |
+                         media | preformat | private-char |
+                         supplementary-material | table |
+                         textual-form"                               >
+
+
+<!--                    PHRASE CLASS ELEMENTS                      -->
+<!--                    Small inline elements, that surround a word
+                        or phrase in the text because the subject
+                        (content) should be identified as something
+                        special or different                       -->
+<!ENTITY % phrase.class "abbrev | index-term | index-term-range-end |
+                         milestone-end | milestone-start |
+                         named-content | styled-content"             >
+
+
+<!--                    SMALL ACCESSIBILITY CLASS ELEMENTS         -->
+<!--                    Elements added to make it easier to process
+                        journal articles in ways that are more
+                        accessible to people and devices with special
+                        needs, for example the visually handicapped.
+                          <alt-text> is a short phrase description of
+                        an objects. This class is for use when
+                        <long-desc> is just too much.              -->
+<!ENTITY % small-access.class
+                        "alt-text | long-desc"                       >
+
+
+
+<!--                    FOOTNOTE ELEMENT                           -->
+<!ENTITY % fn.class     "fn"                                         >
+
+<!-- ============================================================= -->
+<!--                    NOTHING BUT PARAGRAPH CLASS                -->
+<!-- ============================================================= -->
+
+<!--                    NOTHING BUT PARAGRAPH CLASS                -->
+<!--                    To hold the paragraph element <p>, alone.
+                        This parameter entity should be left
+                        untouched by any customization             -->
+<!ENTITY % nothing-but-para.class
+                        "p"                                          >
+
+<!-- ============================================================= -->
+<!--                    BLOCK-DISPLAY CLASS                        -->
+<!-- ============================================================= -->
+
+<!--                    BLOCK DISPLAY CLASS ELEMENTS               -->
+<!--                    Graphical or other image-related elements.
+                        The display elements may occur within
+                        the text of a table cell or paragraph
+                        although they are typically at the same
+                        hierarchical level as a paragraph.
+                        ISO added <non-normative-note> and 
+                        <non-normative-example> elements to JATS.
+                        NISO added <normative-note> and 
+                        <normative-example>                        -->
+<!ENTITY % block-display.class
+                       "address | alternatives | array |
+                        boxed-text | chem-struct-wrap | code |
+                        fig | fig-group | graphic | media |
+                        non-normative-note | normative-note |
+                        non-normative-example | normative-example |
+                        notes-group |
+                        preformat | supplementary-material |
+                        table-wrap | table-wrap-group"               >
+
+
+<!ENTITY % block-display-noalt.class
+                       "address | array |
+                        boxed-text | chem-struct-wrap | code |
+                        fig | fig-group | graphic | media |
+                        non-normative-note | normative-note |
+                        non-normative-example | normative-example |
+                        notes-group |
+                        preformat | supplementary-material |
+                        table-wrap | table-wrap-group"               >
+
+
+<!ENTITY % block-display-legend.class
+                       "array | non-normative-note | normative-note |
+                        table-wrap"                                  >
+
+
+<!--                    FIGURE DISPLAY ELEMENTS                    -->
+<!--                    Basic figure display elements              -->
+<!ENTITY % fig-display.class
+                        "fig"                                        >
+
+
+<!--                    LEGEND ELEMENTS                            -->
+<!--                    The <legend> element for adding to figure,
+                        tables, etc.                               -->
+<!ENTITY % legend.class "legend"                                     >
+
+<!-- ============================================================= -->
+<!--                    EDITING INSTRUCTIONS CLASS                 -->
+<!-- ============================================================= -->
+
+<!--                    EDITING INSTRUCTIONS CLASS                 -->
+<!--                    Class to hold just the <editing-instruction>
+                        element, so that can be added to classes
+                        defined by JATS as well as by NISO STS.    -->
+<!ENTITY % editing-instructions.class   
+                        "editing-instruction"                        >
+
+
+<!-- ============================================================= -->
+<!--                    CITATION CLASS                             -->
+<!-- ============================================================= -->
+<!--                    CITATION CLASS ELEMENTS                    -->
+<!--                    Reference to an external document, as used
+                        within, for example, the text of a
+                        paragraph                                  -->
+<!ENTITY % citation.class
+                        "citation-alternatives | element-citation | 
+                         mixed-citation | std"                       >
+
+<!-- ============================================================= -->
+<!--                    EMPHASIS CLASS                             -->
+<!-- ============================================================= -->
+<!--                    EMPHASIS RENDITION ELEMENTS                -->
+<!--                    Add 'num'. It doesn't fit perfectly 
+                        here, but it is sometimes used to put
+                        numeric data into a different font.  And
+                        the only other class as ubiquitous as 
+                        %emphasis.class is %subsup.class, which 
+                        is not more suitable.                      -->
+
+<!--                    EMPHASIS RENDITION ELEMENTS                -->
+<!--                    All the face markup plus <ruby>            -->
+<!ENTITY % emphasis.class
+                        "bold | fixed-case | italic | monospace | 
+                         num | overline | roman |  sans-serif | sc | 
+                         strike | underline |
+                         ruby"                                       >
+
+
+<!--                    FACE MARKUP CLASS ELEMENTS                 -->
+<!--                    All the face markup without <ruby>         -->
+<!ENTITY % face-markup.class
+                        "bold | fixed-case |italic | monospace | 
+                         num | overline | roman | sans-serif | sc | 
+                         strike | underline"                         >
+
+
+<!--                    BOLD AND ITALIC ELEMENTS                   -->
+<!--                    Only <bold> and <italic> emphasis          -->
+<!ENTITY % bold-italic.class
+                        "bold | italic"                              >
+
+
+
+<!-- ============================================================= -->
+<!--                    FIGURES CLASS                              -->
+<!-- ============================================================= -->
+<!ENTITY % figures.class
+                       "fig | fig-group"                             >
+
+
+<!-- ============================================================= -->
+<!--                    JUST-PARA CLASS                            -->
+<!-- ============================================================= -->
+<!--                    See also nothing-but-para.class.           -->
+<!--                    JUST PARAGRAPH CLASS                       -->
+<!--                    This oddly named class was originally just
+                        what it says, only a <p> element. But if you
+                        wanted to allow something everywhere a
+                        paragraph was used, this seemed like a 
+                        useful parameter entity. Thus the notes
+                        and examples were added. A new class:
+                        'nothing-but-para.class' was added to hold 
+                        just the <p> element.                       -->
+<!ENTITY % just-para.class
+                      "p | normative-note | non-normative-note | 
+                       normative-example | non-normative-example |
+                       notes-group"                                  >
+
+<!--                    All Notes Minus Notes Group                -->
+<!ENTITY % notes-group-inside.class
+                       "p | non-normative-note | 
+                        non-normative-example | normative-note |
+                        normative-example"                           >
+
+
+<!--                    IN TABLE PARAGRAPH CLASS                   -->
+<!--                    The simpler of the paragraph-level elements
+                        that might be found inside a table cell or
+                        as alternatives to a <table> inside
+                        <table-wrap>.                              -->
+<!ENTITY % intable-para.class
+                        "disp-quote | speech | statement"            >
+
+<!-- ============================================================= -->
+<!--                    NORMATIVE AND NON-NORMATIVE CLASSES        -->
+<!-- ============================================================= -->
+
+<!ENTITY % all-notes.class
+                       "non-normative-note | normative-note | 
+                        non-normative-example | normative-example | 
+                        notes-group"                                 >
+
+<!-- ============================================================= -->
+<!--                    SECTION CLASS                              -->
+<!-- ============================================================= -->
+
+<!--                    SECTION CLASS ELEMENTS                     -->
+<!--                    Information for the reader that is at the
+                        same structural level as a Section, which
+                        is a headed structure full of smaller
+                        elements such as paragraphs.
+
+                        Added 'term-sec', a section containing
+                        terminological data.                       -->
+
+<!ENTITY % sec.class    "sec | term-sec"                             >
+
+<!ENTITY % sec-only.class    
+                        "sec"                                        >
+
+<!-- ============================================================= -->
+<!--                    SIMPLE-LINK CLASS                          -->
+<!-- ============================================================= -->
+
+<!--                    SIMPLE LINKS/CROSS-REFERENCES CLASS        -->
+<!--                    The smaller and simpler linking elements
+                        that might be inside, for example, a
+                        Keyword <kwd>                              -->
+<!ENTITY % simple-link.class
+                        "fn | target | tbx:entailedTerm | xref"      >
+
+
+<!--                    TERM-SECTION LINKS CLASS                   -->
+<!--                    The smaller and simpler linking elements
+                        that might be inside components of the
+                        Term and Definition section, such as
+                        <term-display-string>                      -->
+<!ENTITY % term-sec-link.class
+                        "fn | ext-link | target | uri | xref"        >
+
+
+<!-- ============================================================= -->
+<!--                    <STD> CONTENT CLASS                        -->
+<!-- ============================================================= -->
+
+
+<!--                    STD-CONTENT CLASS ELEMENTS                 -->
+<!--                    Elements that can occur within a <std>
+                        element and are not otherwise provided for.
+                        These are primarily semantic standards
+                        identification elements, to be used as part
+                        of the citing of a standard.               -->
+<!ENTITY % std-content.class
+                       "ext-link | fn | std-id | std-id-group | 
+                        std-ref | title | data-title | uri | xref"   >
+
+
+<!-- ============================================================= -->
+<!--                    <STD-REF> CLASSES                          -->
+<!-- ============================================================= -->
+
+<!--                    STD-REF CLASS                              -->
+<!--                    Elements that can occur where <std-ref>
+                        can occur (initially only <std-ref> itself)-->
+<!ENTITY % std-ref.class
+                       "std-ref"                                     >
+
+<!--                    STD-REF-CONTENT CLASS ELEMENTS             -->
+<!--                    Elements that can occur within a <std-ref>
+                        element. Should be the same as the contents
+                        of <std-ident>, since <std-ref> is a 
+                        convenience precombination of those elements
+                        or a #PCDATA equivalent.                   -->
+<!ENTITY % std-ref-content.class
+                       "originator | doc-type | doc-number | 
+                        part-number | edition | isbn |
+                        suppl-type | suppl-number | suppl-version | 
+                        version | year"                              >
+
+
+<!-- ============================================================= -->
+<!--                    STD-ID CLASS                               -->
+<!-- ============================================================= -->
+
+<!--                    STD-ID CLASS                               -->
+<!--                    Elements that can occur where <std-id>
+                        can occur (initially only <std-id> itself) -->
+<!ENTITY % std-id.class "std-id"                                     >
+
+
+<!-- ============================================================= -->
+<!--                    SUB-PART CLASS                             -->
+<!-- ============================================================= -->
+<!--                    SUB-PART CLASS ELEMENTS                    -->
+<!--                    Elements that can occur where a 'sub-part'
+                        can occur.                                 -->
+<!ENTITY % sub-part.class
+                       "sub-part"                                    >
+
+
+<!-- ============================================================= -->
+<!--                    TERM-SECTION CLASSES                       -->
+<!-- ============================================================= -->
+
+<!--                    TERM-SECTION CLASS ELEMENTS                -->
+<!--                    Specialized sections for terminological 
+                        data, excluding normal sections.           -->
+
+<!ENTITY % term-sec.class
+                       "term-sec"                                    >
+
+
+<!--                    TERM-SECTION CLASS ELEMENTS                -->
+<!--                    Specialized sections for terminological 
+                        data, excluding normal sections.           -->
+
+<!ENTITY % inside-term-sec-semantics.class
+                       "tbx:termEntry | term-display"                >
+
+
+
+<!--                    RELATED TERM CLASS                         -->
+<!--                    Holds the element <related-term>, so it can 
+                        used in <std-def-list> content models.     -->
+<!ENTITY % related-term.class
+                       "related-term"                                >
+
+
+<!--                    TERM DISPLAY STRING CLASS                  -->
+<!--                    The display text of various sort that is
+                        inside <term-display>, but not part of a
+                        defined term-semantic element.             -->
+<!ENTITY % term-display-string.class
+                       "term-display-string"                         >
+
+<!--                    TERM SEMANTIC ELEMENTS CLASS               -->
+<!--                    The semantic term-related elements that may
+                        be used inside a <term-display> element.
+                        Used inside %inside-term-display.mix, to
+                        define the <term-display> content model.   -->
+<!ENTITY % term-semantics.class
+                       "def | part-of-speech | pronunciation |
+                        related-term | term | term-source"           >
+
+<!ENTITY % term-semantics-restricted.class
+                       "part-of-speech | pronunciation |
+                        related-term | term | term-source"           >
+
+<!-- ============================================================= -->
+<!--                    ADOPTION CONTENT CLASS                     -->
+<!-- ============================================================= -->
+
+<!ENTITY % adoption-content.class
+                       "standard | adoption | std-xref |
+                        xi:include"                                  >
+
+
+<!-- ============================================================= -->
+<!--                    XINCLUDE CLASS                            -->
+<!-- ============================================================= -->
+
+
+<!--                    XINCLUDE CLASS                             -->
+<!--                    Class to hold just the <xi:include> element
+                        so that it can be used in book front matter
+                        as well as other places.                   -->
+<!ENTITY % xinclude.class
+                        "xi:include"                                 >
+
+
+<!-- ============================================================= -->
+<!--                    BACK MATTER CLASSES                        -->
+<!-- ============================================================= -->
+
+
+<!--                    BACK MATTER CLASS                          -->
+<!--                    Ancillary elements, typically used in the
+                        back matter of an article, section, etc.   -->
+<!--                    NISO STS: Removed <ack>, which comes into the
+                        model by way of front-back.class           -->
+<!ENTITY % back.class   "app-group | bio | fn-group |
+                         glossary |  ref-list"                       >
+
+
+<!-- ============================================================= -->
+<!--                    INDEX CLASSES                              -->
+<!-- ============================================================= -->
+
+
+
+<!--                    INDEX BACK MATTER CLASS                    -->
+<!--                    The BITS Index elements, used in back matter
+                        of a standards document.                   -->
+<!ENTITY % back-index.class
+                        "index | index-group"                        >
+
+
+<!--                    INDEX CLASS                                -->
+<!--                    Used for grouping multiple Indexes.        -->
+<!ENTITY % index.class  "index"                                      >
+
+
+<!--                    INDEX DIVISION CLASS                       -->
+<!--                    Division, typically for the purposes of
+                        display, in a structural index, for example
+                        a division holding the heading "A" and
+                        all of the initial alphabetically
+                        arranged index entries.                    -->
+<!ENTITY % index-div.class
+                        "index-div"                                  >
+
+
+<!--                    INDEX ENTRY CLASS                          -->
+<!--                    Entry in a structural Index.               -->
+<!ENTITY % index-entry.class
+                        "index-entry"                                >
+
+
+<!--                    NAVIGATION POINTER CLASS                   -->
+<!--                    Navigation pointer for use in a structural
+                        Index or table of contents.                -->
+<!ENTITY % nav-pointer.class
+                        "nav-pointer"                                >
+
+
+<!--                    SEE AND SEE-ALSO ENTRY CLASS               -->
+<!--                    See (use) and see-also (related) entries
+                        in a structural Index.                     -->
+<!ENTITY % see-also-see-entry.class
+                        "see-entry | see-also-entry"                 >
+
+
+<!-- ============================================================= -->
+<!--                    TABLE OF CONTENTS CLASSES                  -->
+<!-- ============================================================= -->
+
+<!--                    FRONT AND BACK CLASS                       -->
+<!--                    Ancillary elements, typically used in the
+                        front or back matter of an article         -->
+<!ENTITY % front-back.class
+                        "ack | notes | toc | toc-group"              >
+
+
+<!--                    TABLE OF CONTENTS CLASS                    -->
+<!--                    Used for grouping multiple Tables of Contents.
+                                                                   -->
+<!ENTITY % toc.class    "toc"                                        >
+
+
+<!--                    TABLE OF CONTENTS DIVISION CLASS           -->
+<!--                    Division, typically for the purposes of
+                        display, in a structural ToC, for example
+                        a division holding the first Part of a
+                        3-part book, and the titles of all the
+                        chapters in that Part.                     -->
+<!ENTITY % toc-div.class
+                        "toc-div"                                    >
+
+
+<!--                    TABLE OF CONTENTS ENTRY CLASS              -->
+<!--                    Entry in a structural Table of Contents.   -->
+<!ENTITY % toc-entry.class
+                        "toc-entry"                                  >
+
+<!--                    ABSTRACT CLASS FOR TABLE OF CONTENTS       -->
+<!--                    Used to add the <abstract> and
+                        <trans-abstract> elements to a Table of
+                        Contents entry <toc-entry>.
+                        This is needed for only for purposes of
+                        parsing.                                   -->
+<!ENTITY % toc-abstract.class
+                        ""                                           >
+
+<!-- ============================================================= -->
+<!--                    BOTH INDEX AND BITS TOC CLASS              -->
+<!-- ============================================================= -->
+
+
+<!--                    TABLE BODY CLASS                           -->
+<!--                    To include just a table body <tbody>
+                        element. Both XHTML and OASIS table types. -->
+<!ENTITY % tbody.class  "tbody"                                      >
+
+
+<!-- ============================================================= -->
+<!--                    BOTH INDEX AND BITS TOC CLASS              -->
+<!-- ============================================================= -->
+
+
+<!--                    STRUCTURAL LINKING CLASS                   -->
+<!--                    Elements that might be used to make a link
+                        in a structural Table of Contents, Index,
+                        or similar non-generated structure.        -->
+<!ENTITY % struct-link.class
+                        "ext-link | nav-pointer | nav-pointer-group" >
+
+
+<!-- ============================================================= -->
+<!--                    TBX TERM CLASSES                           -->
+<!-- ============================================================= -->
+
+<!ENTITY % niso-sts-termEntry-additions.class
+                        "index-term"                                 >
+
+<!-- ============================================================= -->
+<!--                    JUST FOR THE SAKE OF THE PARSER            -->
+<!-- ============================================================= -->
+
+<!ENTITY % x.class  "x"  >
+
+<!-- ================== End NISO STS Class Overrides ============= -->

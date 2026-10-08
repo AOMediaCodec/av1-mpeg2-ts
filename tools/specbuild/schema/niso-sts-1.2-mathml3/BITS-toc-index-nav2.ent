@@ -1,0 +1,227 @@
+<!-- ============================================================= -->
+<!--  MODULE:    BITS Table of Contents and Index Navigation       -->
+<!--  VERSION:   BITS 2.0                                          -->
+<!--  DATE:      June 2015                                         -->
+<!--                                                               -->
+<!-- ============================================================= -->
+
+<!-- ============================================================= -->
+<!--                    PUBLIC DOCUMENT TYPE DEFINITION            -->
+<!--                        TYPICAL INVOCATION                     -->
+<!--
+"-//NLM//DTD BITS Table of Contents and Index Navigation Module v2.0 20151225//EN"
+Delivered as file "BITS-toc-index-nav2.ent"                        -->
+<!-- ============================================================= -->
+
+
+<!-- ============================================================= -->
+<!-- SYSTEM:     Book Interchange Tag Suite                        -->
+<!--                                                               -->
+<!-- PURPOSE:    Defines the navigational pointing elements        -->
+<!--             used in structural Indexes and Tables of          -->
+<!--             Contents.                                         -->
+<!--                                                               -->
+<!-- TAG SET SPONSOR                                               -->
+<!--             National Center for Biotechnology                 -->
+<!--                Information (NCBI)                             -->
+<!--             National Library of Medicine (NLM)                -->
+<!--                                                               -->
+<!-- CREATED FOR:                                                  -->
+<!--             This DTD was created as a superset customization  -->
+<!--             of the ANSI/NISO JATS Z39.96-2012 Version 1.0     -->
+<!--             Journal Article Tag Set.                          -->
+<!--                                                               -->
+<!--             Digital archives and publishers may use the       -->
+<!--             DTD as is for markup of books or book-like        -->
+<!--             material for archiving and transferring           -->
+<!--             such material between archives or they may create -->
+<!--             a custom XML DTD from the BITS Suite for          -->
+<!--             these purposes.                                   -->
+<!--                                                               -->
+<!--             This DTD is in the public domain. An organization -->
+<!--             that wishes to create its own DTD from the suite  -->
+<!--             may do so without permission from NLM.            -->
+<!--                                                               -->
+<!--             The suite has been set up to be extended using a  -->
+<!--             new DTD file and new DTD-specific customization   -->
+<!--             modules to redefine the many Parameter Entities.  -->
+<!--             Do not modify the suite directly or redistribute  -->
+<!--             modified versions of the suite.                   -->
+<!--                                                               -->
+<!--             In the interest of maintaining consistency and    -->
+<!--             clarity for potential users, NLM requests:        -->
+<!--                                                               -->
+<!--             1. If you create a DTD from the BITS DTD Suite    -->
+<!--                and intend to stay compatible with the suite,  -->
+<!--                then please include the following statement    -->
+<!--                as a comment in all of your DTD modules:       -->
+<!--                   "Created from, and fully compatible with,   -->
+<!--                    the Book Interchange Tag Suite (BITS).     -->
+<!--                                                               -->
+<!--             2. If you alter one or more modules of the suite, -->
+<!--                then please rename your version and all its    -->
+<!--                modules to avoid any confusion with the        -->
+<!--                original suite. Also, please include the       -->
+<!--                following statement as a comment in all your   -->
+<!--                DTD modules:                                   -->
+<!--                   "Based in part on, but not fully compatible -->
+<!--                    with, the Book Interchange Tag Suite       -->
+<!--                    (BITS)."                                   -->
+<!--                                                               -->
+<!-- ORIGINAL CREATION DATE:                                       -->
+<!--             April 2012                                        -->
+<!--                                                               -->
+<!-- CREATED BY: Mulberry Technologies, Inc. for the National      -->
+<!--             National Center for Biotechnology Information     -->
+<!--             (NCBI), a center of the US National Library of    -->
+<!--             Medicine (NLM).                                   -->
+<!--                                                               -->
+<!--             The BITS Book Interchange DTD is built from the   -->
+<!--             Journal Archiving and Interchange DTD of the      -->
+<!--             ANSI/NISO Journal Article Tag Suite (JATS)        -->
+<!--             Version 1.1d1 (Z39.96-2015).                      -->
+<!--                                                               -->
+<!--             Suggestions for refinements and enhancements to   -->
+<!--             this DTD should be sent in email to:              -->
+<!--                 bits@ncbi.nlm.nih.gov                         -->
+<!-- ============================================================= -->
+
+
+<!-- ============================================================= -->
+<!--                    DTD VERSION/CHANGE HISTORY                 -->
+<!-- ============================================================= -->
+<!--
+Version  Reason/Occasion                   (who) vx.x (yyyy-mm-dd)
+    =============================================================
+     BITS Version 2.0                (DAL/BTU) v2.0  (2015-12-25)
+     JATS Version 1.1                (DAL/BTU) v1.1  (2015-12-15)
+
+     JATS is a continuing maintenance NISO Standard, which
+     requires voting by the ANSI and NISO memberships to be changed. 
+     JATS 1.1 was approved in late 2015, and BITS modified to use
+     the most recent version. No other changes to BITS were made.
+ 
+  3. BITS remained version "2.0" but became "v2.0 20151225"
+     JATS became version "1.1" and "v1.1 20151215"
+
+    =============================================================
+     BITS Version 2.0                (DAL/BTU) v2.0    (2015-03-15)
+     JATS Version 1.1                (DAL/BTU) v1.1    (2015-03-01)
+
+     BITS was modified, based on user feedback collected in 2014 
+     and January/February 2015, according to the decisions
+     made by the BITS Working Group. This DTD represents current 
+     BITS and an interim version of the non-normative JATS DTD 
+     Suite (version 1.1), as an indication to JATS users of 
+     the decisions that have been made by the JATS Standing
+     Committee. 
+
+     NISO JATS is a continuing maintenance NISO Standard, which
+     requires voting by the NISO membership to be changed. This
+     Committee Draft 1.1 will be sent to the NISO voting
+     membership, to become (if approved) NISO JATS 1.1.
+
+  2. BITS became version "2.0" and   "v2.0 20150630"
+     JATS became version "1.1" and "v1.1 20150301"
+
+     =============================================================
+     BITS Version 1.1                (DAL/BTU) v1.1    (2014-09-30)
+     JATS Version 1.1d2              (DAL/BTU) v1.1d2  (2014-09-30)
+
+     NISO JATS is a continuing maintenance NISO Standard, which
+     requires voting by the NISO membership to be changed. This
+     Committee Draft 1.1d2 will be sent to the NISO voting
+     membership, to become (if approved) NISO JATS 1.1.
+
+     This catalog represents an interim version of the
+     non-normative JATS DTD Suite, as an indication to JATS users
+     the decisions that have been made by the JATS Standing
+     Committee.
+
+  1. BITS became version "1.1" and   "v1.1 20140930//EN"
+     JATS became version "1.1d2" and "v1.1d2 20140930//EN"
+
+     =============================================================
+                                                                   -->
+
+
+<!-- ============================================================= -->
+<!--                    PARAMETER ENTITIES FOR ATTRIBUTE LISTS     -->
+<!-- ============================================================= -->
+
+
+<!--                    NAVIGATION POINTER ATTRIBUTES              -->
+<!--                    Attributes for the <nav-pointer> element.  -->
+<!ENTITY % nav-pointer-atts
+           "%jats-common-atts;
+             rid        IDREF                             #IMPLIED
+             nav-pointer-type
+                        (end-of-range | point |
+                         start-of-range)                  #IMPLIED
+             xml:lang   NMTOKEN                           #IMPLIED
+             content-type
+                        CDATA                             #IMPLIED
+             specific-use
+                        CDATA                             #IMPLIED"  >
+
+
+<!--                    NAVIGATION POINTER GROUP ATTRIBUTES        -->
+<!--                    Attributes for the <nav-pointer-group>
+                        element.                                   -->
+<!ENTITY % nav-pointer-group-atts
+           "%jats-common-atts;"                                          >
+
+
+<!-- ============================================================= -->
+<!--                    INDEX ELEMENT                              -->
+<!-- ============================================================= -->
+
+
+<!--                    NAVIGATION POINTER ELEMENTS                -->
+<!--                    The elements that can be included along with
+                        data characters inside the content model of
+                        an <nav-pointer>.
+                        Design Note: All inline mixes begin with an
+                        OR bar, but since %link-elements; is an inline
+                        mix, the OR bar is already there.          -->
+<!ENTITY % nav-pointer-elements
+                        "%link-elements;"                            >
+
+
+<!--                    NAVIGATION POINTER                         -->
+<!--                    The cross-reference-like element used to point
+                        from a Table of Contents entry (<toc-entry>)
+                        or Index Entry (<index-entry>) to the place
+                        in the text being referenced.
+                        Details at:
+                        http://jats.nlm.nih.gov/extensions/bits/2.0/index.html?elem=nav-pointer
+                                                                   -->
+<!ELEMENT  nav-pointer  (#PCDATA %nav-pointer-elements;)*            >
+<!ATTLIST  nav-pointer
+             %nav-pointer-atts;                                      >
+
+
+<!--                    NAVIGATION POINTER GROUP ELEMENTS          -->
+<!--                    The elements that can be included along with
+                        data characters inside the content model of
+                        a <nav-pointer-group>.                     -->
+<!ENTITY % nav-pointer-group-elements
+                        "| %nav-pointer.class;"                      >
+
+
+<!--                    NAVIGATION POINTER GROUP                   -->
+<!--                    More than one <nav-pointer> element, in a
+                        group associated with a Table of Contents
+                        entry (<toc-entry>) or Index Entry
+                        (<index-entry>).
+                        Details at:
+                        http://jats.nlm.nih.gov/extensions/bits/2.0/index.html?elem=nav-pointer-group
+                                                                   -->
+<!ELEMENT  nav-pointer-group
+                       (#PCDATA %nav-pointer-group-elements;)*       >
+<!ATTLIST  nav-pointer-group
+             %nav-pointer-group-atts;                                >
+
+
+<!-- ================== End BITS Structural Index Elements ======= -->
+

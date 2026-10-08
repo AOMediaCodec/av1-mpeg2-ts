@@ -1,0 +1,437 @@
+<!-- ============================================================= -->
+<!--  MODULE:    NISO STS TBX Terminology Module                   -->
+<!--  VERSION:   ANSI/NISO Z39.102-2022, STS:                      --> 
+<!--             Standards Standards Tag Suite (Version 1.2)       --> 
+<!--  DATE:      October 2022                                      -->
+<!--                                                               -->
+<!-- ============================================================= -->
+<!--                    PUBLIC DOCUMENT TYPE DEFINITION            -->
+<!--                        TYPICAL INVOCATION                     -->
+<!--
+"-//NISO//DTD NISO STS TBX Terminology Module v1.2 20221031//EN"
+     Delivered as file "NISO-STS-tbx-setup1.ent"
+                                                                   -->
+<!-- ============================================================= -->
+<!-- SYSTEM:     NISO Standards Tag Suite (NISO STS)               -->
+<!--                                                               -->
+<!-- PURPOSE:    This module defines a namespace-qualified,        -->
+<!--             TBX (TermBase eXchange) compatible vocabulary     -->
+<!--             derived from ISO 30042.                           -->
+<!--                                                               --> 
+<!-- CONTAINS:   1) Parameter entities for TBX element names       -->
+<!--             2) Standard content models and content-model      -->
+<!--                fragments                                      -->
+<!--             3) Standard attribute sets                        -->
+<!--             4) Elements used for text markup                  -->
+<!--             5) Elements needed for terminological entries     -->
+<!--                (in alphabetical order)                        -->
+<!--                                                               --> 
+<!-- MODULE NEEDED                                                 -->
+<!--             NISO-STS-tbx-namespace1.ent (set up TBX namespace)-->
+<!--                                                               -->
+<!-- CREATED BY: Mulberry Technologies, Inc.                       -->
+<!--             Deborah Aleyne Lapeyre and B. Tommie Usdin        -->
+<!--             in support of NISO and the NISO STS Committee.    -->
+<!--             Mulberry Technologies work was supported by the   -->
+<!--             American Society of Mechanical Engineers (ASME)   -->
+<!--             and ASTM International.                           -->
+<!--                                                               -->
+<!-- COPYRIGHT AND LICENSE:                                        -->
+<!--             Copyright © 2017, 2022 by ISO, the American       -->
+<!--             Society of  Mechanical Engineers (ASME),          -->
+<!--             ASTM International, Mulberry Technologies, Inc.,  -->
+<!--             and the National Information Standards            -->
+<!--             Organization (NISO).                              -->
+<!--                                                               -->
+<!--             This work is licensed under a Creative Commons    -->
+<!--             Attribution-ShareAlike 4.0 International License. -->
+<!--             To view a copy of this license, visit             -->
+<!--                http://creativecommons.org/licenses/by-sa/4.0/ -->
+<!--             or send a letter to Creative Commons, PO Box 1866,-->
+<!--             Mountain View, CA 94042, USA                      -->
+<!--                                                               -->
+<!-- ORIGINAL CREATION DATE:                                       -->
+<!--             October 2016                                      -->
+<!--                                                               -->
+<!-- ============================================================= -->
+
+<!-- ============================================================= -->
+<!--                    DTD VERSION/CHANGE HISTORY                 -->
+<!-- ============================================================= -->
+<!--
+Version  Reason/Occasion                   (who) vx.x (yyyy-mm-dd)  
+     =============================================================
+     NISO STS Version 1.2 (ANSI/NISO Z39.102-2022)
+                                      (DAL/BTU) v1.2 (2022-10-31)
+      
+     ANSI NISO STS is a continuing maintenance NISO Standard, 
+     which requires voting by both the NISO and ANSI memberships 
+     to be changed. This version of the NISO STS was approved 
+     by ANSI vote on October 21, 2022, so it supersedes the 
+     2017 version and all committee drafts, becoming 
+     NISO STS v1.2 20221031 (ANSI/NISO Z39.102-2022).
+
+     The formal public identifiers have been changed in the  
+     modules and the OASIS XML catalogs.
+ 
+  6. NISO STS 'v1.1d1 20210831' becomes 'v1.2 20221031'
+     'ANSI/NISO Z39.102-2017' becomes 'ANSI/NISO Z39.102-2022'
+ 
+     =============================================================
+     NISO STS Version 1.1d1 (ANSI/NISO Z39.102-202x)
+                                  (DAL/BTU) v1.1d1 (2021-08-31)
+      
+     ANSI NISO STS is a continuing maintenance NISO Standard, 
+     which requires voting by the NISO and ANSI memberships 
+     to be changed. 
+      
+     This ***DRAFT*** DTD represents an interim version of the
+     non-normative STS DTD Suite, as an indication to STS users
+     of the decisions that have been made by the STS Standing
+     Committee. This DRAFT has not yet been given public review 
+     or voting; it is for Standing Committee review and
+     testing. 
+
+     The formal public identifiers have been changed in the  
+     modules and the OASIS XML catalogs. 
+ 
+  5. GRAMMATICAL GENDER VALUE - Added the value 
+     "masculine-feminine" to the @value attribute of
+     <tbx:grammaticalGender>
+  
+  4. GEOGRAPHICAL USAGE - Made <tbx:geographicalUsage>
+     repeatable inside <tbx:tig>.
+ 
+  3. TBX TERM NOT AVAILABLE - Added the attribute @absent
+     [absent  (yes | no)] to <tbx:term> to mark cases where
+     the required element <tbx:term> has been left empty 
+     deliberately.                              
+
+  2. TERM DISPLAY CLASS - Added <term-display-string> to hold
+     displayed text of various sorts inside <term-display>
+     That cannot be tagged using one of the semantic term-display
+     elements.
+     Class is used in side %inside-term-display-mix.
+
+  1. STS 'v1.0 20171031' becomes 'v1.1d1 20210831' 
+
+    =============================================================
+    NISO STS Version 1.0              (DAL/BTU) v 1.0  (2017-10-31)
+
+     NISO STS is an adaptation of ISO STS, which is an adaptation
+     of JATS. This version of NISO STS is just before the first
+     public release and comment period.
+
+  4. PART OF SPEECH - MADE <tbx:partOfSpeech> optional
+     inside <tbx:tig> (Term Information Group)
+
+  3. CHANGES TO TERM ENTRY - Added the class
+     niso-sts-termEntry-additions.class to <tbx:termEntry>.
+     At this point, that class contains only <index-term>.
+
+  2. THE GREAT MODULE NAME SWAP - ISO STS had two TBX modules:
+      - ISOSTS-tbx-setup1.ent (set up the TBX namespace) and
+      - ISOSTS-tbx-namespace1.ent (defined TBX elements, attributes)
+ 
+     Both of these modules were copied for NISO STS. But JATS
+     (the other source for NISO STS) also had vocabularies using
+     1 namespace and 1 setup module. In all other cases (OASIS,
+     ALI, etc.) the modules named "namespace" contained the 
+     namespace setup and the module named "setup" contained any 
+     any element, attribute, or parameter entity declarations that
+     were needed before the vocabulary could be run. This made 
+     JATS-derived namespace modules work one way and ISO-derived 
+     namespace modules work in another. Therefore, the contents and
+     processing order of the NISO STS TBX modules were switched
+     to match JATS:
+      - NISO-STS-tbx-namespace1.ent (sets up the TBX namespace) and
+      - NISO-STS-tbx-setup1.ent (defines TBX elements/attributes)
+
+  1. FPIS - NISO STS is in first Public Comment Phase, released as
+     version "1.0" and "v1.0 20171031"
+
+     =============================================================
+                                                                   -->
+
+<!-- ============================================================= -->
+<!--                    DESIGN NOTE                                -->
+<!-- ============================================================= -->
+
+<!--                    The following material was derived from 
+                        Annex A of ISO 30042 (TBX), with the 
+                        changes listed above in the change log.    -->
+
+<!-- ============================================================= -->
+<!--                    TBX ELEMENT NAMES                          -->
+<!--                 (in alphabetical order)                       -->
+<!-- ============================================================= -->
+
+<!ENTITY % TBX.bpt "%TBX.prefix;:bpt"                                >
+<!ENTITY % TBX.crossReference "%TBX.prefix;:crossReference"          >
+<!ENTITY % TBX.definition "%TBX.prefix;:definition"                  >
+<!ENTITY % TBX.entailedTerm "%TBX.prefix;:entailedTerm"              >
+<!ENTITY % TBX.ept "%TBX.prefix;:ept"                                >
+<!ENTITY % TBX.example "%TBX.prefix;:example"                        >
+<!ENTITY % TBX.externalCrossReference 
+           "%TBX.prefix;:externalCrossReference"                     >
+<!ENTITY % TBX.geographicalUsage "%TBX.prefix;:geographicalUsage"    >
+<!ENTITY % TBX.grammaticalGender "%TBX.prefix;:grammaticalGender"    >
+<!ENTITY % TBX.grammaticalNumber "%TBX.prefix;:grammaticalNumber"    >
+<!ENTITY % TBX.langSet "%TBX.prefix;:langSet"                        >
+<!ENTITY % TBX.normativeAuthorization 
+           "%TBX.prefix;:normativeAuthorization"                     >
+<!ENTITY % TBX.note "%TBX.prefix;:note"                              >
+<!ENTITY % TBX.partOfSpeech "%TBX.prefix;:partOfSpeech"              >
+<!ENTITY % TBX.ph "%TBX.prefix;:ph"                                  >
+<!ENTITY % TBX.pronunciation "%TBX.prefix;:pronunciation"            >
+<!ENTITY % TBX.see "%TBX.prefix;:see"                                >
+<!ENTITY % TBX.source "%TBX.prefix;:source"                          >
+<!ENTITY % TBX.subjectField "%TBX.prefix;:subjectField"              >
+<!ENTITY % TBX.term "%TBX.prefix;:term"                              >
+<!ENTITY % TBX.termEntry "%TBX.prefix;:termEntry"                    >
+<!ENTITY % TBX.termType "%TBX.prefix;:termType"                      >
+<!ENTITY % TBX.tig "%TBX.prefix;:tig"                                >
+<!ENTITY % TBX.usageNote "%TBX.prefix;:usageNote"                    >
+<!ENTITY % TBX.xGraphic "%TBX.prefix;:xGraphic"                      >
+<!ENTITY % TBX.xMathML "%TBX.prefix;:xMathML"                        >
+<!ENTITY % TBX.xSource "%TBX.prefix;:xSource"                        >
+
+<!-- ============================================================= -->
+<!-- SOME USEFUL ENTITIES THAT ARE REFERENCED BELOW:               -->
+<!-- STANDARD CONTENT MODELS AND CONTENT-MODEL FRAGMENTS           -->
+<!-- NOTE: %simple-link.class; cannot be used since it contains    -->
+<!--       already tbx:entailedTerm                                -->
+<!-- ============================================================= -->
+                        
+<!ENTITY % highlight-elements
+                       "| %block-math.class; | %inline-math.class;
+                        | %simple-math.class; | %emphasis.class;
+                        | %subsup.class; | %list.class; 
+                        | fn | target | xref | %citation.class; 
+                        | %break.class;
+                        | %phrase-content.class; 
+                        | %block-display.class;
+                        | %address-link.class;
+                        | %inline-display-noalt.class;"              >
+
+<!ENTITY % basicText-model
+                       "(#PCDATA %highlight-elements; 
+                         | %TBX.entailedTerm;)*"                     >
+
+<!ENTITY % simpleText-model
+                       "(#PCDATA %highlight-elements;)*"             >
+
+<!-- ============================================================= -->
+<!-- ENTITIES THAT DEFINE COMMON SETS OF ATTRIBUTES                --> 
+<!-- ============================================================= -->
+
+<!ENTITY % impIDLangScrpt-atts
+            "%jats-common-atts;                           
+             script     CDATA                              #IMPLIED" >
+
+<!ENTITY % tbx-xref-atts
+            "%jats-common-atts;      
+             xtarget    CDATA                              #REQUIRED">
+
+<!-- ============================================================= -->
+<!-- ELEMENTS USED FOR TEXT MARKUP: HIGHLIGHT-BASED ELEMENTS       -->
+<!-- ============================================================= --> 
+
+<!--                    ENTAILED TERM                              -->
+<!ELEMENT  %TBX.entailedTerm; 
+                        %simpleText-model;                           >
+<!ATTLIST  %TBX.entailedTerm;
+             %jats-common-atts;      
+             script     CDATA                              #IMPLIED
+             target     IDREF                              #IMPLIED
+             xml:lang   CDATA                              #IMPLIED 
+             xtarget    CDATA                              #IMPLIED  >
+
+<!-- ============================================================= -->
+<!-- ELEMENTS NEEDED FOR TERMINOLOGICAL ENTRIES                    -->
+<!-- (in alphabetical order)                                       -->
+<!-- ============================================================= -->
+
+<!--                    CROSS REFERENCE                            -->
+<!ELEMENT  %TBX.crossReference; 
+                        %simpleText-model;                           >
+<!ATTLIST  %TBX.crossReference;
+            %jats-common-atts;      
+             xml:lang   CDATA                              #IMPLIED
+             target     IDREF                              #IMPLIED
+             script     CDATA                              #IMPLIED  >
+
+<!--                    DEFINITION                                 -->
+<!ELEMENT  %TBX.definition; 
+                        %basicText-model;                            >
+<!ATTLIST  %TBX.definition; 
+             %impIDLangScrpt-atts;                                   >
+
+<!--                    EXAMPLE                                    -->
+<!ELEMENT  %TBX.example;
+                        %basicText-model;                            >
+<!ATTLIST  %TBX.example;     
+             %impIDLangScrpt-atts;                                   >
+
+<!--                    EXTERNAL CROSS REFERENCE                   -->
+<!ELEMENT  %TBX.externalCrossReference; 
+                        %simpleText-model;                           >
+<!ATTLIST  %TBX.externalCrossReference;
+             %jats-common-atts;      
+             xml:lang   CDATA                              #IMPLIED
+             xtarget    CDATA                              #REQUIRED
+             script     CDATA                              #IMPLIED  >
+
+<!--                    GEOGRAPHICAL USAGE                         -->
+<!ELEMENT  %TBX.geographicalUsage; 
+                        (#PCDATA)                                    >
+<!ATTLIST  %TBX.geographicalUsage;
+             %jats-common-atts;      
+             xml:lang   CDATA                              #IMPLIED
+             script     CDATA                              #IMPLIED  >
+
+<!--                    GRAMMATICAL GENDER                         -->
+<!ELEMENT  %TBX.grammaticalGender; 
+                        EMPTY                                        >
+<!ATTLIST  %TBX.grammaticalGender;
+             %jats-common-atts;      
+             value      (masculine | feminine | neuter |
+                         masculine-feminine)               #REQUIRED >
+
+<!--                    GRAMMATICAL NUMBER                         -->
+<!ELEMENT  %TBX.grammaticalNumber; 
+                        EMPTY                                        >
+<!ATTLIST  %TBX.grammaticalNumber;
+             %jats-common-atts;      
+             value      (singular | plural)                #REQUIRED >
+
+<!--                    LANGUAGE SET                               -->
+<!ELEMENT  %TBX.langSet; 
+                        ((%TBX.crossReference; | %TBX.definition; |
+                          %TBX.example; | 
+                          %TBX.externalCrossReference; | %TBX.note; |
+                          %TBX.see; | %TBX.source; | 
+                          %TBX.subjectField; | %TBX.xGraphic; |
+                          %TBX.xMathML; | %TBX.xSource;)*, 
+                        (%TBX.tig;)+ )                               >
+<!ATTLIST  %TBX.langSet;
+             %jats-common-atts;
+             script     CDATA                              #IMPLIED 
+             xml:lang   CDATA                              #REQUIRED >
+
+<!--                    NORMATIVE AUTHORIZATION                    -->
+<!ELEMENT  %TBX.normativeAuthorization; 
+                        EMPTY                                        >
+<!ATTLIST  %TBX.normativeAuthorization;
+             %jats-common-atts;      
+             value      (preferredTerm | admittedTerm | 
+                         deprecatedTerm)                   #REQUIRED >
+
+<!--                    NOTE                                       -->
+<!ELEMENT  %TBX.note;   %basicText-model;                            >
+<!ATTLIST  %TBX.note;
+             %jats-common-atts;      
+             xml:lang   CDATA                              #IMPLIED   
+             script     CDATA                              #IMPLIED  >
+
+<!--                    PART OF SPEECH                             -->
+<!ELEMENT  %TBX.partOfSpeech; 
+                        EMPTY                                        >
+<!ATTLIST  %TBX.partOfSpeech;
+             %jats-common-atts;      
+             value      (noun | verb | adj | adv)          #REQUIRED >
+
+<!--                    PRONUNCIATION                              -->
+<!ELEMENT  %TBX.pronunciation; 
+                        %simpleText-model;                           >
+<!ATTLIST  %TBX.pronunciation;
+             %jats-common-atts;                                      >
+
+<!--                    SEE                                        -->
+<!ELEMENT  %TBX.see;    %simpleText-model;                           >
+<!ATTLIST  %TBX.see;
+             %jats-common-atts;  
+             xml:lang   CDATA                              #IMPLIED
+             target     IDREF                              #IMPLIED
+             script     CDATA                              #IMPLIED  >
+
+<!--                    SOURCE                                     -->
+<!ELEMENT  %TBX.source; %simpleText-model;                           >
+<!ATTLIST  %TBX.source;
+             %jats-common-atts;      
+             xml:lang   CDATA                              #IMPLIED             
+             script     CDATA                              #IMPLIED
+             xtarget    CDATA                              #IMPLIED  >
+
+<!--                    SUBJECT FIELD                              -->
+<!ELEMENT  %TBX.subjectField; 
+                        (#PCDATA)                                    >
+<!ATTLIST  %TBX.subjectField;
+             %jats-common-atts;      
+             xml:lang   CDATA                              #IMPLIED
+             script     CDATA                              #IMPLIED  >
+
+
+<!--                    TERM                                       -->
+<!ELEMENT  %TBX.term;   %simpleText-model;                           >
+<!ATTLIST  %TBX.term;
+             %jats-common-atts;      
+             script     CDATA                              #IMPLIED
+             absent     (yes | no)                         #IMPLIED  >
+
+<!--                    TERM ENTRY (CONCEPT ENTRY)                 -->
+<!ELEMENT  %TBX.termEntry; 
+                        ((%TBX.externalCrossReference; | 
+                          %TBX.xGraphic; | %TBX.xMathML; | 
+                          %TBX.xSource; | 
+                          %niso-sts-termEntry-additions.class;)*, 
+                        (%TBX.langSet;)+ )                           >
+<!ATTLIST  %TBX.termEntry;
+             %TBX.xmlns.attrib;
+             %jats-common-atts;                                      >
+
+
+<!--                    TERM TYPE                                  -->
+<!ELEMENT  %TBX.termType; 
+                        EMPTY                                        >
+<!ATTLIST  %TBX.termType;
+             %jats-common-atts;      
+             value      (acronym | abbreviation | fullForm | symbol | 
+                         variant | formula | equation)     #REQUIRED >
+
+<!--                    TIG (TERM INFORMATION GROUP)               -->
+<!ELEMENT  %TBX.tig;    (%TBX.term;, (%TBX.partOfSpeech;)?, 
+                         (%TBX.geographicalUsage;)*,
+                         (%TBX.grammaticalGender;)?,
+                         (%TBX.grammaticalNumber;)?,
+                         (%TBX.normativeAuthorization;)?,
+                         (%TBX.pronunciation;)?, (%TBX.termType;)?,
+                         (%TBX.usageNote;)* )                        >
+<!ATTLIST  %TBX.tig;
+             %jats-common-atts;                                      >
+
+<!--                    USAGE NOTE                                 -->
+<!ELEMENT  %TBX.usageNote; 
+                        %basicText-model;                            >
+<!ATTLIST  %TBX.usageNote; 
+             %impIDLangScrpt-atts;                                   >
+
+<!--                    EXTERNAL GRAPHIC                           -->
+<!ELEMENT  %TBX.xGraphic; 
+                        (#PCDATA)                                    >
+<!ATTLIST  %TBX.xGraphic; 
+             %tbx-xref-atts;                                         >
+
+<!--                    EXTERNAL MATHML                            -->
+<!ELEMENT  %TBX.xMathML; 
+                        (#PCDATA)                                    >
+<!ATTLIST  %TBX.xMathML; 
+             %tbx-xref-atts;                                         >
+
+<!--                    EXTERNAL SOURCE                            -->
+<!ELEMENT  %TBX.xSource; 
+                        (#PCDATA)                                    >
+<!ATTLIST  %TBX.xSource;
+             %tbx-xref-atts;                                         >
+
+<!-- ================== End NISO STS TBX Setup Module ============ -->

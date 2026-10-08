@@ -1,0 +1,156 @@
+name: PR preview
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+
+permissions:
+  contents: write        # push to gh-pages
+  pull-requests: write   # post/update preview comment; dashboard reads PRs
+
+# Share ONE serialization group with the main deploy so writes to the
+# gh-pages branch never race. Do not cancel in-progress runs — a cancelled
+# publish could leave the branch half-updated.
+concurrency:
+  group: gh-pages-deploy
+  cancel-in-progress: false
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # PR opened / updated / reopened  →  build with diff, publish to pr/<n>/
+  # ---------------------------------------------------------------------------
+  preview:
+    name: Build & publish PR preview
+    if: github.event.action != 'closed'
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # full history for diff support
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: tools/specbuild/requirements.txt
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "20"
+
+      - name: Install Python dependencies
+        run: pip install -r tools/specbuild/requirements.txt
+
+      - name: Install Node dependencies
+        run: cd tools/specbuild && npm install --registry https://registry.npmjs.org
+
+      - name: Install WeasyPrint system libraries
+        run: sudo apt-get install -y libpango-1.0-0 libpangoft2-1.0-0
+
+      - name: Build specification with diff
+        env:
+          GIT_CONFIG_GLOBAL: /tmp/gitconfig
+        run: |
+          git config --global credential.helper '!f() { echo "username=x-access-token"; echo "password=${{ secrets.GITHUB_TOKEN }}"; }; f'
+          python tools/specbuild/compile.py \
+            --profile publication \
+            --no-pdf \
+            --no-pwa \
+            --toc-leaders table \
+            --check-sdl-syntax \
+            --diff --diff_viewer \
+            --diff_sha origin/${{ github.base_ref }}
+
+      - name: Publish preview to gh-pages
+        env:
+          REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          bash .github/scripts/publish.sh pr ${{ github.event.pull_request.number }}
+
+      - name: Post preview link on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prNumber = context.issue.number;
+            const repo = context.repo;
+            const commitSha = context.sha.substring(0, 8);
+            const base = context.payload.pull_request.base.ref;
+            const pagesBase = `https://${repo.owner.toLowerCase()}.github.io/${repo.repo}`;
+
+            const commentBody = `## 📄 Specification Preview
+
+            The AV1 MPEG-2 TS specification has been built and published for this PR.
+
+            ### 🔗 Live preview
+            - **[📄 Rendered spec](${pagesBase}/pr/${prNumber}/index.html)**
+            - **[🔀 Three-pane diff viewer](${pagesBase}/pr/${prNumber}/diff_viewer.html)** — changes vs \`${base}\`
+            - **[± Plain diff](${pagesBase}/pr/${prNumber}/diff.html)**
+            - **[🏠 All previews](${pagesBase}/)**
+
+            > The preview updates automatically on every push, and is removed when this PR is closed or merged.
+
+            ---
+            *Built from commit ${commitSha} · Updated: ${new Date().toUTCString()}*`;
+
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: repo.owner,
+              repo: repo.repo,
+              issue_number: prNumber,
+            });
+            const botComment = comments.find(c =>
+              c.user.type === 'Bot' && c.body.includes('📄 Specification Preview')
+            );
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner: repo.owner, repo: repo.repo,
+                comment_id: botComment.id, body: commentBody,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: repo.owner, repo: repo.repo,
+                issue_number: prNumber, body: commentBody,
+              });
+            }
+
+  # ---------------------------------------------------------------------------
+  # PR closed / merged  →  remove pr/<n>/ and refresh the dashboard
+  # ---------------------------------------------------------------------------
+  cleanup:
+    name: Remove PR preview
+    if: github.event.action == 'closed'
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Remove preview from gh-pages
+        env:
+          REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          bash .github/scripts/publish.sh pr-delete ${{ github.event.pull_request.number }}
+
+      - name: Note removal on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prNumber = context.issue.number;
+            const repo = context.repo;
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: repo.owner, repo: repo.repo, issue_number: prNumber,
+            });
+            const botComment = comments.find(c =>
+              c.user.type === 'Bot' && c.body.includes('📄 Specification Preview')
+            );
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner: repo.owner, repo: repo.repo, comment_id: botComment.id,
+                body: `## 📄 Specification Preview\n\nThis PR has been closed — the preview build has been removed.`,
+              });
+            }

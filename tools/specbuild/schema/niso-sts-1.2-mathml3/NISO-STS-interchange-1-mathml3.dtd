@@ -1,0 +1,642 @@
+<!-- ============================================================= -->
+<!--  MODULE:    Standards Interchange DTD                         -->
+<!--             with XHTML Tables with MATHML 3.0                 -->
+<!--             'NISO STS Interchange Tag Set (NISO STS) DTD      -->
+<!--             with MathML 3.0'                                  --> 
+<!--  VERSION:   ANSI/NISO Z39.102-2022, STS:                      -->
+<!--             Standards Standards Tag Suite (Version 1.2)       -->
+<!--  DATE:      October 2022                                      -->
+<!--                                                               -->
+<!-- ============================================================= -->
+
+<!-- ============================================================= -->
+<!--                    PUBLIC DOCUMENT TYPE DEFINITION            -->
+<!--                        TYPICAL INVOCATION                     -->
+<!--
+"-//NISO//DTD NISO STS Interchange Tag Set (NISO STS) DTD with MathML 3.0 v1.2 20221031//EN"
+     Delivered as file "NISO-STS-interchange-1-mathml3.dtd"        -->
+<!-- ============================================================= -->
+
+<!-- ============================================================= -->
+<!-- SYSTEM:   Standards Interchange DTD of the NISO STS DTD Suite -->
+<!--                                                               -->
+<!--           NISO STS is based on, and backward compatible       -->
+<!--           with, the ISO STS V1.1 model, which is a superset   -->
+<!--           of the ANSI/NISO Journal Publishing Tag Set (Blue)  -->
+<!--           of the Journal Article Tag Suite (JATS) model.      -->
+<!--                                                               -->
+<!-- PURPOSE:  DTD for the XML tagging of standards documents that -->
+<!--           uses only the XHTML-inspired table model and        -->
+<!--           MathML 3.0.                                         -->
+<!--                                                               -->
+<!--           This NISO STS standards model is intended for the   -->
+<!--           XML tagging of draft and published standards        -->
+<!--           documents for standards organizations and bodies.   -->
+<!--           The Tag Set grammar is available in DTD, XSD, and   -->
+<!--           RNG formats.                                        -->
+<!--                                                               -->
+<!-- BASED ON:                                                     -->
+<!--           NISO STS is based on, but not fully compatible with -->
+<!--           the NISO Z39.96 Journal Article Tag Suite.          -->
+<!--           (Most of the body is compatible; the NISO STS top   -->
+<!--           level and metadata are customized to standards      -->
+<!--           and not the same as JATS journal articles.)         -->
+<!--                                                               -->
+<!--           This DTD was constructed using the modules from     -->
+<!--           ISO STS, ANSI/NISO JATS Journal Publishing DTD      -->
+<!--           (Blue), the JATS DTD Suite, and BITS (Book          -->
+<!--           Interchange Tag Suite).                             -->
+<!--                                                               -->
+<!-- CREATED BY: Mulberry Technologies, Inc.                       -->
+<!--             Deborah Aleyne Lapeyre and B. Tommie Usdin        -->
+<!--             in support of NISO and the NISO STS Committee.    -->
+<!--             Mulberry Technologies work was supported by the   -->
+<!--             American Society of Mechanical Engineers (ASME)   -->
+<!--             and ASTM International.                           -->
+<!--                                                               -->
+<!-- COPYRIGHT AND LICENSE:                                        -->
+<!--             Copyright © 2017, 2022 by ISO, the American       -->
+<!--             Society of  Mechanical Engineers (ASME),          -->
+<!--             ASTM International, Mulberry Technologies, Inc.,  -->
+<!--             and the National Information Standards            -->
+<!--             Organization (NISO).                              -->
+<!--                                                               -->
+<!--             This work is licensed under a Creative Commons    -->
+<!--             Attribution-ShareAlike 4.0 International License. -->
+<!--             To view a copy of this license, visit             -->
+<!--                http://creativecommons.org/licenses/by-sa/4.0/ -->
+<!--             or send a letter to Creative Commons, PO Box 1866,-->
+<!--             Mountain View, CA 94042, USA                      -->
+<!--                                                               -->
+<!-- MODIFYING A TAG SET:                                          -->
+<!--            This DTD was created from the NISO STS DTD Suite.  -->
+<!--            Standard organizations, bodies, and distributors   -->
+<!--            may use the DTD as is for markup of standards      -->
+<!--            material for publishing and distribution or        -->
+<!--            create a custom XML DTD from the Suite for         -->
+<!--            these purposes.                                    -->
+<!--                                                               -->
+<!--            This suite has been set up to be extended using a  -->
+<!--            new DTD file and new DTD-specific customization    -->
+<!--            modules to redefine the many Parameter Entities.   -->
+<!--            Please DO NOT modify the suite modules directly    -->
+<!--            or redistribute modified versions of the suite;    -->
+<!--            please use Parameter Entity override mechanisms.   -->
+<!--                                                               -->
+<!--            In the interest of maintaining consistency and     -->
+<!--            clarity for potential users, we request:           -->
+<!--                                                               -->
+<!--             1. If you create a DTD from the STS DTD Suite     -->
+<!--                and intend to stay compatible with the suite,  -->
+<!--                please include the following statement         -->
+<!--                as a comment in all of your DTD modules:       -->
+<!--                   "Created from, and fully compatible with,   -->
+<!--                    the NISO STS (NISO Standards Tag Suite)    -->
+<!--                    DTD."                                      -->
+<!--                                                               -->
+<!--             2. If you alter one or more modules of the suite, -->
+<!--                then please rename your version and all its    -->
+<!--                modules to avoid any confusion with the        -->
+<!--                original suite. Also, please include the       -->
+<!--                following statement as a comment in all your   -->
+<!--                DTD modules:                                   -->
+<!--                   "Based in part on, but not fully compatible -->
+<!--                    with, the NISO Standards Tag Suite         -->
+<!--                    (STS) DTD."                                -->
+<!--                                                               -->
+<!-- ORIGINAL CREATION DATE:                                       -->
+<!--             October 2016                                      -->
+<!--                                                               -->
+<!-- ============================================================= -->
+<!--                    DTD VERSION/CHANGE HISTORY                 -->
+<!-- ============================================================= -->
+<!--
+Version  Reason/Occasion                   (who) vx.x (yyyy-mm-dd)  
+     =============================================================
+     NISO STS Version 1.2 (ANSI/NISO Z39.102-2022)
+                                      (DAL/BTU) v1.2 (2022-10-31)
+      
+     ANSI NISO STS is a continuing maintenance NISO Standard, 
+     which requires voting by both the NISO and ANSI memberships 
+     to be changed. This version of the NISO STS was approved 
+     by ANSI vote on October 21, 2022, so it supersedes the 
+     2017 version and all committee drafts, becoming 
+     NISO STS v1.2 20221031 (ANSI/NISO Z39.102-2022).
+
+     The formal public identifiers have been changed in the  
+     modules and the OASIS XML catalogs.
+ 
+  5. NISO STS 'v1.1d1 20210831' becomes 'v1.2 20221031'
+     'ANSI/NISO Z39.102-2017' becomes 'ANSI/NISO Z39.102-2022'
+ 
+     =============================================================
+     NISO STS Version 1.1d1 (ANSI/NISO Z39.102-202x)
+                                  (DAL/BTU) v1.1d1 (2021-08-31)
+      
+     ANSI NISO STS is a continuing maintenance NISO Standard, 
+     which requires voting by the NISO and ANSI memberships 
+     to be changed. 
+      
+     This ***DRAFT*** DTD represents an interim version of the
+     non-normative STS DTD Suite, as an indication to STS users
+     of the decisions that have been made by the STS Standing
+     Committee. This DRAFT has not yet been given public review 
+     or voting; it is for Standing Committee review and
+     testing. 
+
+     The formal public identifiers have been changed in the  
+     modules and the OASIS XML catalogs.
+
+  4. PE NAME - Changed the name of a parameter entity to mimic
+     the name of the module called. Less confusing, no DTD change:
+       xinclude.ent to BITS-xinclude.ent
+
+  3. PROCESSING METADATA - Added <processing-meta> to the
+     model of the top-level <standard> element.       
+       
+  2. DTD VERSION - The top-level attribute @dtd-version (used for
+     <standard> and <adoption>, has been a #FIXED attribute for all 
+     of JATS, ISO-STS, and STS history. This is very convenient
+     when creating new documents, but problematic for archives
+     who may receive many different versions over time. If a document
+     is valid to "v1.1d1"; it is also valid to the latest version
+     and to all older versions. @dtd-version will stay a CDATA
+     attribute, but will be optional, with a list of values, and
+     with no default.
+
+  1. STS 'v1.0 20171031' becomes 'v1.1d1 20210831' 
+                                                                   -->   
+
+<!-- ============================================================= -->
+<!--                    DESIGN CONSIDERATIONS                      -->
+<!-- ============================================================= -->
+
+
+<!-- MODULAR DTD LIBRARY
+                        The set of JATS journal article publishing 
+                        and interchange DTD modules was written with
+                        the intention that DTDs for specific purposes, 
+                        such as this standards DTD, would be developed
+                        based on the modules.
+
+                        This standards Tag Set has been optimized for
+                        the interchange of standards. This means that
+                        this Tag Set is smaller (fewer elements,
+                        and fewer choices in some contexts) than the
+                        standards extended Tag Sets, which were 
+                        developed from these same modules. It was not 
+                        the intention to limit the expressive power
+                        licensed by the Tag Set, but rather to limit
+                        the choices that would make interchange more
+                        difficult while still enabling a wide variety
+                        of publishing practices.
+
+                        This STS Interchange DTD has been developed 
+                        from the JATS and BITS DTD Suite modules, 
+                        in the approved manner, making changes to the 
+                        declarations in those modules by overriding 
+                        Parameter Entity contents by redefining the 
+                        entities in the:
+                           %journalpubcustom-classes.ent;
+                           %journalpubcustom-mixes.ent;
+                           %journalpubcustom-models.ent;
+                        modules, which are called from this DTD file.
+                                                                   -->
+<!-- ============================================================= -->
+<!--                    MODULES OF MODULES INVOKED                 -->
+<!-- ============================================================= -->
+
+
+<!--                    MODULE TO NAME NISO STS DTD-SPECIFIC 
+                                                           MODULES -->
+<!--                    Names all NISO STS DTD-specific external 
+                        modules and included BITS modules.         -->
+<!ENTITY % NISO-STS-modules.ent  
+                        PUBLIC
+"-//NISO//DTD NISO STS Module of Modules v1.2 20221031//EN"
+"NISO-STS-modules1.ent"                                              >
+%NISO-STS-modules.ent;
+
+
+<!--                    MODULE TO NAME JATS-SPECIFIC MODULES        -->
+<!--                    Names all JATS Publishing DTD-specific 
+                        external modules used by NISO STS. (Includes
+                        modules for only the XHTML tables.)         -->
+<!ENTITY % journalpubcustom-modules.ent
+                        PUBLIC
+"-//NLM//DTD JATS (Z39.96) Journal Publishing DTD-Specific Modules v1.3 20210610//EN"
+"JATS-journalpubcustom-modules1-3.ent"                                >
+%journalpubcustom-modules.ent;
+
+
+<!--                    MODULE TO NAME THE MATHML 3.0 MODULES      -->
+<!--                    Names all DTD-specific external modules    -->
+<!ENTITY % mathml3-modules.ent
+                        PUBLIC
+"-//NLM//DTD JATS (Z39.96) JATS MathML 3.0 Modules v1.3 20210610//EN"
+"JATS-mathml3-modules1-3.ent"                                        >
+%mathml3-modules.ent;
+
+
+
+<!--                    MODULE TO NAME THE MODULES                 -->
+<!--                    Declares all the external modules that are
+                        part of the modular Journal Archiving and
+                        Interchange DTD Suite library. Thus it does
+                        NOT declare itself; the DTD-specific
+                        module-of-modules; or the DTD-specific class,
+                        mix, or model over-ride modules. Those are
+                        declared in the DTD-specific module of modules.
+                           Since this module declares but does not
+                        invoke modules, this DTD invokes any modules
+                        it uses by referencing the external
+                        Parameter Entities defined in the Module of
+                        Modules. To include a set of elements (such
+                        as all the lists or the MathML elements) this
+                        module defines the external Parameter Entity
+                        for the module(s) that contains the MathML
+                        declarations and the DTD references that
+                        entity.                                    -->
+<!ENTITY % modules.ent  PUBLIC
+ "-//NLM//DTD JATS (Z39.96) JATS DTD Suite Module of Modules v1.3 20210610//EN"
+"JATS-modules1-3.ent"                                                >
+%modules.ent;
+
+<!-- ============================================================= -->
+<!--                    NISO ALI NAMESPACE SETUP                   -->
+<!-- ============================================================= -->
+
+
+<!--                    DEFINE ALI NAMESPACE ATTRIBUTE AND PREFIX  -->
+<!--                    Names the module defines the NISO Access and 
+                        Indicators Exchange Model namespace, prefix, 
+                        and pseudo-attribute @xmlns.               -->
+%JATS-ali-namespace.ent;
+
+<!-- ============================================================= -->
+<!--                    ESTABLISH TBX NAMESPACE                    -->
+<!-- ============================================================= -->
+
+<!--                    NISO STS TBX NAMESPACE MODULE              -->
+%NISO-STS-tbx-namespace.ent;
+
+
+<!-- ============================================================= -->
+<!--                    SET UP XINCLUDE PROCESSING                 -->
+<!-- ============================================================= -->
+
+<!--                    XINCLUDE MODULE                            -->
+<!--                    Set up the namespace and elements for using
+                        <xi:include> to manage books and book parts.
+                                                                   -->
+%BITS-xinclude.ent;
+                                                            
+
+<!-- ============================================================= -->
+<!--                    SET UP COMMON (ALL ELEMENT) ATTRIBUTES     -->
+<!-- ============================================================= -->
+
+
+<!--                    COMMON ATTRIBUTES MODULE                   -->
+<!--                    Set up the common attributes, those used on
+                        nearly all elements.
+                        Must be called before the custom models
+                        module.                                    -->
+%JATS-common-atts.ent;
+
+
+
+<!-- ============================================================= -->
+<!--                    CUSTOMIZATION MODULES INVOKED              -->
+<!--                    Note: These modules must be called after   -->
+<!--                    all Module of Modules but before any other -->
+<!--                    modules. Unlike any other grouping, order  -->
+<!--                    of these modules matters.                  -->
+<!-- ============================================================= -->
+
+
+<!--                    NISO STS CLASS CUSTOMIZATIONS              -->
+<!--                    Names the module that holds DTD-specific
+                        class definitions for the NISO STS DTD, which
+                        will over-ride classes in the JATS 
+                        Publishing DTD.                            -->
+%NISO-STS-classes.ent;
+
+
+<!--                    JATS PUBLISHING CLASS CUSTOMIZATIONS       -->
+<!--                    Names the module that holds the DTD-specific
+                        class definitions for the Journal Publishing
+                        DTD that will over-ride classes in the Suite.
+                                                                   -->
+%journalpubcustom-classes.ent;
+
+
+<!--                    DEFAULT ELEMENT CLASSES                    -->
+<!--                    Names the module that holds the standard
+                        class definitions for the Journal Archiving
+                        and Interchange DTD Suite.                 -->
+%default-classes.ent;
+
+
+<!--                    NISO STS MIX CUSTOMIZATIONS                 -->
+<!--                    Overrides some element mixes in the JATS
+                        Publishing DTD.
+                        (Defined in %NISO-STS-modules.ent;)          -->
+%NISO-STS-mixes.ent;
+
+<!--                    JATS PUBLISHING MIX CUSTOMIZATIONS         -->
+<!--                    Set up the Parameter Entities and element
+                        class definitions that will be used to
+                        over-ride some element mixes in this DTD.
+                        (Defined in %journalpubcustom-modules.ent;)-->
+%journalpubcustom-mixes.ent;
+
+
+<!--                    DEFAULT MIX CUSTOMIZATIONS MODULE          -->
+<!--                    Names the module that holds the standard
+                        mix definitions for the Journal Archiving
+                        and Interchange DTD Suite.                 -->
+%default-mixes.ent;
+
+
+<!--                    NISO STS DTD MODELS/ATTRIBUTES CUSTOMIZATIONS 
+                        MODULE                                     -->
+<!--                    Names the module that holds the NISO STS 
+                        over-rides of content models, attribute 
+                        lists, elements lists to be used in content 
+                        models, and attribute values. These are 
+                        NISO-STS-DTD-specific and override the content
+                        models and attributes of the JATS Publishing 
+                        DTD and BITS Book DTD. 
+                        (Defined in %NISO-STS-modules.ent;)          -->
+%NISO-STS-models.ent;
+
+
+<!--                    JATS PUBLISHING MODELS/ATTRIBUTES 
+                        CUSTOMIZATIONS MODULE                      -->
+<!--                    Names the module that holds the over-rides
+                        of content models, attribute lists, elements
+                        lists to be used in content models, and
+                        attribute values. These are DTD-specific.
+                        (Defined in %journalpubcustom-modules.ent;)-->
+%journalpubcustom-models.ent;
+
+
+<!-- ============================================================= -->
+<!--                    COMMON (SHARED) ELEMENTS MODULE INVOKED    -->
+<!-- ============================================================= -->
+
+
+<!--                    COMMON (SHARED) DECLARATIONS               -->
+<!--                    Declarations for elements, attributes,
+                        entities, and Notations that are shared by
+                        more than one class module. Note: Must be
+                        called before any of the class modules.    -->
+%common.ent;
+
+
+<!-- ============================================================= -->
+<!--                    CLASS ELEMENTS (alpha)                     -->
+<!-- ============================================================= -->
+
+
+<!--                    ARTICLE METADATA ELEMENTS                  -->
+%articlemeta.ent;
+
+
+<!--                    BACK MATTER ELEMENTS                       -->
+%backmatter.ent;
+
+
+<!--                    DISPLAY (GRAPHICAL) ELEMENTS               -->
+%display.ent;
+
+
+<!--                    FORMATTING ELEMENT CLASSES                 -->
+<!--                    Elements that change rendition/display.    -->
+%format.ent;
+
+
+<!--                    FUNDING ELEMENTS                           -->
+<!--                    Elements that describe the sponsorship or
+                        open access                                -->
+%funding.ent;
+
+
+<!--                    LINK CLASS ELEMENTS                        -->
+%link.ent;
+
+
+<!--                    LIST CLASS ELEMENTS                        -->
+%list.ent;
+
+
+<!--                    MATH ELEMENTS                              -->
+%math.ent;
+
+
+<!--                    NLM CITATION ELEMENT                       -->
+%nlmcitation.ent;
+
+
+<!--                    PARAGRAPH-LEVEL ELEMENTS                   -->
+%para.ent;
+
+
+<!--                    PHRASE-LEVEL ELEMENTS                      -->
+%phrase.ent;
+
+
+<!--                    BIBLIOGRAPHIC REFERENCE (CITATION)
+                        CLASS ELEMENTS                             -->
+%references.ent;
+
+
+<!--                    RELATED OBJECT ELEMENT                     -->
+<!--                    Defines the <related-object> element to
+                        describe a related object such as a
+                        related book or a dataset.                 -->
+%related-object.ent;
+
+
+<!--                    SECTION ELEMENTS                           -->
+%section.ent;
+
+
+<!-- ============================================================= -->
+<!--                    THE REST OF THE EXTERNAL MODULES INVOKED   -->
+<!-- ============================================================= -->
+
+
+<!--                    MATHML SETUP MODULE                        -->
+<!--                    Invoke the MathML modules                  -->
+%mathml3-mathmlsetup.ent;
+
+
+<!--                    XHTML TABLE SETUP MODULE                   -->
+<!--                    Set up the necessary Parameter Entity values
+                        and then invoke XHTML (HTML 4.0) table
+                        module                                     -->
+%XHTMLtablesetup.ent;
+
+
+<!--                    SPECIAL CHARACTERS DECLARATIONS            -->
+<!--                    Standard XML special character entities
+                        used in this DTD                           -->
+%xmlspecchars.ent;
+
+
+<!--                    CUSTOM SPECIAL CHARACTERS DECLARATIONS     -->
+<!--                    Custom special character entities created
+                        specifically for use in this DTD Suite     -->
+%chars.ent;
+
+
+<!--                    NOTATION DECLARATIONS MODULE               -->
+%notat.ent;
+
+
+<!-- ============================================================= -->
+<!--                    NISO-STS-SPECIFIC MODULES                    -->
+<!-- ============================================================= -->
+
+
+<!--                    NISO STS COMMON METADATA MODULE            -->
+%NISO-STS-common-metadata.ent;
+
+
+<!--                    NISO STS STANDARD METADATA MODULE          -->
+%NISO-STS-std-metadata.ent;
+
+
+<!--                    NISO STS ISO METADATA MODULE               -->
+%NISO-STS-iso-metadata.ent;
+
+
+<!--                    NISO STS REG METADATA MODULE               -->
+%NISO-STS-reg-metadata.ent;
+
+
+<!--                    NISO STS NATIONAL-BODY METADATA MODULE     -->
+%NISO-STS-nat-metadata.ent;
+
+<!--                    NISO STS NON-TBX TERMS AND DEFINITIONS     -->
+%NISO-STS-terms-n-def.ent;
+
+<!--                    NISO STS NOTES AND EXAMPLES ELEMENTS       -->
+%NISO-STS-notes-exmp.ent;
+
+<!-- ============================================================= -->
+<!--                    TBX INVOCATION                             -->
+<!-- ============================================================= -->
+
+%NISO-STS-tbx-setup.ent;
+
+
+<!-- ============================================================= -->
+<!--                    MODULES BORROWED FROM BI                   -->
+<!-- ============================================================= -->
+
+
+<!--                    BITS STRUCTURAL INDEX ELEMENTS MODULE      -->
+<!--                    Element declarations for BITS structural
+                        index model (<index>).                     -->
+%index.ent;
+
+
+<!--                    BITS EMBEDDED INDEX ELEMENTS MODULE        -->
+<!--                    Element declarations the index elements
+                        which are embedded in the document
+                        narrative.                                 -->
+%index-term.ent;
+
+<!--                    BITS STRUCTURAL TABLE OF CONTENTS MODULE   -->
+<!--                    Element declarations for BITS navigation
+                        and pointing mechanism for structural
+                        Indexes and tables of Contents.            -->
+%toc.ent;
+
+
+<!--                    BITS STRUCTURAL NAVIGATION MODULE          -->
+<!--                    Element declarations for BITS navigation
+                        and pointing mechanism for structural
+                        Indexes and tables of Contents.            -->
+%toc-nav.ent;
+
+<!-- ============================================================= -->
+<!--                    PARAMETER ENTITIES FOR ATTRIBUTE LISTS     -->
+<!--                    IN THIS MODULE                             -->
+<!-- ============================================================= -->
+
+<!--                    NAMESPACES FOR APPENDICES                  -->
+<!--                    Adds extra namespaces to the appendices.
+                        Not in the STS models file because the MathML
+                        namespace is declared after models called and
+                        OASIS needs adding only for extended DTDs. -->
+<!ENTITY % app-atts-extended 
+            "%MATHML.xmlns.attrib;
+             %xinclude.xmlns.attrib;
+             %TBX.xmlns.attrib;"                                     >
+
+<!ATTLIST  app-group
+             %app-atts-extended;                                     >
+
+<!ATTLIST  app 
+             %app-atts-extended;                                     >
+
+
+<!--                    DTD VERSION                                -->
+<!--                    What version of this DTD was used to make
+                        the document instance under consideration. -->
+<!ENTITY % dtd-version
+            "dtd-version
+                        (iso-0.9 | iso-1.0 | iso-1.1 | 
+                         1.0 | 1.1d1 | 1.2)               #IMPLIED"  >
+
+
+<!--                    STANDARD ATTRIBUTES                        -->
+<!--                    Attributes for the top-level element
+                        <standard>                                 -->
+<!ENTITY % standard-atts
+            "%jats-common-atts;  
+             %dtd-version;
+             specific-use
+                        CDATA                             #IMPLIED
+             xml:lang   NMTOKEN                           'en'
+             %XLINK.xmlns.attrib;
+             %MATHML.xmlns.attrib;
+             %ali.xmlns.attrib;
+             %xinclude.xmlns.attrib;
+             %Schema.xmlns.attrib;
+             %TBX.xmlns.attrib;"                                     >
+
+<!-- ============================================================= -->
+<!--                    2ND TOP-LEVEL ADOPTING STANDARD <adoption> -->
+<!-- ============================================================= -->
+
+
+<!--                    NISO STS TOP-LEVEL ADOPTION-WRAPPER        -->
+<!--                    Element declarations for NISO STS top-level
+                        <adoption> element.                        -->
+%NISO-STS-adoption.ent;
+
+<!-- ============================================================= -->
+<!--                    STANDARD                                   -->
+<!--                    Root element for any standards document    -->
+<!-- ============================================================= -->
+
+
+<!--                    STANDARD                                   -->
+<!ELEMENT  standard     (processing-meta?, front, body, back*)       >
+<!ATTLIST  standard
+             %standard-atts;                                         >
+
+
+<!--                    CALL IN FRONT, BODY, BACK, SUB-PARTS, ETC. -->
+<!--                    The components of <front>, <body>, etc. are
+                        shared by all four standards Tag Sets, so they
+                        were abstracted into a separate module to
+                        prevent multiple maintenance.              -->
+%NISO-STS-standards-components.ent;
+
+<!-- ================== End NISO STS Interchange with MathML 3  == -->

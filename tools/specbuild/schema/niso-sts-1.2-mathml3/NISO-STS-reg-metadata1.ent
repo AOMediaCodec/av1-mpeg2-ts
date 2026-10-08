@@ -1,0 +1,193 @@
+<!-- ============================================================= -->
+<!--  MODULE:    NISO STS ISO Metadata for Regional Bodies         -->
+<!--  VERSION:   ANSI/NISO Z39.102-2022, STS:                      --> 
+<!--             Standards Standards Tag Suite (Version 1.2)       --> 
+<!--  DATE:      October 2022                                      -->
+<!--                                                               -->
+<!-- ============================================================= -->
+<!--                    PUBLIC DOCUMENT TYPE DEFINITION            -->
+<!--                        TYPICAL INVOCATION                     -->
+<!--
+"-//NISO//DTD NISO STS ISO Metadata for Regional Bodies v1.2 20221031//EN"
+     Delivered as file "NISO-STS-reg-metadata1.ent"
+                                                                   -->
+<!-- ============================================================= -->
+<!-- SYSTEM:     NISO Standards Tag Suite (NISO STS)               -->
+<!--                                                               -->
+<!--             This new module extends the capabilities of       -->
+<!--             ISO STS V1.1 DTD.                                 -->
+<!--                                                               -->
+<!-- PURPOSE:    This module defines elements for SDO-specific     -->
+<!--             metadata, for SDOs which are classified as        -->
+<!--             ISO-related regional bodies.                      -->
+<!--             In the current version of this DTD, the content   -->
+<!--             of <reg-meta> is based on the <iso-meta> model,   -->
+<!--             extended by the CEN requirement for a             --> 
+<!--             release-version-id.                               -->
+<!--                                                               --> 
+<!-- CONTAINS:   1) Definition of reg-meta                         -->
+<!--             2) Definitions of parameter entities to allow     -->
+<!--                   easy modification and customization of      -->
+<!--                   content models and attribute lists.         -->
+<!--                                                               -->
+<!-- CREATED BY: Mulberry Technologies, Inc.                       -->
+<!--             Deborah Aleyne Lapeyre and B. Tommie Usdin        -->
+<!--             in support of NISO and the NISO STS Committee.    -->
+<!--             Mulberry Technologies work was supported by the   -->
+<!--             American Society of Mechanical Engineers (ASME)   -->
+<!--             and ASTM International.                           -->
+<!--                                                               -->
+<!-- COPYRIGHT AND LICENSE:                                        -->
+<!--             Copyright © 2017, 2022 by ISO, the American       -->
+<!--             Society of  Mechanical Engineers (ASME),          -->
+<!--             ASTM International, Mulberry Technologies, Inc.,  -->
+<!--             and the National Information Standards            -->
+<!--             Organization (NISO).                              -->
+<!--                                                               -->
+<!--             This work is licensed under a Creative Commons    -->
+<!--             Attribution-ShareAlike 4.0 International License. -->
+<!--             To view a copy of this license, visit             -->
+<!--                http://creativecommons.org/licenses/by-sa/4.0/ -->
+<!--             or send a letter to Creative Commons, PO Box 1866,-->
+<!--             Mountain View, CA 94042, USA                      -->
+<!--                                                               -->
+<!-- ORIGINAL CREATION DATE:                                       -->
+<!--             October 2016                                      -->
+<!--                                                               -->
+<!-- ============================================================= -->
+
+<!-- ============================================================= -->
+<!--                    DTD VERSION/CHANGE HISTORY                 -->
+<!-- ============================================================= -->
+<!--
+Version  Reason/Occasion                   (who) vx.x (yyyy-mm-dd)  
+     =============================================================
+     NISO STS Version 1.2 (ANSI/NISO Z39.102-2022)
+                                      (DAL/BTU) v1.2 (2022-10-31)
+      
+     ANSI NISO STS is a continuing maintenance NISO Standard, 
+     which requires voting by both the NISO and ANSI memberships 
+     to be changed. This version of the NISO STS was approved 
+     by ANSI vote on October 21, 2022, so it supersedes the 
+     2017 version and all committee drafts, becoming 
+     NISO STS v1.2 20221031 (ANSI/NISO Z39.102-2022).
+
+     The formal public identifiers have been changed in the  
+     modules and the OASIS XML catalogs.
+ 
+  4. NISO STS 'v1.1d1 20210831' becomes 'v1.2 20221031'
+     'ANSI/NISO Z39.102-2017' becomes 'ANSI/NISO Z39.102-2022'
+ 
+     =============================================================
+     NISO STS Version 1.1d1 (ANSI/NISO Z39.102-202x)
+                                  (DAL/BTU) v1.1d1 (2021-08-31)
+      
+     ANSI NISO STS is a continuing maintenance NISO Standard, 
+     which requires voting by the NISO and ANSI memberships 
+     to be changed. 
+      
+     This ***DRAFT*** DTD represents an interim version of the
+     non-normative STS DTD Suite, as an indication to STS users
+     of the decisions that have been made by the STS Standing
+     Committee. This DRAFT has not yet been given public review 
+     or voting; it is for Standing Committee review and
+     testing. 
+
+     The formal public identifiers have been changed in the  
+     modules and the OASIS XML catalogs.
+
+  3. KEYWORDS - Went to add <kwd-group> to <reg-meta> and found it
+     already there. So it is after <abstract> and not logically
+     with ICS codes and Subjects where it probably belongs. 
+
+  2. @originator. Added to <release-version-id> and <wi-number>
+
+  1. STS 'v1.0 20171031' becomes 'v1.1d1 20210831' 
+                                                                   -->   
+<!-- ============================================================= -->
+<!--                    REG METADATA ELEMENT                       -->
+<!-- ============================================================= -->
+
+
+<!--                    REG (Regional) METADATA CONTENT MODEL      -->
+<!--                    Content model for the element <reg-meta>   -->
+<!ENTITY % reg-meta-model 
+                       "(title-wrap*, doc-ident?, std-ident?,
+                         (std-org | std-org-group)*, 
+                         content-language*, std-ref*, doc-ref?, 
+                         pub-date?, release-date*, meta-date*,
+                         wi-number?, 
+                         (comm-ref | comm-ref-group)*,secretariat*, 
+                         (ics | ics-wrap)*, (%subj-group.class;)*,
+                         page-count?, counts?,
+                         std-xref*, release-version-id?,
+                         permissions*, self-uri*, 
+                         (%abstract.class;)*, (%kwd-group.class;)*,
+                         meta-note*, 
+                         custom-meta-group*)"                        >
+
+
+<!--                    REG (Regional) METADATA ATTRIBUTES         -->
+<!ENTITY % reg-meta-atts
+             "%jats-common-atts;  
+              %originator-attribute;"                                >
+
+
+<!--                    REG (Regional) METADATA                    -->
+<!--                    The <reg-meta> is a container element for
+                        metadata specific to or produced by an
+                        ISO-related regional standards body.
+                           REMARKS: This element contains any
+                        regional-organization-specific overrides to
+                        the metadata described for the whole standards 
+                        document (<std-doc-meta>) as well as the 
+                        organization- specific metadata for the 
+                        regional standards body. The element 
+                        <reg-meta> is the 4th of the organizational 
+                        metadata elements with <iso-meta>, 
+                        <nat-meta>, and <std-meta>. By design, the                                                           <reg-meta> content model is very similar 
+                        to that of <iso-meta>.                     -->
+<!ELEMENT  reg-meta     %reg-meta-model;                             >
+<!ATTLIST  reg-meta
+             %reg-meta-atts;                                         >
+
+<!-- ============================================================= -->
+<!--                    REG (Regional) METADATA-SPECIFIC ELEMENTS  -->
+<!-- ============================================================= -->
+
+
+<!--                    WORK-ITEM NUMBER CONTENT MODEL             -->
+<!--                    The wi-number element holds the work-item
+                        number for this document.                  -->
+<!ENTITY % wi-number-model 
+                       "(#PCDATA)*"                                  >
+
+<!--                    WORK-ITEM NUMBER ATTRIBUTES                -->
+<!ENTITY % wi-number-atts
+             "%jats-common-atts; 
+              %originator-attribute;"                                > 
+
+
+<!--                    WORK-ITEM NUMBER                           -->
+<!ELEMENT  wi-number    %wi-number-model;                            >
+<!ATTLIST  wi-number
+             %wi-number-atts;                                        >
+
+<!--                    RELEASE-VERSION ID CONTENT MODEL           -->
+<!--                    The release version id holds ...
+                                                                   -->
+<!ENTITY % release-version-id-model 
+                       "(#PCDATA)*"                                  >
+
+<!--                    RELEASE-VERSION ID ATTRIBUTES              -->
+<!ENTITY % release-version-id-atts
+             "%jats-common-atts;                                   
+              %originator-attribute;"                                >
+
+
+<!--                    RELEASE VERSION ID                         -->
+<!ELEMENT  release-version-id    %release-version-id-model;          >
+<!ATTLIST  release-version-id
+             %release-version-id-atts;                               >
+
+<!-- ================== End NISO STS ISO REG Metadata Module ===== -->

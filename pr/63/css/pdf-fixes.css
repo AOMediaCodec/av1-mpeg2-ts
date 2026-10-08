@@ -1,0 +1,185 @@
+/*
+ * PDF-Friendly CSS Overrides
+ *
+ * This stylesheet fixes issues when converting HTML to PDF with Adobe Acrobat:
+ * 1. Replaces semi-transparent backgrounds with solid colors
+ * 2. Uses lighter, print-friendly colors for better readability
+ * 3. Ensures sufficient contrast for printed documents
+ *
+ * Usage: Include this after other stylesheets or use @media print rules
+ */
+
+/* ==================================================================
+   TABLE STYLING FIXES FOR PDF
+   ================================================================== */
+
+/* General table backgrounds - use white instead of transparent */
+.table {
+  background-color: #ffffff !important;
+}
+
+/* Table headers - use light gray instead of darker gray */
+.table thead th {
+  background-color: #f5f5f5 !important;
+  color: #000000 !important;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* Striped table rows - use lighter shade */
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: #fafafa !important;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.table-striped tbody tr:nth-of-type(even) {
+  background-color: #ffffff !important;
+}
+
+/* ==================================================================
+   SDL SYNTAX TABLE FIXES FOR PDF
+   ================================================================== */
+
+/* SDL syntax table background */
+.sdl-syntax-table {
+  background-color: #ffffff !important;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* SDL table headers */
+.sdl-syntax-table thead {
+  background-color: #f5f5f5 !important;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.sdl-syntax-table thead th {
+  background-color: #f5f5f5 !important;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* SDL table alternating rows - lighter shades */
+.sdl-syntax-table tbody tr:nth-child(even) {
+  background-color: #ffffff !important;
+}
+
+.sdl-syntax-table tbody tr:nth-child(odd) {
+  background-color: #fafafa !important;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* ==================================================================
+   CODE TABLE FIXES FOR PDF
+   ================================================================== */
+
+.code-table {
+  background-color: #ffffff !important;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.code-table tbody tr:nth-child(even) {
+  background-color: #ffffff !important;
+}
+
+.code-table tbody tr:nth-child(odd) {
+  background-color: #fafafa !important;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* ==================================================================
+   PRINT MEDIA QUERY - SPECIFIC PDF ADJUSTMENTS
+   ================================================================== */
+
+@media print {
+  /* Force all backgrounds to be simple and light */
+  .table thead th,
+  .sdl-syntax-table thead,
+  .sdl-syntax-table thead th {
+    background-color: #f5f5f5 !important;
+    border-bottom: 2px solid #000000 !important;
+  }
+
+  /* Ensure all striped rows are visible but light */
+  .table-striped tbody tr:nth-of-type(odd),
+  .sdl-syntax-table tbody tr:nth-child(odd),
+  .code-table tbody tr:nth-child(odd) {
+    background-color: #fafafa !important;
+  }
+
+  /* Ensure even rows are white */
+  .table-striped tbody tr:nth-of-type(even),
+  .sdl-syntax-table tbody tr:nth-child(even),
+  .code-table tbody tr:nth-child(even) {
+    background-color: #ffffff !important;
+  }
+
+  /* Make borders more visible in print */
+  .table td, .table th {
+    border-color: #333333 !important;
+  }
+
+  .sdl-syntax-table {
+    border-color: #333333 !important;
+  }
+
+  /* Fix MathJax rendering issues in PDF */
+  mjx-container {
+    overflow: visible !important;
+  }
+
+  /* Ensure MathML is properly sized */
+  mjx-container > svg {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  /* Better page breaking for tables */
+  table {
+    page-break-inside: auto;
+  }
+
+  tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  tfoot {
+    display: table-footer-group;
+  }
+}
+
+/* ==================================================================
+   ADOBE ACROBAT SPECIFIC FIXES
+   ================================================================== */
+
+/* Force color preservation for Adobe Acrobat PDF conversion */
+* {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+  color-adjust: exact;
+}
+
+/* Ensure text remains black for readability */
+body, .table, .sdl-syntax-table, .code-table {
+  color: #000000 !important;
+}
+
+/* Keep comment colors readable but lighter */
+.sdl-comment {
+  color: #4a7a4a !important; /* Darker green for better PDF printing */
+}
+
+/* Make links darker for print */
+a {
+  color: #0033aa !important;
+}

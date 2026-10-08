@@ -1,0 +1,14 @@
+
+/* Style for an "Unofficial Draft" */
+
+@import "file:///Users/alexismt/Work/Code/External_Code/AOMedia/bikeshed-publish/css/w3c-cache/base.css";
+
+body {
+  background: url(file:///Users/alexismt/Work/Code/External_Code/AOMedia/bikeshed-publish/css/w3c-cache/UD-watermark.svg) no-repeat fixed,
+              url(file:///Users/alexismt/Work/Code/External_Code/AOMedia/bikeshed-publish/css/w3c-cache/UD-watermark-light-draft.svg) repeat-y center left fixed,
+              url(file:///Users/alexismt/Work/Code/External_Code/AOMedia/bikeshed-publish/css/w3c-cache/UD-watermark-light-unofficial.svg) repeat-y center right fixed;
+  background-image: url(file:///Users/alexismt/Work/Code/External_Code/AOMedia/bikeshed-publish/css/w3c-cache/UD-watermark.svg),
+                    var(--draft-watermark),
+                    var(--unofficial-watermark);
+  background-color: var(--bg);
+}
